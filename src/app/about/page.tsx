@@ -21,11 +21,11 @@ export default function AboutPage() {
                 건물의 가치를 높이는 것,<br />그 시작은 올바른 관리입니다.
               </h2>
               <div className="space-y-4 text-slate-600 leading-relaxed">
-                <p>안녕하십니까, 바로바로건물관리 대표이사입니다.</p>
+                <p>안녕하십니까, 바로건물관리 대표이사입니다.</p>
                 <p>과거의 건물관리는 단순히 청소하고 전구를 갈아끼우는 수동적인 성격이 강했습니다. 하지만 오늘날의 건물은 소유주에게는 주요 자산이자 거주자/이용자에게는 쾌적함을 누릴 수 있는 생활의 터전입니다.</p>
-                <p>저희 바로바로건물관리는 하청의 재하청으로 이루어진 낡은 산업 구조를 혁신하고자 시작되었습니다. 국가 자격을 겸비한 직영 마스터들의 전문성, IT 시스템을 활용한 투명한 정보 공개, 24시간 상황실 운영을 통한 압도적인 응답성으로 업계의 표준을 새롭게 쓰고 있습니다.</p>
-                <p>지금 내 건물에서 악취가 나거나 민원이 끊이지 않는다면, 바로바로를 불러주세요. 결과로 증명하겠습니다.</p>
-                <p className="mt-8 font-bold text-slate-800 text-lg">바로바로건물관리 임직원 일동</p>
+                <p>저희 바로건물관리는 하청의 재하청으로 이루어진 낡은 산업 구조를 혁신하고자 시작되었습니다. 국가 자격을 겸비한 직영 마스터들의 전문성, IT 시스템을 활용한 투명한 정보 공개, 24시간 상황실 운영을 통한 압도적인 응답성으로 업계의 표준을 새롭게 쓰고 있습니다.</p>
+                <p>지금 내 건물에서 악취가 나거나 민원이 끊이지 않는다면, 바로를 불러주세요. 결과로 증명하겠습니다.</p>
+                <p className="mt-8 font-bold text-slate-800 text-lg">바로건물관리 임직원 일동</p>
               </div>
             </div>
           </div>
@@ -118,7 +118,7 @@ export default function AboutPage() {
             <div className="w-full md:w-1/3 flex flex-col justify-center space-y-6">
               <div>
                 <h4 className="font-bold text-slate-500 mb-1 text-sm">주소</h4>
-                <p className="text-slate-800 font-medium">서울특별시 강남구 테헤란로 123<br />바로바로타워 1층</p>
+                <p className="text-slate-800 font-medium">서울특별시 강남구 테헤란로 123<br />바로타워 1층</p>
               </div>
               <div>
                 <h4 className="font-bold text-slate-500 mb-1 text-sm">고객센터 대표번호</h4>

@@ -7,7 +7,7 @@ export default function ServicesPage() {
     <div>
       <PageHero 
         title="서비스 소개" 
-        description="바로바로건물관리 하나면 충분합니다. 건물의 유지, 보수, 행정을 아우르는 A to Z 토탈 케어 서비스를 제공합니다."
+        description="바로건물관리 하나면 충분합니다. 건물의 유지, 보수, 행정을 아우르는 A to Z 토탈 케어 서비스를 제공합니다."
       />
 
       <section className="py-20 bg-white">
@@ -34,7 +34,7 @@ export default function ServicesPage() {
                     </div>
                     
                     <div className="bg-brand-light p-4 rounded-lg">
-                      <strong className="text-brand-primary text-sm block mb-1">바로바로의 해결책</strong>
+                      <strong className="text-brand-primary text-sm block mb-1">바로의 해결책</strong>
                       <ul className="list-disc list-inside text-sm text-slate-700 space-y-1">
                         <li>직영 마스터 배정으로 일관된 관리 품질 유지</li>
                         <li>문제 발생 시 지체 없는 출동 및 즉각 보수 진행</li>

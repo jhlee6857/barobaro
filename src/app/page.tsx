@@ -12,7 +12,7 @@ export default function Home() {
         <div className="absolute inset-0 z-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center"></div>
         <div className="container relative z-10 max-w-4xl">
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight tracking-tight">
-            건물관리는,<br className="md:hidden" /> <span className="text-brand-secondary">바로바로.</span>
+            건물관리는,<br className="md:hidden" /> <span className="text-brand-secondary">바로.</span>
           </h1>
           <p className="text-xl md:text-2xl text-slate-300 font-medium mb-10">
             접수는 빠르게, 대응은 정확하게, 관리는 투명하게.
@@ -32,7 +32,7 @@ export default function Home() {
       <section className="py-20 bg-slate-50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-brand-dark mb-4">왜 바로바로건물관리인가요?</h2>
+            <h2 className="text-3xl font-bold text-brand-dark mb-4">왜 바로건물관리인가요?</h2>
             <p className="text-slate-600 max-w-2xl mx-auto">기존 관리업체의 느린 대응과 불투명성을 완벽히 해결한 4대 강점을 약속합니다.</p>
           </div>
           
@@ -131,7 +131,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-end mb-12">
             <div>
               <h2 className="text-3xl font-bold text-brand-dark mb-4">단지 가치 상승의 증명</h2>
-              <p className="text-slate-600">실제 바로바로건물관리 도입 전/후 어떤 변화가 일어났는지 확인해보세요.</p>
+              <p className="text-slate-600">실제 바로건물관리 도입 전/후 어떤 변화가 일어났는지 확인해보세요.</p>
             </div>
             <Link href="/cases" className="hidden md:inline-flex text-brand-secondary font-bold hover:underline">
               모든 사례 보기 &rarr;
@@ -188,7 +188,7 @@ export default function Home() {
       <section className="py-24 bg-brand-primary text-center">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-            신뢰할 수 있는 건물관리 파트너,<br />바로바로건물관리
+            신뢰할 수 있는 건물관리 파트너,<br />바로건물관리
           </h2>
           <p className="text-brand-light mb-10 text-lg opacity-90 max-w-xl mx-auto">
             내 건물처럼 아끼고 투명하게 관리하겠습니다. 지금 바로 전문가의 무료 1:1 방문 컨설팅을 받아보세요.

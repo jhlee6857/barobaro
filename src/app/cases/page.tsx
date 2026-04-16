@@ -7,7 +7,7 @@ export default function CasesPage() {
     <div>
       <PageHero 
         title="관리사례" 
-        description="바로바로건물관리의 손길이 닿으면 가치가 달라집니다. 다양한 건물의 해결 사례를 확인하세요."
+        description="바로건물관리의 손길이 닿으면 가치가 달라집니다. 다양한 건물의 해결 사례를 확인하세요."
       />
 
       <section className="py-20 bg-slate-50 min-h-[60vh]">
