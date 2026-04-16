@@ -44,12 +44,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-slate-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+        <div className="border-t border-slate-800 mt-12 pt-8 text-center text-sm text-slate-500">
           <p>&copy; 2026 바로건물관리 (Baro Building Management). All Rights Reserved.</p>
-          <div className="flex gap-4 mt-4 md:mt-0">
-            <Link href="#" className="hover:text-white">이용약관</Link>
-            <Link href="#" className="text-slate-300 font-bold hover:text-white">개인정보처리방침</Link>
-          </div>
         </div>
       </div>
     </footer>
