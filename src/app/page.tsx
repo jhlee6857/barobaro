@@ -163,6 +163,11 @@ export default function Home() {
               </div>
             ))}
           </div>
+          <div className="mt-8 text-center md:hidden">
+            <Link href="/cases" className="text-brand-secondary font-bold hover:underline">
+              모든 사례 보기 &rarr;
+            </Link>
+          </div>
         </div>
       </section>
 
