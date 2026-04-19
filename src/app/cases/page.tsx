@@ -1,23 +1,32 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { PageHero } from "@/components/shared/PageHero";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { supabase } from "@/lib/supabaseClient";
 
-export const revalidate = 0; // Disable cache so it always fetches latest
-
-export default async function CasesPage() {
-  let displayCases: any[] = [];
+export default function CasesPage() {
+  const [displayCases, setDisplayCases] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   
-  try {
-    const { data: cases, error } = await supabase.from('cases').select('*').order('created_at', { ascending: false });
-    if (cases) {
-      displayCases = cases;
+  useEffect(() => {
+    async function fetchCases() {
+      try {
+        const { data: cases, error } = await supabase.from('cases').select('*').order('created_at', { ascending: false });
+        if (cases) {
+          setDisplayCases(cases);
+        }
+      } catch (e) {
+        console.error("Failed to fetch cases:", e);
+      } finally {
+        setLoading(false);
+      }
     }
-  } catch (e) {
-    console.error("Failed to fetch cases:", e);
-  }
+    fetchCases();
+  }, []);
 
   return (
-    <div>
+    <div className="min-h-screen bg-slate-50">
       <PageHero 
         title="관리사례" 
         description="바로건물관리의 손길이 닿으면 가치가 달라집니다. 다양한 건물의 해결 사례를 확인하세요."
@@ -25,7 +34,11 @@ export default async function CasesPage() {
 
       <section className="py-20 bg-slate-50 min-h-[60vh]">
         <div className="container mx-auto px-4 md:px-6">
-          {displayCases.length === 0 ? (
+          {loading ? (
+             <div className="text-center py-20 text-slate-500">
+               데이터를 불러오는 중입니다...
+             </div>
+          ) : displayCases.length === 0 ? (
             <div className="text-center py-20 text-slate-500 bg-white shadow-sm rounded-lg max-w-2xl mx-auto">
               <p className="font-medium text-lg">현재 등록된 관리 사례가 없습니다.</p>
               <p className="text-sm mt-2">관리자 페이지에서 사례를 추가해주세요.</p>

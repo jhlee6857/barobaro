@@ -1,44 +1,47 @@
-import * as React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { PageHero } from "@/components/shared/PageHero";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
 import { Lock, CornerDownRight, Pencil } from "lucide-react";
 
-export const revalidate = 0; // Disable cache so it always fetches latest
-
-export default async function EstimateListPage() {
-  let inquiries: any[] = [];
+export default function EstimateListPage() {
+  const [inquiries, setInquiries] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   
-  try {
-    const { data, error } = await supabase
-      .from('inquiries')
-      .select('id, created_at, title, author, is_reply, parent_id')
-      .order('created_at', { ascending: false });
+  useEffect(() => {
+    async function fetchInquiries() {
+      try {
+        const { data, error } = await supabase
+          .from('inquiries')
+          .select('id, created_at, title, author, is_reply, parent_id')
+          .order('created_at', { ascending: false });
 
-    if (data) {
-      // Basic grouping: If we want replies right under parents, we can sort them.
-      // A simple approach for a basic board:
-      // Find all parents (is_reply: false or no parent_id), sort descending.
-      // Then insert their replies right under them.
-      const parents = data.filter(item => !item.is_reply);
-      const replies = data.filter(item => item.is_reply);
+        if (data) {
+          const parents = data.filter(item => !item.is_reply);
+          const replies = data.filter(item => item.is_reply);
 
-      const sorted = [];
-      for (const p of parents) {
-        sorted.push(p);
-        const childReplies = replies.filter(r => r.parent_id === p.id).sort((a,b)=> new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
-        sorted.push(...childReplies);
+          const sorted = [];
+          for (const p of parents) {
+            sorted.push(p);
+            const childReplies = replies.filter(r => r.parent_id === p.id).sort((a,b)=> new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+            sorted.push(...childReplies);
+          }
+          
+          const orphaned = replies.filter(r => !parents.some(p => p.id === r.parent_id));
+          sorted.push(...orphaned);
+
+          setInquiries(sorted);
+        }
+      } catch (e) {
+        console.error("Failed to fetch inquiries:", e);
+      } finally {
+        setLoading(false);
       }
-      
-      // If there are orphaned replies (shouldn't happen ideally but just in case)
-      const orphaned = replies.filter(r => !parents.some(p => p.id === r.parent_id));
-      sorted.push(...orphaned);
-
-      inquiries = sorted;
     }
-  } catch (e) {
-    console.error("Failed to fetch inquiries:", e);
-  }
+    fetchInquiries();
+  }, []);
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -60,7 +63,11 @@ export default async function EstimateListPage() {
 
           {/* Table Body */}
           <div className="divide-y divide-slate-100 min-h-[400px]">
-             {inquiries.length === 0 ? (
+             {loading ? (
+                <div className="p-12 text-center text-slate-500">
+                  데이터를 불러오는 중입니다...
+                </div>
+             ) : inquiries.length === 0 ? (
                 <div className="p-12 text-center text-slate-500">
                   작성된 문의가 없습니다.
                 </div>
@@ -70,13 +77,13 @@ export default async function EstimateListPage() {
                     <div className="col-span-2 md:col-span-1 text-slate-500 text-sm">
                       {inquiries.length - index}
                     </div>
-                    <div className="col-span-7 md:col-span-7 text-left flex items-center gap-2">
+                    <div className="col-span-7 md:col-span-7 text-left flex items-center gap-2 overflow-hidden">
                        {post.is_reply && (
-                         <CornerDownRight size={16} className="text-slate-400 ml-4 line-through" />
+                         <CornerDownRight size={16} className="text-slate-400 ml-4 line-through flex-shrink-0" />
                        )}
                        <Lock size={14} className="text-slate-400 flex-shrink-0" />
-                       {post.is_reply && <span className="font-bold text-brand-secondary text-sm">RE:</span>}
-                       <Link href={`/estimate/detail?id=${post.id}`} className="text-slate-800 hover:text-brand-primary font-medium truncate">
+                       {post.is_reply && <span className="font-bold text-brand-secondary text-sm flex-shrink-0">RE:</span>}
+                       <Link href={`/estimate/detail?id=${post.id}`} className="text-slate-800 hover:text-brand-primary font-medium truncate block">
                          {post.title}
                        </Link>
                     </div>
