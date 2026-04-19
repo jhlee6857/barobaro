@@ -1,6 +1,20 @@
+import type { Metadata } from "next";
 import { PageHero } from "@/components/shared/PageHero";
 import { servicesPreview } from "@/data/mockData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+
+export const metadata: Metadata = {
+  title: "서비스 소개 | 바로건물관리 - 환경미화·시설유지·민원처리",
+  description: "환경미화, 시설유지보수, 민원·하자처리, 회계관리까지. 바로건물관리의 종합 건물관리 서비스를 확인하세요. 공동주택·빌라·소형빌딩 전문.",
+  keywords: ["건물관리 서비스", "환경미화", "시설유지보수", "민원처리", "건물하자보수", "공동주택관리", "빌라관리서비스"],
+  alternates: { canonical: "https://barobm.co.kr/services" },
+  openGraph: {
+    title: "서비스 소개 | 바로건물관리",
+    description: "환경미화부터 회계관리까지, 건물관리 A to Z 토탈 케어 서비스",
+    url: "https://barobm.co.kr/services",
+  },
+};
+
 
 export default function ServicesPage() {
   return (

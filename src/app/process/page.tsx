@@ -1,5 +1,19 @@
+import type { Metadata } from "next";
 import { PageHero } from "@/components/shared/PageHero";
 import { processSteps } from "@/data/mockData";
+
+export const metadata: Metadata = {
+  title: "운영방식 | 바로건물관리 - 감사에서 유지보수까지",
+  description: "바로건물관리의 체계적인 건물관리 운영 절차를 안내합니다. 사전 감사부터 일상 유지보수, 비상대응까지 투명하고 빈틈없는 코스 확인.",
+  keywords: ["건물관리 셀업", "건물관리 프로세스", "공동주택관리 방법", "건물유지보수", "건물관리 비용"],
+  alternates: { canonical: "https://barobm.co.kr/process" },
+  openGraph: {
+    title: "운영방식 | 바로건물관리",
+    description: "투명하고 빈틈없는 건물관리 운영 절차 안내",
+    url: "https://barobm.co.kr/process",
+  },
+};
+
 
 export default function ProcessPage() {
   return (

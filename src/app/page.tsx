@@ -3,13 +3,16 @@ import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Accordion } from "@/components/ui/Accordion";
 import { mockCases, faqData, servicesPreview, processSteps } from "@/data/mockData";
+import { FaqJsonLd } from "@/components/JsonLd";
+
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
+      <FaqJsonLd />
       {/* 1. Hero Section */}
-      <section className="relative pt-24 pb-32 lg:pt-36 lg:pb-40 bg-brand-dark overflow-hidden flex items-center justify-center text-center px-4">
-        <div className="absolute inset-0 z-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center"></div>
+      <section className="relative pt-24 pb-32 lg:pt-36 lg:pb-40 bg-brand-dark overflow-hidden flex items-center justify-center text-center px-4" aria-label="바로건물관리 메인 히어로 섹션">
+        <div className="absolute inset-0 z-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center" role="img" aria-label="현대적인 건물 외관 전경"></div>
         <div className="container relative z-10 max-w-4xl">
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight tracking-tight">
             건물관리는,<br className="md:hidden" /> <span className="text-brand-secondary">바로.</span>

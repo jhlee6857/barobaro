@@ -1,5 +1,19 @@
+import type { Metadata } from "next";
 import { PageHero } from "@/components/shared/PageHero";
 import { Card, CardContent } from "@/components/ui/Card";
+
+export const metadata: Metadata = {
+  title: "회사소개 | 바로건물관리 - 연혁·철학·조직",
+  description: "바로건물관리는 하청없는 직영 마스터 파견으로 신뢰할 수 있는 건물관리를 실현합니다. 회사 연혁, 운영 철학, 전문 인력 현황을 확인하세요.",
+  keywords: ["바로건물관리 회사소개", "건물관리 업체", "바로건물관리 연혁", "직영관리", "종합건물관리 업체"],
+  alternates: { canonical: "https://barobm.co.kr/about" },
+  openGraph: {
+    title: "회사소개 | 바로건물관리",
+    description: "올바르고 깨끗한 공간 문화를 상조하는 건물관리 전문 파트너",
+    url: "https://barobm.co.kr/about",
+  },
+};
+
 
 export default function AboutPage() {
   return (

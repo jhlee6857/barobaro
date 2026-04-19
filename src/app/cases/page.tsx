@@ -1,6 +1,20 @@
+import type { Metadata } from "next";
 import { PageHero } from "@/components/shared/PageHero";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { supabase } from "@/lib/supabaseClient";
+
+export const metadata: Metadata = {
+  title: "관리사례 | 바로건물관리 - 실제 도입 전후 비교",
+  description: "바로건물관리를 도입한 실제 고객사의 관리 사례를 확인하세요. AS-IS/TO-BE 비교를 통해 건물 가치 상승 효과를 증명합니다. 공동주택, 빌라, 상가 관리 사례 수록.",
+  keywords: ["건물관리 사례", "공동주택관리 사례", "빌라관리 사례", "건물관리 업체 추천", "종합건물관리"],
+  alternates: { canonical: "https://barobm.co.kr/cases" },
+  openGraph: {
+    title: "관리사례 | 바로건물관리",
+    description: "실제 도입 전후 비교로 증명하는 바로건물관리의 성과",
+    url: "https://barobm.co.kr/cases",
+  },
+};
+
 
 export const revalidate = 60;
 
