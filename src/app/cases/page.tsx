@@ -1,32 +1,21 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
 import { PageHero } from "@/components/shared/PageHero";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { supabase } from "@/lib/supabaseClient";
 
-export default function CasesPage() {
-  const [displayCases, setDisplayCases] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+export const revalidate = 60;
+
+export default async function CasesPage() {
+  let displayCases: any[] = [];
   
-  useEffect(() => {
-    async function fetchCases() {
-      try {
-        const { data: cases, error } = await supabase.from('cases').select('*').order('created_at', { ascending: false });
-        if (cases) {
-          setDisplayCases(cases);
-        }
-      } catch (e) {
-        console.error("Failed to fetch cases:", e);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchCases();
-  }, []);
+  try {
+    const { data: cases } = await supabase.from('cases').select('*').order('created_at', { ascending: false });
+    if (cases) displayCases = cases;
+  } catch (e) {
+    console.error("Failed to fetch cases:", e);
+  }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div>
       <PageHero 
         title="관리사례" 
         description="바로건물관리의 손길이 닿으면 가치가 달라집니다. 다양한 건물의 해결 사례를 확인하세요."
@@ -34,11 +23,7 @@ export default function CasesPage() {
 
       <section className="py-20 bg-slate-50 min-h-[60vh]">
         <div className="container mx-auto px-4 md:px-6">
-          {loading ? (
-             <div className="text-center py-20 text-slate-500">
-               데이터를 불러오는 중입니다...
-             </div>
-          ) : displayCases.length === 0 ? (
+          {displayCases.length === 0 ? (
             <div className="text-center py-20 text-slate-500 bg-white shadow-sm rounded-lg max-w-2xl mx-auto">
               <p className="font-medium text-lg">현재 등록된 관리 사례가 없습니다.</p>
               <p className="text-sm mt-2">관리자 페이지에서 사례를 추가해주세요.</p>
@@ -69,7 +54,6 @@ export default function CasesPage() {
                       </div>
                       <p className="text-slate-600 text-sm leading-relaxed p-4 bg-slate-50 rounded-lg whitespace-pre-line">{c.mainProblem}</p>
                     </div>
-                    
                     <div>
                       <div className="flex items-center gap-2 mb-2">
                         <div className="w-2 h-2 rounded-full bg-brand-secondary"></div>
@@ -77,10 +61,9 @@ export default function CasesPage() {
                       </div>
                       <p className="text-slate-600 text-sm leading-relaxed p-4 bg-blue-50 rounded-lg border border-blue-100 whitespace-pre-line">{c.process}</p>
                     </div>
-
                     <div className="pt-2 border-t border-slate-100 mt-auto">
                       <div className="flex items-center gap-2 mb-2">
-                         <strong className="text-sm text-brand-primary font-black">TO-BE (개선 결과)</strong>
+                        <strong className="text-sm text-brand-primary font-black">TO-BE (개선 결과)</strong>
                       </div>
                       <p className="text-slate-800 font-bold text-base whitespace-pre-line">{c.result}</p>
                     </div>
