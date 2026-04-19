@@ -3,14 +3,14 @@
 import * as React from "react";
 import { PageHero } from "@/components/shared/PageHero";
 import { supabase } from "@/lib/supabaseClient";
-import { useParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Lock, User, Calendar, Phone, Mail, Building, FileText } from "lucide-react";
 
-export default function EstimateDetailPage() {
-  const params = useParams();
+function EstimateDetailContent() {
+  const searchParams = useSearchParams();
   const router = useRouter();
-  const id = params.id as string;
+  const id = searchParams.get('id') as string;
 
   const [loading, setLoading] = React.useState(true);
   const [isAdmin, setIsAdmin] = React.useState(false);
@@ -239,5 +239,13 @@ export default function EstimateDetailPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function EstimateDetailPage() {
+  return (
+    <React.Suspense fallback={<div className="min-h-screen pt-40 text-center">Loading...</div>}>
+      <EstimateDetailContent />
+    </React.Suspense>
   )
 }

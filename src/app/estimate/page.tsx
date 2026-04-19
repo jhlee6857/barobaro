@@ -76,7 +76,7 @@ export default async function EstimateListPage() {
                        )}
                        <Lock size={14} className="text-slate-400 flex-shrink-0" />
                        {post.is_reply && <span className="font-bold text-brand-secondary text-sm">RE:</span>}
-                       <Link href={`/estimate/${post.id}`} className="text-slate-800 hover:text-brand-primary font-medium truncate">
+                       <Link href={`/estimate/detail?id=${post.id}`} className="text-slate-800 hover:text-brand-primary font-medium truncate">
                          {post.title}
                        </Link>
                     </div>
