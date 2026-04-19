@@ -10,8 +10,8 @@ export function LocalBusinessJsonLd() {
     "alternateName": "Baro Building Management",
     "description": "접수는 빠르게, 대응은 정확하게, 관리는 투명하게. 공동주택·빌라·소형빌딩 종합건물관리 전문 파트너.",
     "url": "https://barobm.co.kr",
-    "telephone": "1588-0000", // TODO: 실제 전화번호로 교체
-    "email": "help@barobaro.com", // TODO: 실제 이메일로 교체
+    "telephone": "010-3811-4066",
+    "email": "lyc342@naver.com",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "테헤란로 123", // TODO: 실제 주소로 교체

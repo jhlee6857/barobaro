@@ -19,9 +19,9 @@ export default function Footer() {
             <h4 className="text-white font-bold mb-4">고객 센터</h4>
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2">
-                <span className="text-white text-lg font-bold">1588-0000</span> (24시)
+                <span className="text-white text-lg font-bold">010-3811-4066</span> (24시)
               </li>
-              <li>help@barobaro.com</li>
+              <li>lyc342@naver.com</li>
               <li>Fax: 02-123-4567</li>
               <li className="pt-2">
                 <Link href="/estimate" className="inline-block bg-brand-secondary hover:bg-brand-accent text-white px-4 py-2 rounded-lg text-xs font-bold transition">

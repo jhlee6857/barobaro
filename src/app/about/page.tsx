@@ -136,12 +136,12 @@ export default function AboutPage() {
               </div>
               <div>
                 <h4 className="font-bold text-slate-500 mb-1 text-sm">고객센터 대표번호</h4>
-                <p className="text-brand-primary font-black text-xl">1588-0000</p>
+                <p className="text-brand-primary font-black text-xl">010-3811-4066</p>
                 <p className="text-sm text-slate-500 mt-1">평일 09:00 ~ 18:00 (주말 휴무)<br />※ 긴급 민원은 24시간 상황실 연결</p>
               </div>
               <div>
                 <h4 className="font-bold text-slate-500 mb-1 text-sm">상담 이메일</h4>
-                <p className="text-slate-800 font-medium">help@barobaro.com</p>
+                <p className="text-slate-800 font-medium">lyc342@naver.com</p>
               </div>
             </div>
           </div>
