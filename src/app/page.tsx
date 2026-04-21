@@ -15,6 +15,7 @@ export default function Home() {
         <div className="absolute inset-0 z-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center" role="img" aria-label="현대적인 건물 외관 전경"></div>
         <div className="container relative z-10 max-w-4xl">
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight tracking-tight">
+            <span className="block text-2xl md:text-3xl text-brand-light font-bold mb-4 opacity-90 tracking-normal">빌라·상가·원룸 건물관리 전문업체</span>
             건물관리는,<br className="md:hidden" /> <span className="text-brand-secondary">바로.</span>
           </h1>
           <p className="text-xl md:text-2xl text-slate-300 font-medium mb-10">

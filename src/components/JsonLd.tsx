@@ -8,7 +8,7 @@ export function LocalBusinessJsonLd() {
     "@type": "LocalBusiness",
     "name": "바로건물관리",
     "alternateName": "Baro Building Management",
-    "description": "접수는 빠르게, 대응은 정확하게, 관리는 투명하게. 공동주택·빌라·소형빌딩 종합건물관리 전문 파트너.",
+    "description": "건물관리 전문업체 바로건물관리. 접수는 빠르게, 대응은 정확하게, 관리는 투명하게. 원룸, 빌라, 상가, 오피스텔 등 수익형 부동산의 유지보수 및 환경미화를 책임지는 B2B 건물관리 파트너.",
     "url": "https://barobm.co.kr",
     "telephone": "010-8578-4066",
     "email": "lyc342@naver.com",
