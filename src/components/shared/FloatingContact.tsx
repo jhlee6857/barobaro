@@ -11,8 +11,8 @@ export default function FloatingContact() {
       name: '카톡 상담',
       icon: <MessageCircle className="w-6 h-6" />,
       color: 'bg-[#FEE500] text-[#3c1e1e]',
-      // TODO: 사용자 오픈채팅 링크로 교체 필요
-      link: 'https://open.kakao.com/o/syour_link_here', 
+      // 카카오톡 오픈채팅 링크 반영
+      link: 'https://open.kakao.com/o/sfCuuuri', 
     },
     {
       name: '전화 상담',

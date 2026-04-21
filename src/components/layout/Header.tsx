@@ -21,6 +21,7 @@ export default function Header() {
           <Link href="/cases" className="hover:text-brand-secondary transition">관리사례</Link>
           <Link href="/resident" className="hover:text-brand-secondary transition">입주민센터</Link>
           <Link href="/about" className="hover:text-brand-secondary transition">회사소개</Link>
+          <Link href="/contact" className="px-4 py-1.5 bg-brand-light text-brand-primary rounded-full hover:bg-brand-primary hover:text-white transition-all font-bold">상담하기</Link>
         </nav>
 
         {/* CTA Button */}
@@ -54,7 +55,8 @@ export default function Header() {
             <Link href="/process" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>운영방식</Link>
             <Link href="/cases" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>관리사례</Link>
             <Link href="/resident" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>입주민센터</Link>
-            <Link href="/about" className="text-lg font-medium text-slate-800 pb-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>회사소개</Link>
+            <Link href="/about" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>회사소개</Link>
+            <Link href="/contact" className="text-lg font-bold text-brand-primary pb-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>카톡/전화 상담</Link>
             <Link href="/estimate" className="bg-brand-primary text-white text-center py-3 rounded-xl font-bold shadow-sm" onClick={() => setIsMobileMenuOpen(false)}>무료 견적 문의</Link>
           </nav>
         </div>
