@@ -20,17 +20,16 @@ export default function Header() {
           <Link href="/process" className="hover:text-brand-secondary transition">운영방식</Link>
           <Link href="/cases" className="hover:text-brand-secondary transition">관리사례</Link>
           <Link href="/resident" className="hover:text-brand-secondary transition">입주민센터</Link>
-          <Link href="/about" className="hover:text-brand-secondary transition">회사소개</Link>
-          <Link href="/contact" className="px-4 py-1.5 bg-brand-light text-brand-primary rounded-full hover:bg-brand-primary hover:text-white transition-all font-bold">상담하기</Link>
+          <Link href="/contact" className="px-4 py-1.5 bg-brand-light text-brand-primary rounded-full hover:bg-brand-primary hover:text-white transition-all font-bold">카카오톡 상담</Link>
         </nav>
 
         {/* CTA Buttons */}
         <div className="hidden md:flex items-center gap-4">
           <Link 
             href="/contact" 
-            className="text-brand-primary font-bold hover:text-brand-secondary transition-colors px-4 py-2 border border-brand-primary/20 rounded-full bg-brand-light/30"
+            className="text-brand-primary font-bold hover:text-brand-secondary transition-colors px-4 py-2 border border-brand-primary/20 rounded-full bg-brand-light/30 flex items-center gap-1.5"
           >
-            상담하기
+            카카오톡 상담
           </Link>
           <Link 
             href="/estimate" 
