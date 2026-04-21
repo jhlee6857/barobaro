@@ -20,9 +20,13 @@ export default function Home() {
           <p className="text-xl md:text-2xl text-slate-300 font-medium mb-10">
             접수는 빠르게, 대응은 정확하게, 관리는 투명하게.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-4">
             <Link href="/estimate" className="w-full sm:w-auto text-center bg-brand-secondary hover:bg-brand-accent text-white px-8 py-4 rounded-full font-bold text-lg transition-colors shadow-lg">
               무료 견적 문의
+            </Link>
+            <Link href="/contact" className="w-full sm:w-auto text-center bg-[#FEE500] hover:bg-[#e6ce00] text-[#3c1e1e] px-8 py-4 rounded-full font-black text-lg transition-colors shadow-lg flex items-center justify-center gap-2">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-5.52 0-10 3.58-10 8 0 2.86 1.83 5.37 4.6 6.82l-1.12 3.86a.5.5 0 0 0 .61.6l4.03-1.87c.61.08 1.25.13 1.88.13 5.52 0 10-3.58 10-8C22 6.58 17.52 3 12 3z"/></svg>
+              카카오톡 상담
             </Link>
             <Link href="/resident" className="w-full sm:w-auto text-center border-2 border-white/20 hover:bg-white/10 text-white px-8 py-4 rounded-full font-bold text-lg transition-colors">
               입주민 민원 접수
