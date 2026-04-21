@@ -11,7 +11,7 @@ export default function Header() {
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <img src="/logo.png" alt="바로건물관리" className="h-[85px] md:h-[120px] w-auto object-contain hover:opacity-90 transition" />
+          <img src="/logo.png" alt="바로건물관리" className="h-[85px] md:h-[120px] w-auto object-contain mix-blend-multiply hover:opacity-90 transition" />
         </Link>
 
         {/* GNB (Desktop) */}
