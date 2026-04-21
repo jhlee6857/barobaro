@@ -24,8 +24,14 @@ export default function Header() {
           <Link href="/contact" className="px-4 py-1.5 bg-brand-light text-brand-primary rounded-full hover:bg-brand-primary hover:text-white transition-all font-bold">상담하기</Link>
         </nav>
 
-        {/* CTA Button */}
-        <div className="hidden md:flex items-center">
+        {/* CTA Buttons */}
+        <div className="hidden md:flex items-center gap-4">
+          <Link 
+            href="/contact" 
+            className="text-brand-primary font-bold hover:text-brand-secondary transition-colors px-4 py-2 border border-brand-primary/20 rounded-full bg-brand-light/30"
+          >
+            상담하기
+          </Link>
           <Link 
             href="/estimate" 
             className="bg-brand-primary hover:bg-brand-secondary text-white px-6 py-2.5 rounded-full font-bold transition-colors shadow-sm"
