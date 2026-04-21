@@ -30,15 +30,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing data' }, { status: 400 });
     }
 
-    // 1. 해당 userChatId를 가진 원본 문의글 찾기
-    const { data: parentInquiry, error: searchError } = await supabase
-      .from('inquiries')
-      .where('channel_talk_chat_id', 'eq', userChatId)
-      .single();
-
-    // supabase v2 style:
-    // .from('inquiries').select('*').eq('channel_talk_chat_id', userChatId).single();
     
+    // 1. 해당 userChatId를 가진 원본 문의글 찾기
     const { data: inquiry, error: fetchError } = await supabase
       .from('inquiries')
       .select('id, title')
