@@ -45,19 +45,29 @@ export default function EstimateWritePage() {
       scale, units, elevator, services, mainProblem, extraInfo
     };
 
-    const { error } = await supabase.from('inquiries').insert([{
+    const { data: insertedData, error } = await supabase.from('inquiries').insert([{
       title,
       author,
       password,
       details,
       is_reply: false
-    }]);
+    }]).select().single();
 
     setIsSubmitting(false);
 
     if (error) {
       alert("등록 중 오류가 발생했습니다: " + error.message);
     } else {
+      // 채널톡 동기화 API 호출 (백그라운드에서 처리)
+      fetch('/api/inquiry/sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          inquiryId: insertedData.id, 
+          data: { title, author, details } 
+        }),
+      }).catch(err => console.error('Channel Talk Sync failed:', err));
+
       alert("견적 문의가 성공적으로 등록되었습니다.");
       router.push('/estimate');
     }
