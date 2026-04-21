@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   authors: [{ name: "바로건물관리" }],
   verification: {
     google: "v1KVU_KLSqd6LeIOgdl5-XUFlnMJhb-zfeGpX6mKjzc",
+    other: {
+      "naver-site-verification": "bbd5d7f4361a4248981a11fedfbc59f240ffbfe9",
+    },
   },
   robots: {
     index: true,
