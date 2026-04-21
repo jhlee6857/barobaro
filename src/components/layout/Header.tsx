@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -10,20 +11,22 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 h-[100px] md:h-[135px] bg-white/95 backdrop-blur-md z-50 border-b border-gray-100 flex items-center">
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <img src="/logo.png" alt="바로건물관리" className="h-[85px] md:h-[120px] w-auto object-contain mix-blend-multiply hover:opacity-90 transition transform scale-150 md:scale-[2.5] origin-left" />
-        </Link>
+        <div className="flex items-center w-auto lg:w-[350px]">
+          <Link href="/" className="flex items-center gap-2">
+            <img src="/logo.png" alt="바로건물관리" className="h-[85px] md:h-[120px] w-auto object-contain mix-blend-multiply hover:opacity-90 transition transform scale-150 md:scale-[2.5] origin-left" />
+          </Link>
+        </div>
 
         {/* GNB (Desktop) */}
-        <nav className="hidden lg:flex items-center gap-8 font-medium text-slate-700">
-          <Link href="/services" className="hover:text-brand-secondary transition">서비스 소개</Link>
-          <Link href="/process" className="hover:text-brand-secondary transition">운영방식</Link>
-          <Link href="/cases" className="hover:text-brand-secondary transition">관리사례</Link>
-          <Link href="/resident" className="hover:text-brand-secondary transition">입주민센터</Link>
+        <nav className="hidden lg:flex flex-1 justify-center items-center gap-10 font-[800] text-slate-800 text-[17px]">
+          <Link href="/services" className="flex items-center hover:text-brand-primary transition">서비스 소개 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
+          <Link href="/process" className="flex items-center hover:text-brand-primary transition">운영방식 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
+          <Link href="/cases" className="flex items-center hover:text-brand-primary transition">관리사례 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
+          <Link href="/resident" className="flex items-center hover:text-brand-primary transition">입주민센터 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
         </nav>
 
         {/* CTA Buttons */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center justify-end gap-3 lg:w-[350px]">
           <Link 
             href="/contact" 
             className="text-[#3c1e1e] font-black hover:bg-[#e6ce00] transition-colors px-5 py-2.5 rounded-full bg-[#FEE500] flex items-center gap-1.5 shadow-sm"
