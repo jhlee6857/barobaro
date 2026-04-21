@@ -39,7 +39,6 @@ export default function AboutPage() {
                 <p>과거의 건물관리는 단순히 청소하고 전구를 갈아끼우는 수동적인 성격이 강했습니다. 하지만 오늘날의 건물은 소유주에게는 주요 자산이자 거주자/이용자에게는 쾌적함을 누릴 수 있는 생활의 터전입니다.</p>
                 <p>저희 바로건물관리는 하청의 재하청으로 이루어진 낡은 산업 구조를 혁신하고자 시작되었습니다. 국가 자격을 겸비한 직영 마스터들의 전문성, IT 시스템을 활용한 투명한 정보 공개, 24시간 상황실 운영을 통한 압도적인 응답성으로 업계의 표준을 새롭게 쓰고 있습니다.</p>
                 <p>지금 내 건물에서 악취가 나거나 민원이 끊이지 않는다면, 바로를 불러주세요. 결과로 증명하겠습니다.</p>
-                <p className="mt-8 font-bold text-slate-800 text-lg">바로건물관리 임직원 일동</p>
               </div>
             </div>
           </div>
@@ -110,43 +109,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      {/* 오시는 길 */}
-      <section className="py-20 bg-slate-50 border-t border-slate-200">
-         <div className="container mx-auto px-4 md:px-6 max-w-5xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-brand-dark mb-4">오시는 길</h2>
-            <p className="text-slate-600">방문 상담을 원하시는 고객님께서는 사전에 예약 부탁드립니다.</p>
-          </div>
-
-          <div className="bg-white p-4 md:p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row gap-8">
-            <div className="w-full md:w-2/3 h-80 md:h-auto bg-slate-200 rounded-xl overflow-hidden relative">
-               <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2074&q=80')] bg-cover bg-center opacity-70"></div>
-               <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="bg-white/90 backdrop-blur-sm px-6 py-4 rounded-xl shadow font-bold text-slate-800 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-500"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                    본사 (지도 표출 영역)
-                  </div>
-               </div>
-            </div>
-            <div className="w-full md:w-1/3 flex flex-col justify-center space-y-6">
-              <div>
-                <h4 className="font-bold text-slate-500 mb-1 text-sm">주소</h4>
-                <p className="text-slate-800 font-medium">서울특별시 강남구 테헤란로 123<br />바로타워 1층</p>
-              </div>
-              <div>
-                <h4 className="font-bold text-slate-500 mb-1 text-sm">고객센터 대표번호</h4>
-                <p className="text-brand-primary font-black text-xl">010-3811-4066</p>
-                <p className="text-sm text-slate-500 mt-1">평일 09:00 ~ 18:00 (주말 휴무)<br />※ 긴급 민원은 24시간 상황실 연결</p>
-              </div>
-              <div>
-                <h4 className="font-bold text-slate-500 mb-1 text-sm">상담 이메일</h4>
-                <p className="text-slate-800 font-medium">lyc342@naver.com</p>
-              </div>
-            </div>
-          </div>
-         </div>
-      </section>
     </div>
-  )
+  );
 }

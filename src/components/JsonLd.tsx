@@ -10,21 +10,8 @@ export function LocalBusinessJsonLd() {
     "alternateName": "Baro Building Management",
     "description": "접수는 빠르게, 대응은 정확하게, 관리는 투명하게. 공동주택·빌라·소형빌딩 종합건물관리 전문 파트너.",
     "url": "https://barobm.co.kr",
-    "telephone": "010-3811-4066",
+    "telephone": "010-8578-4066",
     "email": "lyc342@naver.com",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "테헤란로 123", // TODO: 실제 주소로 교체
-      "addressLocality": "강남구", // TODO: 실제 구/동으로 교체
-      "addressRegion": "서울특별시", // TODO: 실제 시/도로 교체
-      "postalCode": "06234", // TODO: 실제 우편번호로 교체
-      "addressCountry": "KR"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "37.5045", // TODO: 실제 위도로 교체
-      "longitude": "127.0490" // TODO: 실제 경도로 교체
-    },
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",

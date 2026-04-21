@@ -19,7 +19,7 @@ export default function Footer() {
             <h4 className="text-white font-bold mb-4">고객 센터</h4>
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2">
-                <span className="text-white text-lg font-bold">010-3811-4066</span> (24시)
+                <span className="text-white text-lg font-bold">010-8578-4066</span> (24시)
               </li>
               <li>lyc342@naver.com</li>
               <li className="pt-2">
@@ -42,12 +42,8 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white font-bold mb-4">본사 위치</h4>
-            <address className="text-sm leading-relaxed mb-3 not-italic">
-              서울특별시 강남구 테헤란로 123<br />
-              바로타워 1층
-            </address>
-            <p className="text-xs text-slate-500">평일 09:00 ~ 18:00<br />긴급 민원 24시간 대응</p>
+            <h4 className="text-white font-bold mb-4">운영 시간</h4>
+            <p className="text-sm text-slate-400">평일 09:00 ~ 18:00<br />긴급 민원 24시간 대응</p>
           </div>
         </div>
 
