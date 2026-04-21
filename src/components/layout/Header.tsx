@@ -20,14 +20,13 @@ export default function Header() {
           <Link href="/process" className="hover:text-brand-secondary transition">운영방식</Link>
           <Link href="/cases" className="hover:text-brand-secondary transition">관리사례</Link>
           <Link href="/resident" className="hover:text-brand-secondary transition">입주민센터</Link>
-          <Link href="/contact" className="px-4 py-1.5 bg-brand-light text-brand-primary rounded-full hover:bg-brand-primary hover:text-white transition-all font-bold">카카오톡 상담</Link>
         </nav>
 
         {/* CTA Buttons */}
         <div className="hidden md:flex items-center gap-4">
           <Link 
             href="/contact" 
-            className="text-brand-primary font-bold hover:text-brand-secondary transition-colors px-4 py-2 border border-brand-primary/20 rounded-full bg-brand-light/30 flex items-center gap-1.5"
+            className="text-[#3c1e1e] font-black hover:bg-[#e6ce00] transition-colors px-5 py-2.5 rounded-full bg-[#FEE500] flex items-center gap-1.5 shadow-sm"
           >
             카카오톡 상담
           </Link>
