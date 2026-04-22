@@ -265,14 +265,16 @@ function EstimateDetailContent() {
               {isAdmin && <AdminDeleteButton table="inquiries" id={post.id} redirectUrl="/estimate" />}
               
               {/* User edit/delete features */}
-              {!isAdmin && !post.is_reply && isUnlocked && (
+              {!post.is_reply && isUnlocked && (
                 <>
                   <Button variant="outline" className="border-slate-300 text-slate-700 bg-white" onClick={() => setIsEditing(true)}>
                     <Pencil size={16} className="mr-1.5" /> 수정
                   </Button>
-                  <Button variant="outline" className="border-red-200 text-red-600 hover:bg-red-50 bg-white" onClick={handleUserDelete}>
-                    <Trash2 size={16} className="mr-1.5" /> 삭제
-                  </Button>
+                  {!isAdmin && (
+                    <Button variant="outline" className="border-red-200 text-red-600 hover:bg-red-50 bg-white" onClick={handleUserDelete}>
+                      <Trash2 size={16} className="mr-1.5" /> 삭제
+                    </Button>
+                  )}
                 </>
               )}
             </div>
