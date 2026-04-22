@@ -12,7 +12,7 @@ export default function FloatingContact() {
       icon: <MessageCircle className="w-6 h-6" />,
       color: 'bg-[#FEE500] text-[#3c1e1e]',
       // 카카오톡 오픈채팅 링크 반영
-      link: 'https://open.kakao.com/o/gGAUxyri', 
+      link: 'https://open.kakao.com/o/s3msIyri', 
     },
     {
       name: '전화 상담',

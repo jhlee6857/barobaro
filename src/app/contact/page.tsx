@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const kakaoUrl = "https://open.kakao.com/o/gGAUxyri";
+  const kakaoUrl = "https://open.kakao.com/o/s3msIyri";
   const phoneNum = "010-8578-4066";
 
   return (
