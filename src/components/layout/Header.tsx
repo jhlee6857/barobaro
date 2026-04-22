@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
@@ -13,7 +14,14 @@ export default function Header() {
         {/* Logo */}
         <div className="flex items-center flex-1">
           <Link href="/" className="flex items-center gap-2">
-            <img src="/logo.png" alt="바로건물관리" className="h-[85px] md:h-[120px] w-auto object-contain mix-blend-multiply hover:opacity-90 transition transform scale-[2.2] md:scale-[2.5] origin-left" />
+            <Image 
+              src="/logo.png" 
+              alt="바로건물관리" 
+              width={400} 
+              height={120} 
+              priority
+              className="h-[85px] md:h-[120px] w-auto object-contain mix-blend-multiply hover:opacity-90 transition transform scale-[2.2] md:scale-[2.5] origin-left" 
+            />
           </Link>
         </div>
 

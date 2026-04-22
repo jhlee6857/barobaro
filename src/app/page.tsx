@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
@@ -12,7 +13,15 @@ export default function Home() {
       <FaqJsonLd />
       {/* 1. Hero Section */}
       <section className="relative pt-24 pb-32 lg:pt-36 lg:pb-40 bg-brand-dark overflow-hidden flex items-center justify-center text-center px-4" aria-label="바로건물관리 메인 히어로 섹션">
-        <div className="absolute inset-0 z-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center" role="img" aria-label="현대적인 건물 외관 전경"></div>
+        <div className="absolute inset-0 z-0 opacity-20" aria-label="현대적인 건물 외관 전경">
+          <Image
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+            alt="현대적인 건물 외관 전경"
+            fill
+            priority
+            className="object-cover object-center"
+          />
+        </div>
         <div className="container relative z-10 max-w-4xl">
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight tracking-tight">
             <span className="block text-2xl md:text-3xl text-brand-light font-bold mb-4 opacity-90 tracking-normal">빌라·상가·원룸 건물관리 전문업체</span>
