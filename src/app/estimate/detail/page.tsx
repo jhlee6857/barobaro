@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabaseClient";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Lock, User, Calendar, Phone, Mail, Building, FileText } from "lucide-react";
+import AdminDeleteButton from "@/components/shared/AdminDeleteButton";
 
 function EstimateDetailContent() {
   const searchParams = useSearchParams();
@@ -232,9 +233,9 @@ function EstimateDetailContent() {
             </div>
           )}
 
-          <div className="border-t border-slate-200 p-6 flex justify-between">
+          <div className="border-t border-slate-200 p-6 flex justify-between items-center">
             <Button variant="outline" onClick={()=>router.push('/estimate')}>목록으로</Button>
-            {/* If admin, maybe allow delete? omitted for simplicity, but easily addable */}
+            {isAdmin && <AdminDeleteButton table="inquiries" id={post.id} redirectUrl="/estimate" />}
           </div>
         </div>
       </div>

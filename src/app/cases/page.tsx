@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/shared/PageHero";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { supabase } from "@/lib/supabaseClient";
+import AdminDeleteButton from "@/components/shared/AdminDeleteButton";
 
 export const metadata: Metadata = {
   title: "관리사례 | 바로건물관리 - 실제 도입 전후 비교",
@@ -58,7 +59,10 @@ export default async function CasesPage() {
                       </span>
                       <span className="text-sm font-medium text-slate-500">{c.scale}</span>
                     </div>
-                    <h3 className="text-xl font-bold text-slate-800 mt-2">{c.buildingType}</h3>
+                    <div className="flex justify-between items-center mt-2">
+                       <h3 className="text-xl font-bold text-slate-800">{c.buildingType}</h3>
+                       <AdminDeleteButton table="cases" id={c.id} imageUrl={c.imageUrl} />
+                    </div>
                   </CardHeader>
                   <CardContent className="p-6 flex-grow flex flex-col space-y-6">
                     <div>

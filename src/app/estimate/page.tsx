@@ -17,6 +17,7 @@ import { PageHero } from "@/components/shared/PageHero";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
 import { Lock, CornerDownRight, Pencil } from "lucide-react";
+import AdminDeleteButton from "@/components/shared/AdminDeleteButton";
 
 export const revalidate = 0;
 
@@ -86,6 +87,9 @@ export default async function EstimateListPage() {
                     <Link href={`/estimate/detail?id=${post.id}`} className="text-slate-800 hover:text-brand-primary font-medium truncate">
                       {post.title}
                     </Link>
+                    <div className="ml-auto flex-shrink-0">
+                      <AdminDeleteButton table="inquiries" id={post.id} />
+                    </div>
                   </div>
                   <div className="col-span-3 md:col-span-2 text-slate-700 text-sm truncate">
                     {post.author}
