@@ -283,6 +283,7 @@ function EstimateDetailContent() {
         )}
       </div>
     </div>
+    </div>
   )
 }
 
