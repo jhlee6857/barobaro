@@ -5,8 +5,9 @@ import { PageHero } from "@/components/shared/PageHero";
 import { supabase } from "@/lib/supabaseClient";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
-import { Lock, User, Calendar, Phone, Mail, Building, FileText } from "lucide-react";
+import { Lock, User, Calendar, Phone, Mail, Building, FileText, Pencil, Trash2 } from "lucide-react";
 import AdminDeleteButton from "@/components/shared/AdminDeleteButton";
+import EstimateEditForm from "@/components/shared/EstimateEditForm";
 
 function EstimateDetailContent() {
   const searchParams = useSearchParams();
@@ -21,6 +22,9 @@ function EstimateDetailContent() {
   const [passwordInput, setPasswordInput] = React.useState("");
   const [isUnlocked, setIsUnlocked] = React.useState(false);
   const [passwordError, setPasswordError] = React.useState("");
+
+  // Edit state
+  const [isEditing, setIsEditing] = React.useState(false);
 
   // Reply state
   const [replyContent, setReplyContent] = React.useState("");
@@ -102,6 +106,19 @@ function EstimateDetailContent() {
     }
   };
 
+  const handleUserDelete = async () => {
+    if (!confirm("정말 이 게시물을 삭제하시겠습니까? (삭제 시 복구할 수 없습니다)")) return;
+    
+    // Delete specifically with password verification
+    const { error } = await supabase.from('inquiries').delete().eq('id', post.id).eq('password', passwordInput);
+    if (error) {
+      alert("삭제에 실패했습니다: " + error.message);
+    } else {
+      alert("게시물이 성공적으로 삭제되었습니다.");
+      router.push('/estimate');
+    }
+  };
+
   if (loading) return <div className="min-h-screen pt-40 text-center">Loading...</div>;
 
   if (!isUnlocked) {
@@ -142,8 +159,16 @@ function EstimateDetailContent() {
       <PageHero title="온라인 견적 문의" description="게시글 열람" />
 
       <div className="container mx-auto px-4 md:px-6 py-12">
-        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-          {/* Header */}
+        <div className="max-w-4xl mx-auto">
+          {isEditing ? (
+            <EstimateEditForm 
+              post={{...post, password: passwordInput}} 
+              onCancel={() => setIsEditing(false)} 
+              onSuccess={() => { setIsEditing(false); fetchPost(false, passwordInput); }} 
+            />
+          ) : (
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+              {/* Header */}
           <div className="p-6 md:p-8 border-b border-slate-100 bg-slate-50/50">
             <div className="flex gap-2 mb-3">
               <span className="px-3 py-1 bg-brand-light text-brand-primary text-xs font-bold rounded-full">견적문의</span>
@@ -233,11 +258,27 @@ function EstimateDetailContent() {
             </div>
           )}
 
-          <div className="border-t border-slate-200 p-6 flex justify-between items-center">
+          <div className="border-t border-slate-200 p-6 flex justify-between items-center bg-slate-50">
             <Button variant="outline" onClick={()=>router.push('/estimate')}>목록으로</Button>
-            {isAdmin && <AdminDeleteButton table="inquiries" id={post.id} redirectUrl="/estimate" />}
+            
+            <div className="flex gap-2">
+              {isAdmin && <AdminDeleteButton table="inquiries" id={post.id} redirectUrl="/estimate" />}
+              
+              {/* User edit/delete features */}
+              {!isAdmin && !post.is_reply && isUnlocked && (
+                <>
+                  <Button variant="outline" className="border-slate-300 text-slate-700 bg-white" onClick={() => setIsEditing(true)}>
+                    <Pencil size={16} className="mr-1.5" /> 수정
+                  </Button>
+                  <Button variant="outline" className="border-red-200 text-red-600 hover:bg-red-50 bg-white" onClick={handleUserDelete}>
+                    <Trash2 size={16} className="mr-1.5" /> 삭제
+                  </Button>
+                </>
+              )}
+            </div>
           </div>
         </div>
+        )}
       </div>
     </div>
   )
