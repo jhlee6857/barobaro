@@ -4,11 +4,10 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { use } from "react";
 
-export default function AdminBuildingDetailPage({ params }: { params: Promise<{ id: string }> }) {
+export default function AdminBuildingDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter();
-  const { id } = use(params);
+  const { id } = params;
   
   const [building, setBuilding] = useState<any>(null);
   const [residents, setResidents] = useState<any[]>([]);
