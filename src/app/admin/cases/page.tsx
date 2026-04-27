@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function AdminCasesPage() {
   const router = useRouter();
@@ -105,7 +106,10 @@ export default function AdminCasesPage() {
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-slate-800">관리 사례 어드민</h1>
-          <button onClick={handleLogout} className="px-4 py-2 bg-slate-200 text-slate-700 rounded hover:bg-slate-300 transition text-sm font-bold">로그아웃</button>
+          <div className="flex gap-4">
+            <Link href="/admin/buildings" className="px-4 py-2 bg-white text-slate-700 border border-slate-200 rounded hover:bg-slate-50 transition text-sm font-bold">본사 대시보드로 이동</Link>
+            <button onClick={handleLogout} className="px-4 py-2 bg-slate-200 text-slate-700 rounded hover:bg-slate-300 transition text-sm font-bold">로그아웃</button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

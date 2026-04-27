@@ -13,7 +13,7 @@ export default function AdminLogin() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
-        router.push("/admin/cases");
+        router.push("/admin/buildings");
       }
     });
   }, [router]);
@@ -25,7 +25,7 @@ export default function AdminLogin() {
     if (error) {
       setError(error.message);
     } else {
-      router.push("/admin/cases");
+      router.push("/admin/buildings");
     }
   };
 
