@@ -13,6 +13,7 @@ type TabMenu = "notice" | "faq" | "complain" | "general";
 export default function ResidentPage() {
   const [activeTab, setActiveTab] = React.useState<TabMenu>("faq");
   const [isSubmitted, setIsSubmitted] = React.useState(false);
+  const [isRepMode, setIsRepMode] = React.useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,9 +34,82 @@ export default function ResidentPage() {
       />
 
       <div className="container mx-auto px-4 md:px-6 py-12">
-        {/* Tabs */}
-        <div className="flex overflow-x-auto border-b border-slate-200 mb-8 max-w-4xl mx-auto hide-scrollbar">
-          <button 
+        {/* 권한 전환 토글 (테스트용) */}
+        <div className="max-w-4xl mx-auto mb-8 flex justify-end">
+          <div className="bg-white p-1 rounded-lg shadow-sm border border-slate-200 inline-flex">
+            <button 
+              onClick={() => setIsRepMode(false)}
+              className={cn("px-4 py-2 rounded-md text-sm font-bold transition", !isRepMode ? "bg-slate-800 text-white" : "text-slate-500 hover:bg-slate-100")}
+            >
+              입주민 모드
+            </button>
+            <button 
+              onClick={() => setIsRepMode(true)}
+              className={cn("px-4 py-2 rounded-md text-sm font-bold transition", isRepMode ? "bg-brand-primary text-white" : "text-slate-500 hover:bg-slate-100")}
+            >
+              동대표 모드
+            </button>
+          </div>
+        </div>
+
+        {isRepMode ? (
+          /* 동대표 전용 대시보드 */
+          <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10">
+            <div className="mb-8 border-b border-slate-100 pb-6 flex justify-between items-end">
+              <div>
+                <h2 className="text-2xl font-bold text-brand-dark mb-2">동대표 대시보드</h2>
+                <p className="text-slate-600">우리 건물의 관리 현황을 한눈에 파악하고 본사와 다이렉트로 소통하세요.</p>
+              </div>
+              <span className="bg-brand-light text-brand-primary px-3 py-1 rounded-full text-sm font-bold border border-brand-primary/20">권한 확인됨</span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+              <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                <p className="text-slate-500 text-sm font-bold mb-2">이달의 접수 민원</p>
+                <div className="flex items-end gap-2">
+                  <span className="text-4xl font-bold text-slate-800">12</span>
+                  <span className="text-slate-500 font-medium pb-1">건</span>
+                </div>
+              </div>
+              <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                <p className="text-slate-500 text-sm font-bold mb-2">처리 완료</p>
+                <div className="flex items-end gap-2">
+                  <span className="text-4xl font-bold text-green-600">10</span>
+                  <span className="text-slate-500 font-medium pb-1">건</span>
+                </div>
+              </div>
+              <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                <p className="text-slate-500 text-sm font-bold mb-2">당월 관리비 수납률</p>
+                <div className="flex items-end gap-2">
+                  <span className="text-4xl font-bold text-brand-primary">94</span>
+                  <span className="text-slate-500 font-medium pb-1">%</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="border border-slate-200 rounded-xl p-6 hover:shadow-md transition cursor-pointer group">
+                <div className="w-12 h-12 bg-brand-light rounded-full flex items-center justify-center mb-4 group-hover:bg-brand-primary transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-brand-primary group-hover:text-white"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <h3 className="text-lg font-bold text-slate-800 mb-2">본사 전담 매니저 핫라인</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">복잡한 안건이나 빠른 협의가 필요한 사항을 본사 담당자와 다이렉트로 소통하세요.</p>
+              </div>
+
+              <div className="border border-slate-200 rounded-xl p-6 hover:shadow-md transition cursor-pointer group">
+                <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-slate-800 transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-600 group-hover:text-white"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                </div>
+                <h3 className="text-lg font-bold text-slate-800 mb-2">정기 점검 보고서 열람</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">바로바로 건물관리가 매월 진행한 시설물 순회 점검 결과를 상세하게 확인하세요.</p>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <>
+            {/* Tabs */}
+            <div className="flex overflow-x-auto border-b border-slate-200 mb-8 max-w-4xl mx-auto hide-scrollbar">
+              <button 
             className={cn("px-6 py-4 font-bold text-sm md:text-base whitespace-nowrap border-b-2 transition-colors", activeTab === "notice" ? "border-brand-primary text-brand-primary" : "border-transparent text-slate-500 hover:text-slate-700")}
             onClick={() => setActiveTab("notice")}
           >
@@ -108,7 +182,7 @@ export default function ResidentPage() {
                     </div>
                     <div>
                       <label className="block text-sm font-bold text-slate-700 mb-2">연락처 <span className="text-red-500">*</span></label>
-                      <input type="tel" required className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-primary/50" placeholder="010-0000-0000" />
+                      <input type="tel" required className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-primary/50" placeholder="숫자만 입력 (예: 01012345678)" onChange={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')} />
                     </div>
                     <div>
                       <label className="block text-sm font-bold text-slate-700 mb-2">건물명 <span className="text-red-500">*</span></label>
@@ -184,7 +258,7 @@ export default function ResidentPage() {
                     </div>
                     <div>
                       <label className="block text-sm font-bold text-slate-700 mb-2">연락처 <span className="text-red-500">*</span></label>
-                      <input type="tel" required className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-primary/50" />
+                      <input type="tel" required className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-primary/50" placeholder="숫자만 입력 (예: 01012345678)" onChange={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')} />
                     </div>
                     <div>
                       <label className="block text-sm font-bold text-slate-700 mb-2">건물명 <span className="text-red-500">*</span></label>
@@ -228,6 +302,8 @@ export default function ResidentPage() {
           )}
 
         </div>
+          </>
+        )}
       </div>
     </div>
   )
