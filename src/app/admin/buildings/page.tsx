@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Building2, Users, Plus, FileSpreadsheet, Search, MoreVertical } from "lucide-react";
+import { Building2, Users, Plus, FileSpreadsheet, Search, MoreVertical, AlertCircle, CheckCircle } from "lucide-react";
 
 export default function AdminBuildingsPage() {
   const router = useRouter();
