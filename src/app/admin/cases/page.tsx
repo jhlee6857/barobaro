@@ -102,17 +102,15 @@ export default function AdminCasesPage() {
   if (loading) return <div className="p-10 text-center min-h-screen">Loading...</div>;
 
   return (
-    <div className="min-h-screen bg-slate-50 p-6 md:p-12">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-slate-800">관리 사례 어드민</h1>
-          <div className="flex gap-4">
-            <Link href="/admin/buildings" className="px-4 py-2 bg-white text-slate-700 border border-slate-200 rounded hover:bg-slate-50 transition text-sm font-bold">본사 대시보드로 이동</Link>
-            <button onClick={handleLogout} className="px-4 py-2 bg-slate-200 text-slate-700 rounded hover:bg-slate-300 transition text-sm font-bold">로그아웃</button>
-          </div>
+    <div className="space-y-6">
+      <div className="flex flex-col md:flex-row justify-between md:items-end gap-4 mb-2">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-800">Operations (관리 사례)</h1>
+          <p className="text-sm text-slate-500 mt-1">Manage and track building maintenance cases.</p>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* 업로드 폼 */}
           <div className="lg:col-span-1 bg-white p-6 rounded-lg shadow-sm h-fit">
             <h2 className="text-xl font-bold mb-6 border-b pb-2 text-brand-dark">새 사례 등록</h2>
@@ -164,8 +162,7 @@ export default function AdminCasesPage() {
                   </button>
                 </div>
               ))}
-            </div>
-          </div>
+        </div>
         </div>
       </div>
     </div>

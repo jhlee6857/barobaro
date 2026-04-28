@@ -18,7 +18,7 @@ const config: Config = {
       colors: {
         brand: {
           dark: "#0F172A", // 딥블루 (Slate-900)
-          primary: "#1E3A8A", // 메인 블루 (Blue-900)
+          primary: "#1A73E8", // 관리자 메인 블루 (Google Blue)
           secondary: "#3B82F6", // 포인트 블루 (Blue-500)
           light: "#EFF6FF", // 라이트 블루 (Blue-50)
           accent: "#2563EB", // 하이라이트

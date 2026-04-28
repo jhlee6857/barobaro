@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import FloatingContact from "@/components/shared/FloatingContact";
+import { Inter } from "next/font/google";
+import ClientLayoutWrapper from "@/components/layout/ClientLayoutWrapper";
 import { LocalBusinessJsonLd } from "@/components/JsonLd";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "건물관리 전문업체 - 바로건물관리 | 원룸·빌라 종합건물관리",
@@ -42,12 +43,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className="flex flex-col min-h-screen">
+      <body className={`${inter.className} flex flex-col min-h-screen`}>
         <LocalBusinessJsonLd />
-        <Header />
-        <main className="flex-grow pt-20">{children}</main>
-        <Footer />
-        <FloatingContact />
+        <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
       </body>
     </html>
   );
