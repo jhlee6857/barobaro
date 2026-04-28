@@ -2,11 +2,27 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
+import { supabase } from "@/lib/supabaseClient";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) setIsAdmin(true);
+    });
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      setIsAdmin(!!session);
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
 
   return (
     <header className="fixed top-0 left-0 right-0 h-[100px] md:h-[135px] bg-white/95 backdrop-blur-md z-50 border-b border-gray-100 flex items-center">
@@ -35,6 +51,14 @@ export default function Header() {
 
         {/* CTA Buttons */}
         <div className="hidden lg:flex items-center justify-end gap-3 flex-1 whitespace-nowrap">
+          {isAdmin && (
+            <Link 
+              href="/admin/buildings" 
+              className="bg-slate-800 hover:bg-slate-700 text-white px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
+            >
+              관리자 대시보드
+            </Link>
+          )}
           <Link 
             href="/contact" 
             className="text-[#3c1e1e] font-black hover:bg-[#e6ce00] transition-colors px-5 py-2.5 rounded-full bg-[#FEE500] flex items-center gap-1.5 shadow-sm"
@@ -72,6 +96,9 @@ export default function Header() {
             <Link href="/resident" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>입주민센터</Link>
             <Link href="/about" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>회사소개</Link>
             <Link href="/contact" className="text-lg font-bold text-brand-primary pb-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>카톡/전화 상담</Link>
+            {isAdmin && (
+              <Link href="/admin/buildings" className="bg-slate-800 text-white text-center py-3 rounded-xl font-bold shadow-sm" onClick={() => setIsMobileMenuOpen(false)}>관리자 대시보드</Link>
+            )}
             <Link href="/estimate" className="bg-brand-primary text-white text-center py-3 rounded-xl font-bold shadow-sm" onClick={() => setIsMobileMenuOpen(false)}>무료 견적 문의</Link>
           </nav>
         </div>
