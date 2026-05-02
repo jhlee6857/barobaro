@@ -38,7 +38,7 @@ export default function Header() {
           if (data?.is_registered) {
             setUserRole('resident');
           } else {
-            setUserRole(null); // 등록 완료 전까지는 로그인 버튼 유지
+            setUserRole(null);
           }
         } else {
           setUserRole(null);
