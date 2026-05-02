@@ -56,10 +56,10 @@ export default function Header() {
 
         {/* GNB (Desktop) */}
         <nav className="hidden lg:flex flex-none justify-center items-center gap-6 xl:gap-10 font-[800] text-slate-800 text-[15px] xl:text-[17px] whitespace-nowrap mx-4 xl:mx-8">
+          <Link href="/notices" className="flex items-center hover:text-brand-primary transition">공지사항 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
           <Link href="/services" className="flex items-center hover:text-brand-primary transition">서비스 소개 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
           <Link href="/process" className="flex items-center hover:text-brand-primary transition">운영방식 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
           <Link href="/cases" className="flex items-center hover:text-brand-primary transition">관리사례 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
-          <Link href="/notices" className="flex items-center hover:text-brand-primary transition">공지사항</Link>
         </nav>
 
         {/* CTA Buttons */}
@@ -123,10 +123,10 @@ export default function Header() {
       {isMobileMenuOpen && (
         <div className="lg:hidden absolute top-[100px] left-0 w-full bg-white border-b border-gray-100 shadow-xl flex flex-col px-6 py-4 animate-in slide-in-from-top-2">
           <nav className="flex flex-col space-y-4">
+            <Link href="/notices" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>공지사항</Link>
             <Link href="/services" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>서비스 소개</Link>
             <Link href="/process" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>운영방식</Link>
             <Link href="/cases" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>관리사례</Link>
-            <Link href="/notices" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>공지사항</Link>
             <Link href="/about" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>회사소개</Link>
             <Link href="/contact" className="text-lg font-bold text-[#3c1e1e] pb-4 border-b border-slate-50 flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
               <svg width="20" height="20" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#3c1e1e]">
