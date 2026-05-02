@@ -6,7 +6,7 @@ export default function PrivacyPage() {
       <h1 className="text-3xl font-bold mb-8 text-slate-900">개인정보 처리방침</h1>
       <div className="prose prose-slate max-w-none">
         <p className="mb-4">
-          '바로바로' 건물관리 시스템(이하 '회사')은(는) 「개인정보 보호법」 제30조에 따라 정보주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다.
+          '바로' 건물관리 시스템(이하 '회사')은(는) 「개인정보 보호법」 제30조에 따라 정보주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다.
         </p>
 
         <h2 className="text-xl font-bold mt-8 mb-4">제1조(개인정보의 처리목적)</h2>

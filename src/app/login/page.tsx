@@ -50,7 +50,7 @@ export default function LoginPage() {
       <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100 w-full max-w-md">
         
         <div className="text-center mb-8">
-          <h1 className="text-2xl md:text-3xl font-black text-slate-800 tracking-tight mb-2">바로바로 로그인</h1>
+          <h1 className="text-2xl md:text-3xl font-black text-slate-800 tracking-tight mb-2">바로 로그인</h1>
           <p className="text-slate-500 text-sm">스마트한 건물 관리의 시작</p>
         </div>
 
@@ -90,7 +90,7 @@ export default function LoginPage() {
             <KakaoLoginButton label="카카오로 로그인 (입주민 전용)" />
             
             <p className="text-xs text-center text-slate-400 mt-4">
-              카카오 로그인 시 바로바로 서비스 이용약관 및<br/>개인정보 처리방침에 동의한 것으로 간주됩니다.
+              카카오 로그인 시 바로 서비스 이용약관 및<br/>개인정보 처리방침에 동의한 것으로 간주됩니다.
             </p>
           </div>
         )}
