@@ -6,11 +6,34 @@
   body {
     @apply bg-white text-slate-800 antialiased font-sans;
     word-break: keep-all;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button, a {
+    touch-action: manipulation;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* 모바일에서 호버 효과가 클릭을 방해하지 않도록 처리 */
+@media (hover: none) {
+  .hover\:bg-brand-primary:hover {
+    @apply bg-transparent;
+  }
+  .hover\:opacity-90:hover {
+    opacity: 1;
   }
 }

@@ -81,8 +81,7 @@ export default function Header() {
               width={375} 
               height={120} 
               priority
-              className="h-[90px] md:h-[120px] w-auto object-contain mix-blend-multiply contrast-[1.1] brightness-[1.05] hover:opacity-90 transition origin-left -translate-y-[2px] md:-translate-y-[4px]" 
-              style={{ filter: 'multiply' }}
+              className="h-[90px] md:h-[120px] w-auto object-contain mix-blend-multiply contrast-[1.1] brightness-[1.05] hover:opacity-90 transition origin-left -translate-y-[2px] md:-translate-y-[4px] cursor-pointer" 
             />
           </Link>
         </div>
