@@ -12,21 +12,37 @@ export default function Header() {
   const [isAuthLoading, setIsAuthLoading] = useState(true);
 
   useEffect(() => {
-    const checkRole = (session: any) => {
+    const checkRole = async (session: any) => {
       if (!session) {
         setUserRole(null);
         return;
       }
       
       const user = session.user;
-      // 관리자 여부 확인: 이메일 도메인이 baro-manage.com 이거나 관리자 권한 메타데이터가 있는 경우
       const isAdmin = user.email?.endsWith('baro-manage.com') || user.app_metadata?.role === 'admin';
       
       if (isAdmin) {
         setUserRole('admin');
       } else {
-        // 그 외 모든 로그인 사용자는 기본적으로 입주민(resident)으로 간주
-        setUserRole('resident');
+        // 입주민의 경우, DB에서 실제로 '등록 완료(is_registered)' 상태인지 확인
+        let rawPhone = user.user_metadata?.phone_number || "";
+        let cleanPhone = rawPhone.replace(/^\+82\s?/, "0").replace(/[^0-9]/g, "");
+
+        if (cleanPhone) {
+          const { data } = await supabase
+            .from("pre_registered_residents")
+            .select("is_registered")
+            .eq("phone_number", cleanPhone)
+            .single();
+          
+          if (data?.is_registered) {
+            setUserRole('resident');
+          } else {
+            setUserRole(null); // 등록 완료 전까지는 로그인 버튼 유지
+          }
+        } else {
+          setUserRole(null);
+        }
       }
     };
 
@@ -62,7 +78,8 @@ export default function Header() {
               width={375} 
               height={120} 
               priority
-              className="h-[90px] md:h-[120px] w-auto object-contain mix-blend-multiply contrast-125 brightness-105 hover:opacity-90 transition origin-left -translate-y-[2px] md:-translate-y-[4px]" 
+              className="h-[90px] md:h-[120px] w-auto object-contain mix-blend-multiply contrast-125 brightness-110 saturate-[0.8] hover:opacity-90 transition origin-left -translate-y-[2px] md:-translate-y-[4px]"
+              style={{ backgroundColor: 'transparent' }}
             />
           </Link>
         </div>
