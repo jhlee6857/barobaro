@@ -22,7 +22,7 @@ export default function ResidentPage() {
     const checkResidentAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       
-      // 1. 세션이 없거나 카카오 로그인이 아니면 탈락
+      // 1. 세션이 없거나 카카오 로그인이 아니면 로그인 페이지로
       if (!session || session.user.app_metadata?.provider !== 'kakao') {
         router.push("/login");
         return;
@@ -32,8 +32,9 @@ export default function ResidentPage() {
       const rawPhone = session.user.user_metadata?.phone_number || "";
       const cleanPhone = rawPhone.replace(/^\+82\s?/, "0").replace(/[^0-9]/g, "");
 
+      // 전화번호가 없거나 등록 정보가 없으면 '거주 인증(register)' 페이지로 이동 (무한 로그인 방지)
       if (!cleanPhone) {
-        router.push("/login");
+        router.push("/resident/register");
         return;
       }
 
@@ -44,7 +45,7 @@ export default function ResidentPage() {
         .single();
 
       if (!resident?.is_registered) {
-        router.push("/login");
+        router.push("/resident/register");
         return;
       }
 

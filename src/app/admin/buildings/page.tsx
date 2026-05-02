@@ -90,65 +90,65 @@ export default function AdminBuildingsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col md:flex-row justify-between md:items-end gap-4 mb-2">
+      <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-4 mb-2">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Buildings Directory</h1>
-          <p className="text-sm text-slate-500 mt-1">Manage building information and resident capacities.</p>
+          <h1 className="text-xl md:text-2xl font-bold text-slate-800">Buildings Directory</h1>
+          <p className="text-xs md:text-sm text-slate-500 mt-1">Manage building information and resident capacities.</p>
         </div>
-        <div className="flex gap-3">
-          <button className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm font-semibold hover:bg-slate-50 transition-colors">
-            <FileSpreadsheet size={16} />
+        <div className="flex gap-2 sm:gap-3">
+          <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg text-xs md:text-sm font-semibold hover:bg-slate-50 transition-colors">
+            <FileSpreadsheet size={14} className="md:w-4 md:h-4" />
             Export CSV
           </button>
           <button 
             onClick={() => setShowAddForm(!showAddForm)}
-            className="flex items-center gap-2 px-4 py-2 bg-brand-primary text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors"
+            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-2 bg-brand-primary text-white rounded-lg text-xs md:text-sm font-semibold hover:bg-blue-700 transition-colors"
           >
-            <Plus size={16} />
+            <Plus size={14} className="md:w-4 md:h-4" />
             Add Building
           </button>
         </div>
       </div>
 
       {/* Metric Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-blue-50 text-brand-primary flex items-center justify-center shrink-0">
-            <Building2 size={24} />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        <div className="bg-white p-4 md:p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 md:gap-4">
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-50 text-brand-primary flex items-center justify-center shrink-0">
+            <Building2 size={20} className="md:w-6 md:h-6" />
           </div>
           <div>
-            <p className="text-xs font-bold text-slate-500 tracking-wider uppercase">Total Buildings</p>
-            <p className="text-2xl font-bold text-slate-800">{buildings.length}</p>
+            <p className="text-[10px] md:text-xs font-bold text-slate-500 tracking-wider uppercase">Buildings</p>
+            <p className="text-lg md:text-2xl font-bold text-slate-800">{buildings.length}</p>
           </div>
         </div>
         
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-blue-50 text-brand-primary flex items-center justify-center shrink-0">
-            <Users size={24} />
+        <div className="bg-white p-4 md:p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 md:gap-4">
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-50 text-brand-primary flex items-center justify-center shrink-0">
+            <Users size={20} className="md:w-6 md:h-6" />
           </div>
           <div>
-            <p className="text-xs font-bold text-slate-500 tracking-wider uppercase">Total Residents</p>
-            <p className="text-2xl font-bold text-slate-800">{totalResidents}</p>
+            <p className="text-[10px] md:text-xs font-bold text-slate-500 tracking-wider uppercase">Residents</p>
+            <p className="text-lg md:text-2xl font-bold text-slate-800">{totalResidents}</p>
           </div>
         </div>
         
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center shrink-0">
-            <AlertCircle size={24} />
+        <div className="bg-white p-4 md:p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 md:gap-4">
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center shrink-0">
+            <AlertCircle size={20} className="md:w-6 md:h-6" />
           </div>
           <div>
-            <p className="text-xs font-bold text-slate-500 tracking-wider uppercase">Pending Issues</p>
-            <p className="text-2xl font-bold text-slate-800">5</p>
+            <p className="text-[10px] md:text-xs font-bold text-slate-500 tracking-wider uppercase">Issues</p>
+            <p className="text-lg md:text-2xl font-bold text-slate-800">5</p>
           </div>
         </div>
         
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-green-50 text-green-500 flex items-center justify-center shrink-0">
-            <CheckCircle size={24} />
+        <div className="bg-white p-4 md:p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 md:gap-4">
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-green-50 text-green-500 flex items-center justify-center shrink-0">
+            <CheckCircle size={20} className="md:w-6 md:h-6" />
           </div>
           <div>
-            <p className="text-xs font-bold text-slate-500 tracking-wider uppercase">Active Status</p>
-            <p className="text-2xl font-bold text-slate-800">Normal</p>
+            <p className="text-[10px] md:text-xs font-bold text-slate-500 tracking-wider uppercase">Status</p>
+            <p className="text-lg md:text-2xl font-bold text-slate-800">OK</p>
           </div>
         </div>
       </div>

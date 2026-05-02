@@ -67,7 +67,10 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 h-[100px] md:h-[135px] bg-white z-50 border-b border-gray-100 flex items-center">
+    <header 
+      className="fixed top-0 left-0 right-0 h-[100px] md:h-[135px] z-50 border-b border-gray-100 flex items-center"
+      style={{ backgroundColor: '#ffffff' }}
+    >
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center flex-1 justify-start">
@@ -78,8 +81,8 @@ export default function Header() {
               width={375} 
               height={120} 
               priority
-              className="h-[90px] md:h-[120px] w-auto object-contain mix-blend-multiply contrast-125 brightness-110 saturate-[0.8] hover:opacity-90 transition origin-left -translate-y-[2px] md:-translate-y-[4px]"
-              style={{ backgroundColor: 'transparent' }}
+              className="h-[90px] md:h-[120px] w-auto object-contain mix-blend-multiply contrast-[1.1] brightness-[1.05] hover:opacity-90 transition origin-left -translate-y-[2px] md:-translate-y-[4px]" 
+              style={{ filter: 'multiply' }}
             />
           </Link>
         </div>

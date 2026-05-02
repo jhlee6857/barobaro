@@ -1,12 +1,20 @@
 "use client";
 
-import { Bell, Settings, HelpCircle, Search } from "lucide-react";
+import { Bell, Settings, HelpCircle, Search, Menu } from "lucide-react";
 
-export default function AdminHeader() {
+export default function AdminHeader({ onMenuClick }: { onMenuClick?: () => void }) {
   return (
-    <header className="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between shrink-0">
-      <div className="flex-1 flex items-center">
-        <div className="relative w-full max-w-md">
+    <header className="h-16 bg-white border-b border-slate-200 px-4 md:px-6 flex items-center justify-between shrink-0">
+      <div className="flex items-center gap-3 md:gap-0 flex-1">
+        {onMenuClick && (
+          <button 
+            onClick={onMenuClick}
+            className="lg:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+          >
+            <Menu size={24} />
+          </button>
+        )}
+        <div className="relative w-full max-w-md hidden sm:block">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
           <input
             type="text"
@@ -16,19 +24,19 @@ export default function AdminHeader() {
         </div>
       </div>
 
-      <div className="flex items-center gap-4">
-        <button className="relative p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
+      <div className="flex items-center gap-2 md:gap-4">
+        <button className="relative p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors hidden sm:flex">
           <Bell size={20} />
           <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
         </button>
-        <button className="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
+        <button className="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors sm:hidden">
+          <Search size={20} />
+        </button>
+        <button className="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors hidden md:flex">
           <Settings size={20} />
         </button>
-        <button className="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
-          <HelpCircle size={20} />
-        </button>
-        <div className="w-px h-6 bg-slate-200 mx-2"></div>
-        <div className="flex items-center gap-3">
+        <div className="w-px h-6 bg-slate-200 mx-1 md:mx-2"></div>
+        <div className="flex items-center gap-2 md:gap-3">
           <div className="w-8 h-8 rounded-full bg-brand-primary text-white flex items-center justify-center font-bold text-sm">
             AD
           </div>
