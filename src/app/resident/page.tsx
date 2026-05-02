@@ -1,7 +1,8 @@
 "use client";
 
-
 import * as React from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabaseClient";
 import { PageHero } from "@/components/shared/PageHero";
 import { Button } from "@/components/ui/Button";
 import { Accordion } from "@/components/ui/Accordion";
@@ -11,9 +12,47 @@ import { cn } from "@/lib/utils";
 type TabMenu = "notice" | "faq" | "complain" | "general";
 
 export default function ResidentPage() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = React.useState<TabMenu>("faq");
   const [isSubmitted, setIsSubmitted] = React.useState(false);
   const [isRepMode, setIsRepMode] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const checkResidentAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      // 1. 세션이 없거나 카카오 로그인이 아니면 탈락
+      if (!session || session.user.app_metadata?.provider !== 'kakao') {
+        router.push("/login");
+        return;
+      }
+
+      // 2. 실제 등록 여부 확인
+      const rawPhone = session.user.user_metadata?.phone_number || "";
+      const cleanPhone = rawPhone.replace(/^\+82\s?/, "0").replace(/[^0-9]/g, "");
+
+      if (!cleanPhone) {
+        router.push("/login");
+        return;
+      }
+
+      const { data: resident } = await supabase
+        .from("pre_registered_residents")
+        .select("is_registered")
+        .eq("phone_number", cleanPhone)
+        .single();
+
+      if (!resident?.is_registered) {
+        router.push("/login");
+        return;
+      }
+
+      setIsLoading(false);
+    };
+
+    checkResidentAuth();
+  }, [router]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
