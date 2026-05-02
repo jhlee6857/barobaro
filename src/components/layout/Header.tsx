@@ -46,10 +46,10 @@ export default function Header() {
             <Image 
               src="/logo.png" 
               alt="바로건물관리" 
-              width={250} 
-              height={80} 
+              width={375} 
+              height={120} 
               priority
-              className="h-[60px] md:h-[80px] w-auto object-contain mix-blend-multiply hover:opacity-90 transition origin-left -translate-y-[2px] md:-translate-y-[4px]" 
+              className="h-[90px] md:h-[120px] w-auto object-contain mix-blend-multiply contrast-125 brightness-105 hover:opacity-90 transition origin-left -translate-y-[2px] md:-translate-y-[4px]" 
             />
           </Link>
         </div>
