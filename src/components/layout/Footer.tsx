@@ -36,7 +36,7 @@ export default function Footer() {
               <li><Link href="/services" className="hover:text-white transition">종합건물관리 서비스 소개</Link></li>
               <li><Link href="/process" className="hover:text-white transition">건물관리 운영방식</Link></li>
               <li><Link href="/cases" className="hover:text-white transition">건물관리 사례 보기</Link></li>
-              <li><Link href="/resident" className="hover:text-white transition">입주민 민원 접수</Link></li>
+
               <li><Link href="/about" className="hover:text-white transition">회사소개</Link></li>
             </ul>
           </div>
