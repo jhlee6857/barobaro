@@ -59,11 +59,24 @@ export default function Header() {
           <Link href="/services" className="flex items-center hover:text-brand-primary transition">서비스 소개 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
           <Link href="/process" className="flex items-center hover:text-brand-primary transition">운영방식 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
           <Link href="/cases" className="flex items-center hover:text-brand-primary transition">관리사례 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
-          <Link href="/resident" className="flex items-center hover:text-brand-primary transition">입주민센터 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
+          <Link href="/notices" className="flex items-center hover:text-brand-primary transition">공지사항</Link>
         </nav>
 
         {/* CTA Buttons */}
         <div className="hidden lg:flex items-center justify-end gap-3 flex-1 whitespace-nowrap">
+          <Link 
+            href="/contact" 
+            className="text-[#3c1e1e] font-black hover:bg-[#e6ce00] transition-colors px-5 py-2.5 rounded-full bg-[#FEE500] flex items-center gap-1.5 shadow-sm"
+          >
+            카카오톡 상담
+          </Link>
+          <Link 
+            href="/estimate" 
+            className="bg-brand-primary hover:bg-brand-secondary text-white px-6 py-2.5 rounded-full font-bold transition-colors shadow-sm"
+          >
+            무료 견적 문의
+          </Link>
+          <div className="w-[1px] h-6 bg-slate-200 mx-1"></div>
           {!userRole && (
             <Link 
               href="/login" 
@@ -88,18 +101,6 @@ export default function Header() {
               나의 입주민센터
             </Link>
           )}
-          <Link 
-            href="/contact" 
-            className="text-[#3c1e1e] font-black hover:bg-[#e6ce00] transition-colors px-5 py-2.5 rounded-full bg-[#FEE500] flex items-center gap-1.5 shadow-sm"
-          >
-            카카오톡 상담
-          </Link>
-          <Link 
-            href="/estimate" 
-            className="bg-brand-primary hover:bg-brand-secondary text-white px-6 py-2.5 rounded-full font-bold transition-colors shadow-sm"
-          >
-            무료 견적 문의
-          </Link>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -122,19 +123,19 @@ export default function Header() {
             <Link href="/services" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>서비스 소개</Link>
             <Link href="/process" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>운영방식</Link>
             <Link href="/cases" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>관리사례</Link>
-            <Link href="/resident" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>입주민센터</Link>
+            <Link href="/notices" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>공지사항</Link>
             <Link href="/about" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>회사소개</Link>
             <Link href="/contact" className="text-lg font-bold text-brand-primary pb-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>카톡/전화 상담</Link>
+            <Link href="/estimate" className="bg-brand-primary text-white text-center py-3 rounded-xl font-bold shadow-sm" onClick={() => setIsMobileMenuOpen(false)}>무료 견적 문의</Link>
             {!userRole && (
-              <Link href="/login" className="bg-slate-100 text-slate-700 text-center py-3 rounded-xl font-bold shadow-sm" onClick={() => setIsMobileMenuOpen(false)}>로그인</Link>
+              <Link href="/login" className="bg-slate-100 text-slate-700 text-center py-3 rounded-xl font-bold shadow-sm mt-2" onClick={() => setIsMobileMenuOpen(false)}>로그인</Link>
             )}
             {userRole === 'admin' && (
-              <Link href="/admin/buildings" className="bg-slate-800 text-white text-center py-3 rounded-xl font-bold shadow-sm" onClick={() => setIsMobileMenuOpen(false)}>관리자 대시보드</Link>
+              <Link href="/admin/buildings" className="bg-slate-800 text-white text-center py-3 rounded-xl font-bold shadow-sm mt-2" onClick={() => setIsMobileMenuOpen(false)}>관리자 대시보드</Link>
             )}
             {userRole === 'resident' && (
-              <Link href="/resident" className="bg-brand-primary text-white text-center py-3 rounded-xl font-bold shadow-sm" onClick={() => setIsMobileMenuOpen(false)}>나의 입주민센터</Link>
+              <Link href="/resident" className="bg-brand-primary text-white text-center py-3 rounded-xl font-bold shadow-sm mt-2" onClick={() => setIsMobileMenuOpen(false)}>나의 입주민센터</Link>
             )}
-            <Link href="/estimate" className="bg-brand-primary text-white text-center py-3 rounded-xl font-bold shadow-sm" onClick={() => setIsMobileMenuOpen(false)}>무료 견적 문의</Link>
           </nav>
         </div>
       )}
