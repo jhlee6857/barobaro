@@ -106,20 +106,36 @@ export default function Header() {
                 </Link>
               )}
               {userRole === 'admin' && (
-                <Link 
-                  href="/admin/buildings" 
-                  className="bg-slate-800 hover:bg-slate-700 text-white px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
-                >
-                  관리자 대시보드
-                </Link>
+                <div className="flex items-center gap-2">
+                  <Link 
+                    href="/admin/buildings" 
+                    className="bg-slate-800 hover:bg-slate-700 text-white px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
+                  >
+                    관리자 대시보드
+                  </Link>
+                  <button 
+                    onClick={handleLogout}
+                    className="text-slate-400 hover:text-slate-600 text-sm font-bold px-2 underline underline-offset-4"
+                  >
+                    로그아웃
+                  </button>
+                </div>
               )}
               {userRole === 'resident' && (
-                <Link 
-                  href="/resident" 
-                  className="bg-brand-primary hover:bg-brand-secondary text-white px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
-                >
-                  나의 입주민센터
-                </Link>
+                <div className="flex items-center gap-2">
+                  <Link 
+                    href="/resident" 
+                    className="bg-brand-primary hover:bg-brand-secondary text-white px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
+                  >
+                    나의 입주민센터
+                  </Link>
+                  <button 
+                    onClick={handleLogout}
+                    className="text-slate-400 hover:text-slate-600 text-sm font-bold px-2 underline underline-offset-4"
+                  >
+                    로그아웃
+                  </button>
+                </div>
               )}
             </>
           )}
