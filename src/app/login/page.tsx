@@ -19,10 +19,28 @@ export default function LoginPage() {
 
   useEffect(() => {
     // 이미 로그인된 사용자는 각각의 대시보드로 자동 리다이렉트
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (session) {
         if (session.user.app_metadata?.provider === 'kakao') {
-          router.push("/resident");
+          // 입주민의 경우 실제 등록 여부 확인
+          const rawPhone = session.user.user_metadata?.phone_number || "";
+          const cleanPhone = rawPhone.replace(/^\+82\s?/, "0").replace(/[^0-9]/g, "");
+          
+          if (cleanPhone) {
+            const { data } = await supabase
+              .from("pre_registered_residents")
+              .select("is_registered")
+              .eq("phone_number", cleanPhone)
+              .single();
+            
+            if (data?.is_registered) {
+              router.push("/resident");
+            } else {
+              router.push("/resident/register");
+            }
+          } else {
+            router.push("/resident/register");
+          }
         } else {
           router.push("/admin/buildings");
         }
