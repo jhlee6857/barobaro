@@ -37,12 +37,18 @@ export default function Header() {
 
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       checkRole(session);
+      setIsAuthLoading(false);
     });
 
     return () => {
       authListener.subscription.unsubscribe();
     };
   }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    window.location.href = "/";
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 h-[100px] md:h-[135px] bg-white z-50 border-b border-gray-100 flex items-center">
@@ -119,17 +125,47 @@ export default function Header() {
           )}
         </div>
 
-        {/* Mobile Menu Toggle */}
-        <button 
-          className="lg:hidden p-2 text-slate-600"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? (
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-          ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        {/* Mobile Buttons & Toggle */}
+        <div className="lg:hidden flex items-center gap-2">
+          {!isAuthLoading && (
+            <>
+              {!userRole && (
+                <Link 
+                  href="/login" 
+                  className="bg-white border border-slate-200 text-slate-700 px-3 py-1.5 rounded-full font-bold text-xs shadow-sm"
+                >
+                  로그인
+                </Link>
+              )}
+              {userRole === 'admin' && (
+                <Link 
+                  href="/admin/buildings" 
+                  className="bg-slate-800 text-white px-3 py-1.5 rounded-full font-bold text-xs shadow-sm"
+                >
+                  관리
+                </Link>
+              )}
+              {userRole === 'resident' && (
+                <Link 
+                  href="/resident" 
+                  className="bg-brand-primary text-white px-3 py-1.5 rounded-full font-bold text-xs shadow-sm"
+                >
+                  센터
+                </Link>
+              )}
+            </>
           )}
-        </button>
+          <button 
+            className="p-2 text-slate-600"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Dropdown */}
@@ -153,11 +189,13 @@ export default function Header() {
                 {!userRole && (
                   <Link href="/login" className="bg-slate-100 text-slate-700 text-center py-3 rounded-xl font-bold shadow-sm mt-2" onClick={() => setIsMobileMenuOpen(false)}>로그인</Link>
                 )}
-                {userRole === 'admin' && (
-                  <Link href="/admin/buildings" className="bg-slate-800 text-white text-center py-3 rounded-xl font-bold shadow-sm mt-2" onClick={() => setIsMobileMenuOpen(false)}>관리자 대시보드</Link>
-                )}
-                {userRole === 'resident' && (
-                  <Link href="/resident" className="bg-brand-primary text-white text-center py-3 rounded-xl font-bold shadow-sm mt-2" onClick={() => setIsMobileMenuOpen(false)}>나의 입주민센터</Link>
+                {(userRole === 'admin' || userRole === 'resident') && (
+                  <button 
+                    onClick={handleLogout}
+                    className="bg-slate-50 text-slate-500 text-center py-3 rounded-xl font-bold border border-slate-100 mt-2"
+                  >
+                    로그아웃
+                  </button>
                 )}
               </>
             )}
