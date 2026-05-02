@@ -9,6 +9,7 @@ import { supabase } from "@/lib/supabaseClient";
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [userRole, setUserRole] = useState<'admin' | 'resident' | null>(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
 
   useEffect(() => {
     const checkRole = (session: any) => {
@@ -31,6 +32,7 @@ export default function Header() {
 
     supabase.auth.getSession().then(({ data: { session } }) => {
       checkRole(session);
+      setIsAuthLoading(false);
     });
 
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
@@ -84,30 +86,36 @@ export default function Header() {
           >
             무료 견적 문의
           </Link>
-          <div className="w-[1px] h-6 bg-slate-200 mx-1"></div>
-          {!userRole && (
-            <Link 
-              href="/login" 
-              className="bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
-            >
-              로그인
-            </Link>
-          )}
-          {userRole === 'admin' && (
-            <Link 
-              href="/admin/buildings" 
-              className="bg-slate-800 hover:bg-slate-700 text-white px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
-            >
-              관리자 대시보드
-            </Link>
-          )}
-          {userRole === 'resident' && (
-            <Link 
-              href="/resident" 
-              className="bg-brand-primary hover:bg-brand-secondary text-white px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
-            >
-              나의 입주민센터
-            </Link>
+          
+          {/* 인증 로딩이 끝난 후에만 아래 버튼들을 표시 */}
+          {!isAuthLoading && (
+            <>
+              <div className="w-[1px] h-6 bg-slate-200 mx-1"></div>
+              {!userRole && (
+                <Link 
+                  href="/login" 
+                  className="bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
+                >
+                  로그인
+                </Link>
+              )}
+              {userRole === 'admin' && (
+                <Link 
+                  href="/admin/buildings" 
+                  className="bg-slate-800 hover:bg-slate-700 text-white px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
+                >
+                  관리자 대시보드
+                </Link>
+              )}
+              {userRole === 'resident' && (
+                <Link 
+                  href="/resident" 
+                  className="bg-brand-primary hover:bg-brand-secondary text-white px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
+                >
+                  나의 입주민센터
+                </Link>
+              )}
+            </>
           )}
         </div>
 
@@ -140,14 +148,18 @@ export default function Header() {
               카톡/전화 상담
             </Link>
             <Link href="/estimate" className="bg-brand-primary text-white text-center py-3 rounded-xl font-bold shadow-sm" onClick={() => setIsMobileMenuOpen(false)}>무료 견적 문의</Link>
-            {!userRole && (
-              <Link href="/login" className="bg-slate-100 text-slate-700 text-center py-3 rounded-xl font-bold shadow-sm mt-2" onClick={() => setIsMobileMenuOpen(false)}>로그인</Link>
-            )}
-            {userRole === 'admin' && (
-              <Link href="/admin/buildings" className="bg-slate-800 text-white text-center py-3 rounded-xl font-bold shadow-sm mt-2" onClick={() => setIsMobileMenuOpen(false)}>관리자 대시보드</Link>
-            )}
-            {userRole === 'resident' && (
-              <Link href="/resident" className="bg-brand-primary text-white text-center py-3 rounded-xl font-bold shadow-sm mt-2" onClick={() => setIsMobileMenuOpen(false)}>나의 입주민센터</Link>
+            {!isAuthLoading && (
+              <>
+                {!userRole && (
+                  <Link href="/login" className="bg-slate-100 text-slate-700 text-center py-3 rounded-xl font-bold shadow-sm mt-2" onClick={() => setIsMobileMenuOpen(false)}>로그인</Link>
+                )}
+                {userRole === 'admin' && (
+                  <Link href="/admin/buildings" className="bg-slate-800 text-white text-center py-3 rounded-xl font-bold shadow-sm mt-2" onClick={() => setIsMobileMenuOpen(false)}>관리자 대시보드</Link>
+                )}
+                {userRole === 'resident' && (
+                  <Link href="/resident" className="bg-brand-primary text-white text-center py-3 rounded-xl font-bold shadow-sm mt-2" onClick={() => setIsMobileMenuOpen(false)}>나의 입주민센터</Link>
+                )}
+              </>
             )}
           </nav>
         </div>
