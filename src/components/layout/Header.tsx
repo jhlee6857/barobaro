@@ -49,7 +49,7 @@ export default function Header() {
               width={250} 
               height={80} 
               priority
-              className="h-[60px] md:h-[80px] w-auto object-contain mix-blend-multiply hover:opacity-90 transition origin-left" 
+              className="h-[60px] md:h-[80px] w-auto object-contain mix-blend-multiply hover:opacity-90 transition origin-left -translate-y-[2px] md:-translate-y-[4px]" 
             />
           </Link>
         </div>
