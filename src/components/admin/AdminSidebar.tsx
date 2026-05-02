@@ -12,7 +12,7 @@ export default function AdminSidebar({ onClose }: { onClose?: () => void }) {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    router.push("/admin/login");
+    router.push("/");
   };
 
   const navItems = [
