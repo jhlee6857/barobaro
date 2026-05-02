@@ -16,11 +16,16 @@ export default function Header() {
         setUserRole(null);
         return;
       }
-      // 카카오 로그인인 경우 입주민, 이메일 로그인인 경우 관리자
-      if (session.user.app_metadata?.provider === 'kakao') {
-        setUserRole('resident');
-      } else {
+      
+      const user = session.user;
+      // 관리자 여부 확인: 이메일 도메인이 baro-manage.com 이거나 관리자 권한 메타데이터가 있는 경우
+      const isAdmin = user.email?.endsWith('baro-manage.com') || user.app_metadata?.role === 'admin';
+      
+      if (isAdmin) {
         setUserRole('admin');
+      } else {
+        // 그 외 모든 로그인 사용자는 기본적으로 입주민(resident)으로 간주
+        setUserRole('resident');
       }
     };
 
