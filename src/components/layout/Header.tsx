@@ -55,7 +55,7 @@ export default function Header() {
         </div>
 
         {/* GNB (Desktop) */}
-        <nav className="hidden lg:flex flex-none justify-center items-center gap-6 xl:gap-10 font-[800] text-slate-800 text-[15px] xl:text-[17px] whitespace-nowrap mx-4 xl:mx-8">
+        <nav className="hidden lg:flex flex-none justify-center items-center gap-6 xl:gap-10 font-[800] text-slate-800 text-[15px] xl:text-[17px] whitespace-nowrap mx-4 xl:mx-8 -translate-x-10">
           <Link href="/notices" className="flex items-center hover:text-brand-primary transition">공지사항 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
           <Link href="/services" className="flex items-center hover:text-brand-primary transition">서비스 소개 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
           <Link href="/process" className="flex items-center hover:text-brand-primary transition">운영방식 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
