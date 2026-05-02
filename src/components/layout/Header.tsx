@@ -8,15 +8,28 @@ import { supabase } from "@/lib/supabaseClient";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [userRole, setUserRole] = useState<'admin' | 'resident' | null>(null);
 
   useEffect(() => {
+    const checkRole = (session: any) => {
+      if (!session) {
+        setUserRole(null);
+        return;
+      }
+      // 카카오 로그인인 경우 입주민, 이메일 로그인인 경우 관리자
+      if (session.user.app_metadata?.provider === 'kakao') {
+        setUserRole('resident');
+      } else {
+        setUserRole('admin');
+      }
+    };
+
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) setIsAdmin(true);
+      checkRole(session);
     });
 
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      setIsAdmin(!!session);
+      checkRole(session);
     });
 
     return () => {
@@ -51,12 +64,28 @@ export default function Header() {
 
         {/* CTA Buttons */}
         <div className="hidden lg:flex items-center justify-end gap-3 flex-1 whitespace-nowrap">
-          {isAdmin && (
+          {!userRole && (
+            <Link 
+              href="/login" 
+              className="bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
+            >
+              로그인
+            </Link>
+          )}
+          {userRole === 'admin' && (
             <Link 
               href="/admin/buildings" 
               className="bg-slate-800 hover:bg-slate-700 text-white px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
             >
               관리자 대시보드
+            </Link>
+          )}
+          {userRole === 'resident' && (
+            <Link 
+              href="/resident" 
+              className="bg-brand-primary hover:bg-brand-secondary text-white px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
+            >
+              나의 입주민센터
             </Link>
           )}
           <Link 
@@ -96,8 +125,14 @@ export default function Header() {
             <Link href="/resident" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>입주민센터</Link>
             <Link href="/about" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>회사소개</Link>
             <Link href="/contact" className="text-lg font-bold text-brand-primary pb-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>카톡/전화 상담</Link>
-            {isAdmin && (
+            {!userRole && (
+              <Link href="/login" className="bg-slate-100 text-slate-700 text-center py-3 rounded-xl font-bold shadow-sm" onClick={() => setIsMobileMenuOpen(false)}>로그인</Link>
+            )}
+            {userRole === 'admin' && (
               <Link href="/admin/buildings" className="bg-slate-800 text-white text-center py-3 rounded-xl font-bold shadow-sm" onClick={() => setIsMobileMenuOpen(false)}>관리자 대시보드</Link>
+            )}
+            {userRole === 'resident' && (
+              <Link href="/resident" className="bg-brand-primary text-white text-center py-3 rounded-xl font-bold shadow-sm" onClick={() => setIsMobileMenuOpen(false)}>나의 입주민센터</Link>
             )}
             <Link href="/estimate" className="bg-brand-primary text-white text-center py-3 rounded-xl font-bold shadow-sm" onClick={() => setIsMobileMenuOpen(false)}>무료 견적 문의</Link>
           </nav>

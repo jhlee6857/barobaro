@@ -47,8 +47,20 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-slate-800 mt-12 pt-8 text-center text-sm text-slate-500">
-          <p>&copy; 2026 바로건물관리 (Baro Building Management). All Rights Reserved.</p>
+        <div className="border-t border-slate-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center md:items-start gap-6">
+          <div className="text-sm text-slate-500 text-center md:text-left space-y-1">
+            <div className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-1">
+              <span><strong>상호:</strong> 바로건물관리</span>
+              <span><strong>대표:</strong> 이재만</span>
+              <span><strong>사업자등록번호:</strong> 881-34-01719</span>
+            </div>
+            <p><strong>주소:</strong> 경기도 하남시 미사강변서로 16, 931호(풍산동, 하우스디스마트밸리)</p>
+            <p className="pt-4">&copy; 2026 바로건물관리 (Baro Building Management). All Rights Reserved.</p>
+          </div>
+          <div className="flex gap-4">
+            <Link href="/privacy" className="text-sm text-slate-500 hover:text-white transition">개인정보 처리방침</Link>
+            <Link href="#" className="text-sm text-slate-500 hover:text-white transition">이용약관</Link>
+          </div>
         </div>
       </div>
     </footer>

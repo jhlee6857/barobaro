@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Key, RefreshCw } from "lucide-react";
 
 export default function AdminBuildingDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -67,6 +68,28 @@ export default function AdminBuildingDetailPage({ params }: { params: { id: stri
     }
   }
 
+  const handleRegeneratePin = async () => {
+    if (!confirm("정말 이 건물의 PIN 번호를 재발급하시겠습니까?\n기존에 안내된 PIN 번호는 더 이상 사용할 수 없게 됩니다.")) return;
+    
+    setIsSubmitting(true);
+    try {
+      const newPin = Math.floor(1000 + Math.random() * 9000).toString();
+      const { error } = await supabase
+        .from('buildings')
+        .update({ pin_code: newPin })
+        .eq('id', id);
+        
+      if (error) throw error;
+      
+      alert(`새 PIN 번호 [${newPin}] 가 발급되었습니다. 게시판 안내문을 교체해 주세요.`);
+      fetchData();
+    } catch (error: any) {
+      alert("재발급 실패: " + error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const handleAddResident = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!unitNumber || !phoneNumber) return;
@@ -129,9 +152,29 @@ export default function AdminBuildingDetailPage({ params }: { params: { id: stri
           </Link>
         </div>
         
-        <div className="bg-white p-6 rounded-lg shadow-sm mb-8 border border-slate-100">
-          <h1 className="text-2xl font-bold text-slate-800">{building.name} <span className="text-lg font-normal text-slate-500 ml-2">입주민 사전등록 관리</span></h1>
-          <p className="text-slate-500 mt-1">{building.address}</p>
+        <div className="bg-white p-6 rounded-lg shadow-sm mb-8 border border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-800">{building.name} <span className="text-lg font-normal text-slate-500 ml-2">입주민 사전등록 관리</span></h1>
+            <p className="text-slate-500 mt-1">{building.address}</p>
+          </div>
+          
+          <div className="bg-slate-50 p-4 rounded-lg border border-slate-200 flex flex-col items-center min-w-[200px]">
+            <div className="flex items-center gap-2 text-slate-600 font-semibold mb-1">
+              <Key size={16} />
+              <span>건물 PIN 코드</span>
+            </div>
+            <div className="text-3xl font-black text-brand-primary tracking-widest mb-2">
+              {building.pin_code || "미발급"}
+            </div>
+            <button 
+              onClick={handleRegeneratePin}
+              disabled={isSubmitting}
+              className="flex items-center gap-1 text-xs text-slate-500 hover:text-brand-primary transition font-medium bg-white px-3 py-1.5 rounded border border-slate-200 shadow-sm"
+            >
+              <RefreshCw size={12} className={isSubmitting ? "animate-spin" : ""} />
+              새로고침 (재발급)
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

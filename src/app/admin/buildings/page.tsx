@@ -49,9 +49,14 @@ export default function AdminBuildingsPage() {
     
     setIsSubmitting(true);
     try {
+      // 4자리 랜덤 PIN 코드 생성
+      const generatePin = () => Math.floor(1000 + Math.random() * 9000).toString();
+      const pinCode = generatePin();
+
       const { error } = await supabase.from('buildings').insert([{ 
         name: newBuildingName,
-        address: newBuildingAddress
+        address: newBuildingAddress,
+        pin_code: pinCode
       }]);
       
       if (error) throw error;
