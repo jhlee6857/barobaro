@@ -23,7 +23,7 @@ export default function Footer() {
               </li>
               <li>lyc342@naver.com</li>
               <li className="pt-2">
-                <Link href="/estimate" className="inline-block bg-brand-secondary hover:bg-brand-accent text-white px-4 py-2 rounded-lg text-xs font-bold transition">
+                <Link href="/estimate" className="inline-block bg-brand-secondary hover:bg-brand-accent active:bg-brand-accent/80 text-white px-5 py-3 rounded-lg text-sm font-bold transition-all active:scale-[0.98]">
                   무료 건물관리 견적 문의 →
                 </Link>
               </li>
@@ -33,11 +33,11 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-bold mb-4">건물관리 서비스</h4>
             <ul className="space-y-3 text-sm">
-              <li><Link href="/services" className="hover:text-white transition">종합건물관리 서비스 소개</Link></li>
-              <li><Link href="/process" className="hover:text-white transition">건물관리 운영방식</Link></li>
-              <li><Link href="/cases" className="hover:text-white transition">건물관리 사례 보기</Link></li>
+              <li><Link href="/services" className="block py-1 hover:text-white transition">종합건물관리 서비스 소개</Link></li>
+              <li><Link href="/process" className="block py-1 hover:text-white transition">건물관리 운영방식</Link></li>
+              <li><Link href="/cases" className="block py-1 hover:text-white transition">건물관리 사례 보기</Link></li>
 
-              <li><Link href="/about" className="hover:text-white transition">회사소개</Link></li>
+              <li><Link href="/about" className="block py-1 hover:text-white transition">회사소개</Link></li>
             </ul>
           </div>
 
