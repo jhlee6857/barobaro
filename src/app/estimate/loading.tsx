@@ -3,7 +3,7 @@ import { PageHero } from "@/components/shared/PageHero";
 
 export default function EstimateLoading() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white">
       <PageHero 
         title="온라인 견적 문의" 
         description="관리비 절감과 건물 가치 상승, 지금 바로 전문가의 무료 1:1 방문 컨설팅을 게시판을 통해 문의해보세요." 
