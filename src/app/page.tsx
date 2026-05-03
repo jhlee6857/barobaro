@@ -35,7 +35,7 @@ export default function Home() {
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-5.52 0-10 3.58-10 8 0 2.86 1.83 5.37 4.6 6.82l-1.12 3.86a.5.5 0 0 0 .61.6l4.03-1.87c.61.08 1.25.13 1.88.13 5.52 0 10-3.58 10-8C22 6.58 17.52 3 12 3z"/></svg>
               카카오톡 상담
             </Link>
-            <Link href="/estimate" className="w-full sm:w-auto text-center bg-brand-secondary hover:bg-brand-accent active:scale-[0.98] text-white px-8 py-5 rounded-full font-bold text-lg transition-all shadow-lg">
+            <Link href="/estimate" className="w-full sm:w-auto min-w-[200px] text-center bg-brand-secondary hover:bg-brand-accent active:scale-[0.98] text-white px-8 py-5 rounded-full font-bold text-lg transition-all shadow-lg relative z-10">
               무료 견적 문의
             </Link>
 
