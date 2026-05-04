@@ -146,10 +146,13 @@ export default function AdminBuildingDetailPage({ params }: { params: { id: stri
       );
     }
     
-    // 01012345678 -> 010-1234-5678 형식으로 변환 (11자리 기준)
+    // 하이픈 삽입 로직 (11자리 또는 10자리 대응)
     if (formatted.length === 11) {
       return `${formatted.slice(0, 3)}-${formatted.slice(3, 7)}-${formatted.slice(7)}`;
+    } else if (formatted.length === 10) {
+      return `${formatted.slice(0, 3)}-${formatted.slice(3, 6)}-${formatted.slice(6)}`;
     }
+    
     return formatted;
   };
 

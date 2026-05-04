@@ -87,7 +87,12 @@ export default function ResidentRegisterPage() {
         throw new Error(`[${unitNumber}] 호는 이미 2명이 등록되어 있어 추가 등록이 불가합니다. 관리자에게 문의해 주세요.`);
       }
 
-      // [추가] 수동으로 입력한 전화번호를 Supabase 세션 메타데이터에 저장 (다음 로그인 시 인식되도록)
+      // [강화] 전화번호 유효성 검사 (10자리 이상이어야 함)
+      if (!userPhone || userPhone.length < 10) {
+        throw new Error("올바른 연락처 정보가 필요합니다. 카카오 로그인 동의를 확인하시거나 관리자에게 문의해 주세요.");
+      }
+
+      // [추가] 수동으로 입력한 전화번호를 Supabase 세션 메타데이터에 저장
       if (userPhone && (!userMetadata?.phone_number || formatPhoneNumber(userMetadata.phone_number) !== userPhone)) {
         await supabase.auth.updateUser({
           data: { phone_number: userPhone }
