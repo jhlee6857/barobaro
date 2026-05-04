@@ -49,50 +49,58 @@ export default function AuthCallbackPage() {
     const processSession = async (session: any) => {
       if (!isSubscribed) return;
 
-      setStatus("입주민 명단을 조회 중입니다...");
+      setStatus("사용자 정보를 분석 중입니다...");
 
-      // 카카오에서 넘어온 정보 추출
+      // [디버깅] 카카오에서 넘어온 메타데이터 전체 출력
       const metadata = session.user.user_metadata || {};
+      console.log("Kakao Auth Metadata:", metadata);
+
       const fullName = metadata.full_name || metadata.name || "";
       const rawPhone = metadata.phone_number || "";
-      
-      // 전화번호 정제 (유틸리티 함수 사용)
       const cleanPhone = formatPhoneNumber(rawPhone);
+      
+      console.log("Cleaned Phone Number:", cleanPhone);
 
       if (!cleanPhone) {
-        console.log("전화번호를 가져올 수 없어 인증 페이지로 이동합니다.");
+        console.error("전화번호 정보가 없습니다. 카카오 설정이나 동의항목을 확인해주세요.");
         router.push("/resident/register");
         return;
       }
 
-      // 사전 등록 명단에서 전화번호 검색
+      setStatus("입주민 명단을 조회 중입니다...");
+
+      // 1. 하이픈 없는 번호로 검색
+      // 2. 혹시 DB에 하이픈이 있을 수 있으므로 하이픈 포함된 번호도 생성
+      const hyphenPhone = cleanPhone.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
+
       const { data: residents, error: dbError } = await supabase
         .from("pre_registered_residents")
         .select("*")
-        .eq("phone_number", cleanPhone);
+        .or(`phone_number.eq.${cleanPhone},phone_number.eq.${hyphenPhone}`);
 
       if (dbError) {
-        console.error("DB Error:", dbError);
+        console.error("DB 조회 오류:", dbError);
         router.push("/resident/register");
         return;
       }
 
+      console.log("Found residents from DB:", residents);
+
       if (residents && residents.length > 0) {
-        // 이미 등록된 입주민인 경우: 방문 기록 업데이트 및 이동
+        setStatus(`${fullName || residents[0].name}님, 환영합니다!`);
+        
         await supabase
           .from("pre_registered_residents")
           .update({ 
             is_registered: true,
-            // 이름이 비어있었다면 카카오에서 받은 이름으로 업데이트
             name: residents[0].name || fullName 
           })
-          .eq("phone_number", cleanPhone);
+          .eq("id", residents[0].id);
           
-        setStatus(`${fullName || "입주민"}님, 환영합니다! 대시보드로 이동합니다.`);
-        setTimeout(() => router.push("/resident"), 1000);
+        setTimeout(() => router.push("/resident"), 800);
       } else {
-        // 명단에 없는 경우: PIN 코드 인증 페이지로 이동하되, 이름/번호 정보를 쿼리스트링으로 전달
-        setStatus("등록된 정보가 없습니다. 인증 화면으로 이동합니다.");
+        console.warn("명단에 일치하는 번호가 없습니다. (입력된 번호:", cleanPhone, ")");
+        setStatus("미등록 사용자입니다. 인증 페이지로 이동합니다.");
         const params = new URLSearchParams();
         if (fullName) params.append("name", fullName);
         if (cleanPhone) params.append("phone", cleanPhone);
