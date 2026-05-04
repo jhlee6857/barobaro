@@ -35,6 +35,7 @@ export default function ResidentRegisterPage() {
                     || metadata.phone 
                     || identityData.phone_number 
                     || identityData.phone 
+                    || identityData.kakao_account?.phone_number
                     || "";
       const cleanPhone = formatPhoneNumber(rawPhone);
       setUserPhone(cleanPhone);
@@ -174,26 +175,6 @@ export default function ResidentRegisterPage() {
             />
           </div>
 
-          {/* 전화번호 수동 입력 (카카오에서 못 가져온 경우만 표시) */}
-          {!userPhone && (
-            <div>
-              <label className="block text-sm font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
-                <span className="text-red-500">*</span> 연락처 (수동 입력)
-              </label>
-              <input 
-                type="tel" 
-                className="w-full border border-slate-200 rounded-xl p-3.5 text-sm focus:ring-2 focus:ring-brand-primary outline-none transition-all bg-slate-50 focus:bg-white"
-                value={userPhone} 
-                onChange={(e) => setUserPhone(e.target.value.replace(/[^0-9]/g, ''))} 
-                required 
-                placeholder="숫자만 입력 (예: 01012345678)"
-              />
-              <p className="text-xs text-slate-500 mt-2">
-                카카오 로그인 시 전화번호를 제공하지 않아 수동 입력이 필요합니다. 관리자가 등록한 번호와 일치해야 합니다.
-              </p>
-            </div>
-          )}
-
           <div className="flex items-center gap-2 mt-2 p-4 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer" onClick={() => setIsRepresentative(!isRepresentative)}>
             <div className={`w-5 h-5 rounded-full flex items-center justify-center border transition-colors ${isRepresentative ? 'bg-brand-primary border-brand-primary' : 'bg-white border-slate-300'}`}>
               {isRepresentative && <CheckCircle2 size={14} className="text-white" />}
@@ -203,7 +184,7 @@ export default function ResidentRegisterPage() {
 
           <button 
             type="submit" 
-            disabled={isLoading || pinCode.length !== 4 || !unitNumber || (!userPhone && userPhone.length < 10)}
+            disabled={isLoading || pinCode.length !== 4 || !unitNumber}
             className="w-full bg-brand-primary text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition-colors mt-4 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
           >
             {isLoading ? "인증 중..." : "인증 완료하고 시작하기"}
