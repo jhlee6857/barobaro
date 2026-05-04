@@ -81,7 +81,7 @@ export default function Header() {
               width={375} 
               height={120} 
               priority
-              className="h-[90px] md:h-[120px] w-auto object-contain mix-blend-multiply contrast-[1.1] brightness-[1.05] hover:opacity-90 transition origin-left -translate-y-[2px] md:-translate-y-[4px] cursor-pointer" 
+              className="h-[90px] md:h-[120px] w-auto object-contain contrast-[1.05] brightness-[1.02] hover:opacity-90 transition origin-left -translate-y-[2px] md:-translate-y-[4px] cursor-pointer" 
             />
           </Link>
         </div>
@@ -191,13 +191,14 @@ export default function Header() {
             </>
           )}
           <button 
-            className="p-2 text-slate-600"
+            className="p-3 -mr-2 text-slate-600 hover:bg-slate-50 active:bg-slate-100 rounded-full transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "메뉴 닫기" : "메뉴 열기"}
           >
             {isMobileMenuOpen ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
             )}
           </button>
         </div>
@@ -206,33 +207,35 @@ export default function Header() {
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
         <div className="lg:hidden absolute top-[100px] left-0 w-full bg-white border-b border-gray-100 shadow-xl flex flex-col px-6 py-4 animate-in slide-in-from-top-2">
-          <nav className="flex flex-col space-y-4">
-            <Link href="/notices" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>공지사항</Link>
-            <Link href="/services" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>서비스 소개</Link>
-            <Link href="/process" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>운영방식</Link>
-            <Link href="/cases" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>관리사례</Link>
-            <Link href="/about" className="text-lg font-medium text-slate-800 pb-2 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>회사소개</Link>
-            <Link href="/contact" className="text-lg font-bold text-[#3c1e1e] pb-4 border-b border-slate-50 flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
+          <nav className="flex flex-col">
+            <Link href="/notices" className="w-full block text-lg font-medium text-slate-800 py-4 border-b border-slate-50 active:bg-slate-50 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>공지사항</Link>
+            <Link href="/services" className="w-full block text-lg font-medium text-slate-800 py-4 border-b border-slate-50 active:bg-slate-50 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>서비스 소개</Link>
+            <Link href="/process" className="w-full block text-lg font-medium text-slate-800 py-4 border-b border-slate-50 active:bg-slate-50 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>운영방식</Link>
+            <Link href="/cases" className="w-full block text-lg font-medium text-slate-800 py-4 border-b border-slate-50 active:bg-slate-50 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>관리사례</Link>
+            <Link href="/about" className="w-full block text-lg font-medium text-slate-800 py-4 border-b border-slate-50 active:bg-slate-50 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>회사소개</Link>
+            <Link href="/contact" className="w-full flex items-center gap-2 text-lg font-bold text-[#3c1e1e] py-4 border-b border-slate-50 active:bg-slate-50 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
               <svg width="20" height="20" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#3c1e1e]">
                 <path fillRule="evenodd" clipRule="evenodd" d="M9 2C4.029 2 0 4.978 0 8.649C0 10.96 1.488 12.986 3.754 14.167C3.518 14.939 2.593 17.587 2.533 17.787C2.473 17.986 2.628 18.066 2.766 17.973C2.905 17.88 5.767 15.938 6.786 15.241C7.502 15.42 8.243 15.514 9 15.514C13.971 15.514 18 12.536 18 8.865C18 5.194 13.971 2 9 2Z" fill="currentColor"/>
               </svg>
               카톡/전화 상담
             </Link>
-            <Link href="/estimate" className="bg-brand-primary text-white text-center py-3 rounded-xl font-bold shadow-sm" onClick={() => setIsMobileMenuOpen(false)}>무료 견적 문의</Link>
+            <div className="py-4">
+              <Link href="/estimate" className="w-full block bg-brand-primary active:bg-brand-secondary text-white text-center py-4 rounded-xl font-bold shadow-sm active:scale-[0.99] transition-all" onClick={() => setIsMobileMenuOpen(false)}>무료 견적 문의</Link>
+            </div>
             {!isAuthLoading && (
-              <>
+              <div className="pb-6">
                 {!userRole && (
-                  <Link href="/login" className="bg-slate-100 text-slate-700 text-center py-3 rounded-xl font-bold shadow-sm mt-2" onClick={() => setIsMobileMenuOpen(false)}>로그인</Link>
+                  <Link href="/login" className="w-full block bg-slate-100 active:bg-slate-200 text-slate-700 text-center py-4 rounded-xl font-bold shadow-sm active:scale-[0.99] transition-all" onClick={() => setIsMobileMenuOpen(false)}>로그인</Link>
                 )}
                 {(userRole === 'admin' || userRole === 'resident') && (
                   <button 
                     onClick={handleLogout}
-                    className="bg-slate-50 text-slate-500 text-center py-3 rounded-xl font-bold border border-slate-100 mt-2"
+                    className="w-full block bg-slate-50 active:bg-slate-100 text-slate-500 text-center py-4 rounded-xl font-bold border border-slate-100 active:scale-[0.99] transition-all"
                   >
                     로그아웃
                   </button>
                 )}
-              </>
+              </div>
             )}
           </nav>
         </div>
