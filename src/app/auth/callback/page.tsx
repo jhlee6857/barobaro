@@ -50,11 +50,21 @@ export default function AuthCallbackPage() {
 
       setStatus("입주민 명단을 조회 중입니다...");
 
-      // 카카오에서 넘어온 전화번호 추출
-      let rawPhone = session.user.user_metadata?.phone_number || "";
+      // 카카오에서 넘어온 정보 추출
+      const metadata = session.user.user_metadata || {};
+      const fullName = metadata.full_name || metadata.name || "";
+      const rawPhone = metadata.phone_number || "";
+      
+      // 전화번호 정제: +82 10-1234-5678 -> 01012345678
       let cleanPhone = rawPhone.replace(/^\+82\s?/, "0").replace(/[^0-9]/g, "");
+      
+      // 만약 1012345678 형식으로 오면 앞에 0을 붙여줌
+      if (cleanPhone.length === 10 && cleanPhone.startsWith("1")) {
+        cleanPhone = "0" + cleanPhone;
+      }
 
       if (!cleanPhone) {
+        console.log("전화번호를 가져올 수 없어 인증 페이지로 이동합니다.");
         router.push("/resident/register");
         return;
       }
@@ -62,7 +72,7 @@ export default function AuthCallbackPage() {
       // 사전 등록 명단에서 전화번호 검색
       const { data: residents, error: dbError } = await supabase
         .from("pre_registered_residents")
-        .select("id, is_registered")
+        .select("*")
         .eq("phone_number", cleanPhone);
 
       if (dbError) {
@@ -72,16 +82,25 @@ export default function AuthCallbackPage() {
       }
 
       if (residents && residents.length > 0) {
+        // 이미 등록된 입주민인 경우: 방문 기록 업데이트 및 이동
         await supabase
           .from("pre_registered_residents")
-          .update({ is_registered: true })
+          .update({ 
+            is_registered: true,
+            // 이름이 비어있었다면 카카오에서 받은 이름으로 업데이트
+            name: residents[0].name || fullName 
+          })
           .eq("phone_number", cleanPhone);
           
-        setStatus("환영합니다! 대시보드로 이동합니다.");
-        router.push("/resident");
+        setStatus(`${fullName || "입주민"}님, 환영합니다! 대시보드로 이동합니다.`);
+        setTimeout(() => router.push("/resident"), 1000);
       } else {
+        // 명단에 없는 경우: PIN 코드 인증 페이지로 이동하되, 이름/번호 정보를 쿼리스트링으로 전달
         setStatus("등록된 정보가 없습니다. 인증 화면으로 이동합니다.");
-        router.push("/resident/register");
+        const params = new URLSearchParams();
+        if (fullName) params.append("name", fullName);
+        if (cleanPhone) params.append("phone", cleanPhone);
+        router.push(`/resident/register?${params.toString()}`);
       }
     };
 
