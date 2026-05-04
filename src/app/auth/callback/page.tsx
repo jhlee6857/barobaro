@@ -76,13 +76,11 @@ export default function AuthCallbackPage() {
       console.log("Cleaned Phone Number:", cleanPhone);
 
       if (!cleanPhone) {
-        console.error("전화번호 정보가 없습니다. 카카오 설정이나 동의항목을 확인해주세요.");
-        alert(
-          "카카오 로그인에서 전화번호를 가져오지 못했습니다.\n\n" +
-          "만약 예전에 권한 동의 없이 가입하신 적이 있다면,\n" +
-          "[카카오톡 > 설정 > 카카오계정 > 연결된 서비스 관리]에서 '바로건물관리'의 연결을 끊고 다시 로그인해 주세요."
-        );
-        router.push("/resident/register");
+        console.warn("전화번호 정보가 없습니다. 수동 입력 페이지로 이동합니다.");
+        const params = new URLSearchParams();
+        if (fullName) params.append("name", fullName);
+        params.append("missing_phone", "true");
+        router.push(`/resident/register?${params.toString()}`);
         return;
       }
 
