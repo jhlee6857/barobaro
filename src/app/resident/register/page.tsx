@@ -24,21 +24,30 @@ export default function ResidentRegisterPage() {
       }
       
       const metadata = session.user.user_metadata || {};
-      setUserMetadata(metadata);
-      
       const identities = session.user.identities || [];
       const kakaoIdentity = identities.find((id: any) => id.provider === 'kakao');
       const identityData = kakaoIdentity?.identity_data || {};
-
+      
+      // [강화] 모든 가능성 있는 경로에서 전화번호 추출
       const rawPhone = session.user.phone 
                     || metadata.phone_number 
                     || metadata.phone 
                     || identityData.phone_number 
                     || identityData.phone 
                     || identityData.kakao_account?.phone_number
+                    || identityData.kakao_account?.phone
+                    || identityData.profile?.phone_number
                     || "";
+                    
       const cleanPhone = formatPhoneNumber(rawPhone);
       setUserPhone(cleanPhone);
+      setUserMetadata(metadata);
+
+      // [추가] 디버깅을 위한 메타데이터 키 목록 저장
+      const keys = Object.keys(metadata).concat(Object.keys(identityData));
+      if (!cleanPhone) {
+        console.log("Available metadata keys:", keys);
+      }
 
       // [추가] 이미 등록된 전화번호인지 확인하여, 등록되어 있다면 대시보드로 바로 보냄
       if (cleanPhone) {
@@ -89,7 +98,8 @@ export default function ResidentRegisterPage() {
 
       // [강화] 전화번호 유효성 검사 (10자리 이상이어야 함)
       if (!userPhone || userPhone.length < 10) {
-        throw new Error("올바른 연락처 정보가 필요합니다. 카카오 로그인 동의를 확인하시거나 관리자에게 문의해 주세요.");
+        const metadataKeys = userMetadata ? Object.keys(userMetadata).join(", ") : "없음";
+        throw new Error(`올바른 연락처 정보(10자리 이상)를 찾을 수 없습니다. (확인된 항목: ${metadataKeys}) \n\n카카오 동의 화면에서 '전화번호' 항목이 필수 체크되어 있는지 다시 확인해 주세요.`);
       }
 
       // [추가] 수동으로 입력한 전화번호를 Supabase 세션 메타데이터에 저장

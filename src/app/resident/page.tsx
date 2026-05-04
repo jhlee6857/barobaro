@@ -40,6 +40,8 @@ export default function ResidentPage() {
                     || identityData.phone_number 
                     || identityData.phone 
                     || identityData.kakao_account?.phone_number
+                    || identityData.kakao_account?.phone
+                    || identityData.profile?.phone_number
                     || "";
       const cleanPhone = formatPhoneNumber(rawPhone);
 
