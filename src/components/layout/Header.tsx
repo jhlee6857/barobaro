@@ -234,97 +234,75 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay & Drawer */}
+      {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
-        <>
-          {/* Overlay Background */}
-          <div 
-            className="lg:hidden fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[51]"
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
-          
-          {/* Mobile Menu Drawer */}
-          <div 
-            className="lg:hidden fixed top-[10px] left-[10px] right-[10px] bottom-[10px] bg-white rounded-[32px] shadow-2xl z-[52] flex flex-col overflow-hidden transition-transform duration-300 ease-out touch-none"
-            style={{ 
-              transform: `translateY(${touchOffset < 0 ? touchOffset : 0}px)`,
-              transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)'
-            }}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-          >
-            {/* Drag Handle Bar */}
-            <div className="w-full flex justify-center pt-4 pb-2">
-              <div className="w-12 h-1.5 bg-slate-200 rounded-full" />
-            </div>
-
-            <div className="flex-1 overflow-y-auto px-8 py-4 custom-scrollbar" id="mobile-menu-scroll">
-              <nav className="flex flex-col pb-20">
-                <Link href="/notices" className="w-full block text-xl font-black text-slate-800 py-5 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>공지사항</Link>
-                <Link href="/services" className="w-full block text-xl font-black text-slate-800 py-5 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>서비스 소개</Link>
-                <Link href="/process" className="w-full block text-xl font-black text-slate-800 py-5 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>운영방식</Link>
-                <Link href="/cases" className="w-full block text-xl font-black text-slate-800 py-5 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>관리사례</Link>
-                <Link href="/about" className="w-full block text-xl font-black text-slate-800 py-5 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>회사소개</Link>
-                <Link href="/contact" className="w-full flex items-center gap-2 text-xl font-black text-[#3c1e1e] py-5 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>
-                  <svg width="24" height="24" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fillRule="evenodd" clipRule="evenodd" d="M9 2C4.029 2 0 4.978 0 8.649C0 10.96 1.488 12.986 3.754 14.167C3.518 14.939 2.593 17.587 2.533 17.787C2.473 17.986 2.628 18.066 2.766 17.973C2.905 17.88 5.767 15.938 6.786 15.241C7.502 15.42 8.243 15.514 9 15.514C13.971 15.514 18 12.536 18 8.865C18 5.194 13.971 2 9 2Z" fill="currentColor"/>
-                  </svg>
-                  카톡/전화 상담
-                </Link>
-                
-                <div className="py-6 space-y-4">
-                  <Link 
-                    href="/estimate" 
-                    className="w-full block bg-brand-primary text-white text-center py-4 rounded-2xl font-black text-lg shadow-lg active:scale-95 transition-all" 
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    무료 견적 문의
-                  </Link>
-                  
-                  {!isAuthLoading && (
-                    <>
-                      {!userRole && (
-                        <Link 
-                          href="/login" 
-                          className="w-full block bg-slate-100 text-slate-700 text-center py-4 rounded-2xl font-black text-lg shadow-sm active:scale-95 transition-all" 
-                          onClick={() => {
-                            setIsMobileMenuOpen(false);
-                            window.scrollTo(0, 0);
-                          }}
-                        >
-                          로그인
-                        </Link>
-                      )}
-                      {(userRole === 'admin' || userRole === 'resident') && (
-                        <button 
-                          onClick={() => {
-                            handleLogout();
-                            setIsMobileMenuOpen(false);
-                          }}
-                          className="w-full block bg-slate-50 text-slate-500 text-center py-4 rounded-2xl font-bold border border-slate-100 active:scale-95 transition-all"
-                        >
-                          로그아웃
-                        </button>
-                      )}
-                    </>
-                  )}
-                </div>
-              </nav>
-            </div>
-
-            {/* Scroll Indicator at Bottom */}
-            <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center pointer-events-none">
-              <div className="w-full h-12 bg-gradient-to-t from-white to-transparent" />
-              <div className="bg-white/80 backdrop-blur-sm px-4 py-1.5 rounded-full border border-slate-100 flex items-center gap-2 animate-bounce shadow-sm">
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Scroll</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400">
-                  <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-                </svg>
-              </div>
-            </div>
+        <div 
+          className="lg:hidden absolute top-[100px] md:top-[135px] left-0 w-full bg-white border-b border-gray-100 shadow-xl z-40 transition-transform duration-300 ease-out origin-top overflow-hidden"
+          style={{ 
+            transform: `translateY(${touchOffset < 0 ? touchOffset : 0}px)`,
+            transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)'
+          }}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          {/* Subtle Handle for Swipe-up Hint */}
+          <div className="w-full flex justify-center py-2 opacity-50">
+            <div className="w-10 h-1 bg-slate-200 rounded-full" />
           </div>
-        </>
+
+          <nav className="flex flex-col px-6 pb-6">
+            <Link href="/notices" className="w-full block text-lg font-black text-slate-800 py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>공지사항</Link>
+            <Link href="/services" className="w-full block text-lg font-black text-slate-800 py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>서비스 소개</Link>
+            <Link href="/process" className="w-full block text-lg font-black text-slate-800 py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>운영방식</Link>
+            <Link href="/cases" className="w-full block text-lg font-black text-slate-800 py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>관리사례</Link>
+            <Link href="/about" className="w-full block text-lg font-black text-slate-800 py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>회사소개</Link>
+            <Link href="/contact" className="w-full flex items-center gap-2 text-lg font-black text-[#3c1e1e] py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>
+              <svg width="20" height="20" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" clipRule="evenodd" d="M9 2C4.029 2 0 4.978 0 8.649C0 10.96 1.488 12.986 3.754 14.167C3.518 14.939 2.593 17.587 2.533 17.787C2.473 17.986 2.628 18.066 2.766 17.973C2.905 17.88 5.767 15.938 6.786 15.241C7.502 15.42 8.243 15.514 9 15.514C13.971 15.514 18 12.536 18 8.865C18 5.194 13.971 2 9 2Z" fill="currentColor"/>
+              </svg>
+              카톡/전화 상담
+            </Link>
+            
+            <div className="pt-4 space-y-3">
+              <Link 
+                href="/estimate" 
+                className="w-full block bg-brand-primary text-white text-center py-3.5 rounded-xl font-black shadow-md active:scale-95 transition-all" 
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                무료 견적 문의
+              </Link>
+              
+              {!isAuthLoading && (
+                <>
+                  {!userRole && (
+                    <Link 
+                      href="/login" 
+                      className="w-full block bg-slate-100 text-slate-700 text-center py-3.5 rounded-xl font-black shadow-sm active:scale-95 transition-all" 
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        window.scrollTo(0, 0);
+                      }}
+                    >
+                      로그인
+                    </Link>
+                  )}
+                  {(userRole === 'admin' || userRole === 'resident') && (
+                    <button 
+                      onClick={() => {
+                        handleLogout();
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="w-full block bg-slate-50 text-slate-500 text-center py-3.5 rounded-xl font-bold border border-slate-100 active:scale-95 transition-all"
+                    >
+                      로그아웃
+                    </button>
+                  )}
+                </>
+              )}
+            </div>
+          </nav>
+        </div>
       )}
     </header>
   );
