@@ -2,19 +2,22 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
-import { useRouter } from "next/navigation";
-import { KeyRound, Building, CheckCircle2 } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { KeyRound, Building, CheckCircle2, Phone } from "lucide-react";
 import { formatPhoneNumber } from "@/lib/utils";
 
 export default function ResidentRegisterPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [pinCode, setPinCode] = useState("");
   const [unitNumber, setUnitNumber] = useState("");
+  const [phoneInput, setPhoneInput] = useState(""); // 사용자가 직접 입력하는 전화번호
   const [isRepresentative, setIsRepresentative] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [userPhone, setUserPhone] = useState("");
   const [userMetadata, setUserMetadata] = useState<any>(null);
+  // 이미 stored_phone이 있는 경우(재방문) 자동으로 채워짐
+  const [storedPhone, setStoredPhone] = useState("");
 
   useEffect(() => {
     supabase.auth.getSession().then(async ({ data: { session } }) => {
@@ -24,45 +27,25 @@ export default function ResidentRegisterPage() {
       }
       
       const metadata = session.user.user_metadata || {};
-      const identities = session.user.identities || [];
-      const kakaoIdentity = identities.find((id: any) => id.provider === 'kakao');
-      const identityData = kakaoIdentity?.identity_data || {};
-
-      // [강화] 유효한 전화번호(10자리 이상)를 찾는 함수
-      const getValidPhone = (...args: any[]) => {
-        for (const val of args) {
-          const cleaned = formatPhoneNumber(String(val || ""));
-          if (cleaned && cleaned.length >= 10) return cleaned;
-        }
-        return "";
-      };
-
-      // 카카오 원본 데이터(identityData)를 먼저 확인하고, 그 다음 세션 메타데이터를 확인
-      const cleanPhone = getValidPhone(
-        identityData.kakao_account?.phone_number,
-        identityData.kakao_account?.phone,
-        identityData.phone_number,
-        identityData.profile?.phone_number,
-        metadata.phone_number,
-        metadata.phone,
-        session.user.phone
-      );
-
-      setUserPhone(cleanPhone);
       setUserMetadata(metadata);
 
-      // [추가] 디버깅을 위한 메타데이터 키 목록 저장
-      const keys = Object.keys(metadata).concat(Object.keys(identityData));
-      if (!cleanPhone) {
-        console.log("Available metadata keys:", keys);
+      // URL 파라미터로 넘어온 전화번호가 있으면 자동 입력 (콜백에서 넘겨준 값)
+      const phoneFromUrl = searchParams.get("phone");
+      if (phoneFromUrl) {
+        setPhoneInput(formatPhoneNumber(phoneFromUrl));
       }
 
-      // [추가] 이미 등록된 전화번호인지 확인하여, 등록되어 있다면 대시보드로 바로 보냄
-      if (cleanPhone) {
+      // 이미 이전에 직접 입력한 stored_phone이 있는지 확인
+      const alreadyStored = formatPhoneNumber(metadata.stored_phone || "");
+      if (alreadyStored) {
+        setStoredPhone(alreadyStored);
+
+        // 이미 등록된 번호인지 DB 확인
+        const hyphenPhone = alreadyStored.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
         const { data: existingResident } = await supabase
           .from("pre_registered_residents")
           .select("is_registered")
-          .eq("phone_number", cleanPhone)
+          .or(`phone_number.eq.${alreadyStored},phone_number.eq.${hyphenPhone}`)
           .single();
         
         if (existingResident?.is_registered) {
@@ -70,7 +53,7 @@ export default function ResidentRegisterPage() {
         }
       }
     });
-  }, [router]);
+  }, [router, searchParams]);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,6 +61,13 @@ export default function ResidentRegisterPage() {
     setIsLoading(true);
 
     try {
+      const cleanPhone = formatPhoneNumber(phoneInput);
+
+      // 전화번호 유효성 검사
+      if (!cleanPhone || cleanPhone.length < 10) {
+        throw new Error("올바른 전화번호를 입력해 주세요. (예: 01012345678)");
+      }
+
       // 1. PIN 번호로 건물 조회
       const { data: buildingData, error: buildingError } = await supabase
         .from("buildings")
@@ -104,33 +94,25 @@ export default function ResidentRegisterPage() {
         throw new Error(`[${unitNumber}] 호는 이미 2명이 등록되어 있어 추가 등록이 불가합니다. 관리자에게 문의해 주세요.`);
       }
 
-      // [강화] 전화번호 유효성 검사 (10자리 이상이어야 함)
-      if (!userPhone || userPhone.length < 10) {
-        const metadataKeys = userMetadata ? Object.keys(userMetadata).join(", ") : "없음";
-        throw new Error(`올바른 연락처 정보(10자리 이상)를 찾을 수 없습니다. (확인된 항목: ${metadataKeys}) \n\n카카오 동의 화면에서 '전화번호' 항목이 필수 체크되어 있는지 다시 확인해 주세요.`);
-      }
+      // 3. [핵심] 전화번호를 Supabase 사용자 메타데이터에 'stored_phone'으로 영구 저장
+      //    다음 로그인 시 카카오에서 전화번호를 못 받아도 이 값을 사용함
+      await supabase.auth.updateUser({
+        data: { stored_phone: cleanPhone }
+      });
 
-      // [추가] 수동으로 입력한 전화번호를 Supabase 세션 메타데이터에 저장
-      if (userPhone && (!userMetadata?.phone_number || formatPhoneNumber(userMetadata.phone_number) !== userPhone)) {
-        await supabase.auth.updateUser({
-          data: { phone_number: userPhone }
-        });
-      }
-
-      // 3. 신규 입주민으로 등록
+      // 4. 신규 입주민으로 등록
       const { error: insertError } = await supabase
         .from("pre_registered_residents")
         .insert([{
           building_id: buildingId,
           unit_number: unitNumber,
-          phone_number: userPhone || "번호없음(심사대기)", // 카카오 심사 전일 경우 대비
-          name: userMetadata?.name || userMetadata?.nickname || "이름없음",
+          phone_number: cleanPhone,
+          name: userMetadata?.name || userMetadata?.full_name || userMetadata?.nickname || "이름없음",
           is_representative: isRepresentative,
           is_registered: true
         }]);
 
       if (insertError) {
-        // 이미 등록된 전화번호인 경우 등의 에러 처리
         if (insertError.code === '23505') {
            throw new Error("이미 등록된 전화번호입니다.");
         }
@@ -168,6 +150,26 @@ export default function ResidentRegisterPage() {
         )}
 
         <form onSubmit={handleRegister} className="flex flex-col gap-5">
+          {/* 전화번호 입력 (항상 표시) */}
+          <div>
+            <label className="block text-sm font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+              <Phone size={16} className="text-slate-400" />
+              연락처
+              {storedPhone && <span className="text-xs text-green-600 font-normal">(이전에 입력한 번호가 있습니다)</span>}
+            </label>
+            <input 
+              type="tel" 
+              className="w-full border border-slate-200 rounded-xl p-3.5 text-sm focus:ring-2 focus:ring-brand-primary outline-none transition-all bg-slate-50 focus:bg-white"
+              value={phoneInput || storedPhone} 
+              onChange={(e) => setPhoneInput(e.target.value.replace(/[^0-9]/g, ''))} 
+              required 
+              placeholder="숫자만 입력 (예: 01012345678)"
+            />
+            <p className="text-xs text-slate-500 mt-1.5">
+              ※ 관리자가 등록한 전화번호와 동일하게 입력해 주세요.
+            </p>
+          </div>
+
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
               <Building size={16} className="text-slate-400" />
@@ -207,7 +209,7 @@ export default function ResidentRegisterPage() {
 
           <button 
             type="submit" 
-            disabled={isLoading || pinCode.length !== 4 || !unitNumber}
+            disabled={isLoading || pinCode.length !== 4 || !unitNumber || (!phoneInput && !storedPhone)}
             className="w-full bg-brand-primary text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition-colors mt-4 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
           >
             {isLoading ? "인증 중..." : "인증 완료하고 시작하기"}

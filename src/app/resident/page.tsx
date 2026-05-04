@@ -28,24 +28,11 @@ export default function ResidentPage() {
         return;
       }
 
-      // 2. 실제 등록 여부 확인
+      // 2. 실제 등록 여부 확인 - stored_phone 우선 사용 (카카오 버그 우회)
       const metadata = session.user.user_metadata || {};
-      const identities = session.user.identities || [];
-      const kakaoIdentity = identities.find((id: any) => id.provider === 'kakao');
-      const identityData = kakaoIdentity?.identity_data || {};
+      const cleanPhone = formatPhoneNumber(metadata.stored_phone || "");
 
-      const rawPhone = session.user.phone 
-                    || metadata.phone_number 
-                    || metadata.phone 
-                    || identityData.phone_number 
-                    || identityData.phone 
-                    || identityData.kakao_account?.phone_number
-                    || identityData.kakao_account?.phone
-                    || identityData.profile?.phone_number
-                    || "";
-      const cleanPhone = formatPhoneNumber(rawPhone);
-
-      // 전화번호가 없거나 등록 정보가 없으면 '거주 인증(register)' 페이지로 이동
+      // 전화번호가 없으면 등록(register) 페이지로 이동
       if (!cleanPhone) {
         router.push("/resident/register");
         return;
