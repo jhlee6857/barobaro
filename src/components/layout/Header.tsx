@@ -249,7 +249,7 @@ export default function Header() {
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
         <div 
-          className="lg:hidden absolute top-[100px] md:top-[135px] left-0 w-full bg-white border-b border-gray-100 shadow-xl z-40 transition-transform duration-300 ease-out origin-top overflow-hidden"
+          className="lg:hidden absolute top-[100px] md:top-[135px] left-0 w-full bg-white border-b border-gray-100 shadow-xl z-40 transition-transform duration-300 ease-out origin-top overflow-hidden select-none"
           style={{ 
             transform: `translateY(${touchOffset < 0 ? touchOffset : 0}px)`,
             transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)'
@@ -263,7 +263,12 @@ export default function Header() {
             <div className="w-10 h-1 bg-slate-200 rounded-full" />
           </div>
 
-          <nav className="flex flex-col px-6 pb-6">
+          <nav 
+            className="flex flex-col px-6 pb-6"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <Link href="/notices" className="w-full block text-lg font-black text-slate-800 py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>공지사항</Link>
             <Link href="/services" className="w-full block text-lg font-black text-slate-800 py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>서비스 소개</Link>
             <Link href="/process" className="w-full block text-lg font-black text-slate-800 py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>운영방식</Link>
@@ -276,7 +281,12 @@ export default function Header() {
               카톡/전화 상담
             </Link>
             
-            <div className="pt-4 space-y-3">
+            <div 
+              className="pt-4 space-y-3"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
               <Link 
                 href="/estimate" 
                 className="w-full block bg-brand-primary text-white text-center py-3.5 rounded-xl font-black shadow-md active:scale-95 transition-all" 
