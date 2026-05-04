@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Key, RefreshCw } from "lucide-react";
+import { Key, RefreshCw, Phone } from "lucide-react";
+import { formatPhoneNumber } from "@/lib/utils";
 
 export default function AdminBuildingDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -132,12 +133,24 @@ export default function AdminBuildingDetailPage({ params }: { params: { id: stri
     }
   };
 
-  const formatPhoneNumber = (phone: string) => {
-    if (!phone) return "";
-    if (phone.length === 11) {
-      return `${phone.slice(0, 3)}-${phone.slice(3, 7)}-${phone.slice(7)}`;
+  const renderPhoneNumber = (phone: string) => {
+    if (!phone) return "-";
+    const formatted = formatPhoneNumber(phone);
+    
+    // 번호가 너무 짧은 경우 (예: "1") 에러 표시와 함께 출력
+    if (formatted.length < 9 && formatted !== "-") {
+      return (
+        <span className="text-red-500 font-bold flex items-center gap-1">
+          {formatted} <span className="text-[10px] bg-red-100 px-1 rounded">오류</span>
+        </span>
+      );
     }
-    return phone;
+    
+    // 01012345678 -> 010-1234-5678 형식으로 변환 (11자리 기준)
+    if (formatted.length === 11) {
+      return `${formatted.slice(0, 3)}-${formatted.slice(3, 7)}-${formatted.slice(7)}`;
+    }
+    return formatted;
   };
 
   if (loading) return <div className="p-10 text-center min-h-screen">Loading...</div>;
@@ -244,7 +257,7 @@ export default function AdminBuildingDetailPage({ params }: { params: { id: stri
                         {r.name || '-'}
                         {r.is_representative && <span className="ml-2 text-xs bg-brand-primary text-white px-2 py-0.5 rounded-full font-bold">동대표</span>}
                       </td>
-                      <td className="p-3 text-slate-600">{formatPhoneNumber(r.phone_number)}</td>
+                      <td className="p-3 text-slate-600 font-medium">{renderPhoneNumber(r.phone_number)}</td>
                       <td className="p-3 text-sm">
                         {r.is_registered ? (
                           <span className="text-green-600 font-bold bg-green-50 px-2 py-1 rounded border border-green-200">앱가입완료</span>
