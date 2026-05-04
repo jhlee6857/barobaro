@@ -29,7 +29,17 @@ export default function ResidentPage() {
       }
 
       // 2. 실제 등록 여부 확인
-      const rawPhone = session.user.user_metadata?.phone_number || "";
+      const metadata = session.user.user_metadata || {};
+      const identities = session.user.identities || [];
+      const kakaoIdentity = identities.find((id: any) => id.provider === 'kakao');
+      const identityData = kakaoIdentity?.identity_data || {};
+
+      const rawPhone = session.user.phone 
+                    || metadata.phone_number 
+                    || metadata.phone 
+                    || identityData.phone_number 
+                    || identityData.phone 
+                    || "";
       const cleanPhone = formatPhoneNumber(rawPhone);
 
       // 전화번호가 없거나 등록 정보가 없으면 '거주 인증(register)' 페이지로 이동

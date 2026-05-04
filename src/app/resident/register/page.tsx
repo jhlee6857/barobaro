@@ -23,9 +23,19 @@ export default function ResidentRegisterPage() {
         return;
       }
       
-      setUserMetadata(session.user.user_metadata);
+      const metadata = session.user.user_metadata || {};
+      setUserMetadata(metadata);
       
-      const rawPhone = session.user.user_metadata?.phone_number || "";
+      const identities = session.user.identities || [];
+      const kakaoIdentity = identities.find((id: any) => id.provider === 'kakao');
+      const identityData = kakaoIdentity?.identity_data || {};
+
+      const rawPhone = session.user.phone 
+                    || metadata.phone_number 
+                    || metadata.phone 
+                    || identityData.phone_number 
+                    || identityData.phone 
+                    || "";
       const cleanPhone = formatPhoneNumber(rawPhone);
       setUserPhone(cleanPhone);
 

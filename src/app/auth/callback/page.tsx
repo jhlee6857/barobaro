@@ -53,10 +53,24 @@ export default function AuthCallbackPage() {
 
       // [디버깅] 카카오에서 넘어온 메타데이터 전체 출력
       const metadata = session.user.user_metadata || {};
+      const identities = session.user.identities || [];
+      const kakaoIdentity = identities.find((id: any) => id.provider === 'kakao');
+      const identityData = kakaoIdentity?.identity_data || {};
+      
+      console.log("Session User:", session.user);
       console.log("Kakao Auth Metadata:", metadata);
+      console.log("Kakao Identity Data:", identityData);
 
-      const fullName = metadata.full_name || metadata.name || "";
-      const rawPhone = metadata.phone_number || "";
+      const fullName = metadata.full_name || metadata.name || identityData.name || "";
+      
+      // 전화번호를 얻을 수 있는 모든 경로 탐색
+      const rawPhone = session.user.phone 
+                    || metadata.phone_number 
+                    || metadata.phone 
+                    || identityData.phone_number 
+                    || identityData.phone 
+                    || "";
+                    
       const cleanPhone = formatPhoneNumber(rawPhone);
       
       console.log("Cleaned Phone Number:", cleanPhone);

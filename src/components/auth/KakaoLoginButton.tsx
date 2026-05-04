@@ -20,6 +20,7 @@ export default function KakaoLoginButton({
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'kakao',
         options: {
+          scopes: 'phone_number name account_email', // 카카오에 전화번호와 이름 스코프 명시적 요청
           redirectTo: `${window.location.origin}/auth/callback`,
           queryParams: {
             prompt: 'consent', // 카카오 동의 화면 강제 노출 (새로운 권한 획득용)
