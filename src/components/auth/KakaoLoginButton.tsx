@@ -21,6 +21,9 @@ export default function KakaoLoginButton({
         provider: 'kakao',
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
+          queryParams: {
+            prompt: 'consent', // 카카오 동의 화면 강제 노출 (새로운 권한 획득용)
+          }
         },
       });
 
