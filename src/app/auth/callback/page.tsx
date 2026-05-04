@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
+import { formatPhoneNumber } from "@/lib/utils";
 
 export default function AuthCallbackPage() {
   const router = useRouter();
@@ -55,13 +56,8 @@ export default function AuthCallbackPage() {
       const fullName = metadata.full_name || metadata.name || "";
       const rawPhone = metadata.phone_number || "";
       
-      // 전화번호 정제: +82 10-1234-5678 -> 01012345678
-      let cleanPhone = rawPhone.replace(/^\+82\s?/, "0").replace(/[^0-9]/g, "");
-      
-      // 만약 1012345678 형식으로 오면 앞에 0을 붙여줌
-      if (cleanPhone.length === 10 && cleanPhone.startsWith("1")) {
-        cleanPhone = "0" + cleanPhone;
-      }
+      // 전화번호 정제 (유틸리티 함수 사용)
+      const cleanPhone = formatPhoneNumber(rawPhone);
 
       if (!cleanPhone) {
         console.log("전화번호를 가져올 수 없어 인증 페이지로 이동합니다.");

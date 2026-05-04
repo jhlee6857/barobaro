@@ -7,7 +7,7 @@ import { PageHero } from "@/components/shared/PageHero";
 import { Button } from "@/components/ui/Button";
 import { Accordion } from "@/components/ui/Accordion";
 import { faqData } from "@/data/mockData";
-import { cn } from "@/lib/utils";
+import { cn, formatPhoneNumber } from "@/lib/utils";
 
 type TabMenu = "notice" | "faq" | "complain" | "general";
 
@@ -30,9 +30,9 @@ export default function ResidentPage() {
 
       // 2. 실제 등록 여부 확인
       const rawPhone = session.user.user_metadata?.phone_number || "";
-      const cleanPhone = rawPhone.replace(/^\+82\s?/, "0").replace(/[^0-9]/g, "");
+      const cleanPhone = formatPhoneNumber(rawPhone);
 
-      // 전화번호가 없거나 등록 정보가 없으면 '거주 인증(register)' 페이지로 이동 (무한 로그인 방지)
+      // 전화번호가 없거나 등록 정보가 없으면 '거주 인증(register)' 페이지로 이동
       if (!cleanPhone) {
         router.push("/resident/register");
         return;

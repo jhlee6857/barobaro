@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import { KeyRound, Building, CheckCircle2 } from "lucide-react";
+import { formatPhoneNumber } from "@/lib/utils";
 
 export default function ResidentRegisterPage() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function ResidentRegisterPage() {
   const [userMetadata, setUserMetadata] = useState<any>(null);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (!session) {
         router.push("/login");
         return;
@@ -24,9 +25,22 @@ export default function ResidentRegisterPage() {
       
       setUserMetadata(session.user.user_metadata);
       
-      let rawPhone = session.user.user_metadata?.phone_number || "";
-      let cleanPhone = rawPhone.replace(/^\+82\s?/, "0").replace(/[^0-9]/g, "");
+      const rawPhone = session.user.user_metadata?.phone_number || "";
+      const cleanPhone = formatPhoneNumber(rawPhone);
       setUserPhone(cleanPhone);
+
+      // [추가] 이미 등록된 전화번호인지 확인하여, 등록되어 있다면 대시보드로 바로 보냄
+      if (cleanPhone) {
+        const { data: existingResident } = await supabase
+          .from("pre_registered_residents")
+          .select("is_registered")
+          .eq("phone_number", cleanPhone)
+          .single();
+        
+        if (existingResident?.is_registered) {
+          router.push("/resident");
+        }
+      }
     });
   }, [router]);
 
