@@ -27,19 +27,27 @@ export default function ResidentRegisterPage() {
       const identities = session.user.identities || [];
       const kakaoIdentity = identities.find((id: any) => id.provider === 'kakao');
       const identityData = kakaoIdentity?.identity_data || {};
-      
-      // [강화] 모든 가능성 있는 경로에서 전화번호 추출
-      const rawPhone = session.user.phone 
-                    || metadata.phone_number 
-                    || metadata.phone 
-                    || identityData.phone_number 
-                    || identityData.phone 
-                    || identityData.kakao_account?.phone_number
-                    || identityData.kakao_account?.phone
-                    || identityData.profile?.phone_number
-                    || "";
-                    
-      const cleanPhone = formatPhoneNumber(rawPhone);
+
+      // [강화] 유효한 전화번호(10자리 이상)를 찾는 함수
+      const getValidPhone = (...args: any[]) => {
+        for (const val of args) {
+          const cleaned = formatPhoneNumber(String(val || ""));
+          if (cleaned && cleaned.length >= 10) return cleaned;
+        }
+        return "";
+      };
+
+      // 카카오 원본 데이터(identityData)를 먼저 확인하고, 그 다음 세션 메타데이터를 확인
+      const cleanPhone = getValidPhone(
+        identityData.kakao_account?.phone_number,
+        identityData.kakao_account?.phone,
+        identityData.phone_number,
+        identityData.profile?.phone_number,
+        metadata.phone_number,
+        metadata.phone,
+        session.user.phone
+      );
+
       setUserPhone(cleanPhone);
       setUserMetadata(metadata);
 

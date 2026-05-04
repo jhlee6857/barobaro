@@ -62,19 +62,26 @@ export default function AuthCallbackPage() {
       console.log("Kakao Identity Data:", identityData);
 
       const fullName = metadata.full_name || metadata.name || identityData.name || "";
-      
-      // 전화번호를 얻을 수 있는 모든 경로 탐색 (카카오 응답 구조 반영: kakao_account 내부에 존재)
-      const rawPhone = session.user.phone 
-                    || metadata.phone_number 
-                    || metadata.phone 
-                    || identityData.phone_number 
-                    || identityData.phone 
-                    || identityData.kakao_account?.phone_number
-                    || identityData.kakao_account?.phone
-                    || identityData.profile?.phone_number
-                    || "";
-                    
-      const cleanPhone = formatPhoneNumber(rawPhone);
+
+      // [강화] 유효한 전화번호(10자리 이상)를 찾는 함수
+      const getValidPhone = (...args: any[]) => {
+        for (const val of args) {
+          const cleaned = formatPhoneNumber(String(val || ""));
+          if (cleaned && cleaned.length >= 10) return cleaned;
+        }
+        return "";
+      };
+
+      // 카카오 원본 데이터를 최우선으로, 그 다음 메타데이터 확인
+      const cleanPhone = getValidPhone(
+        identityData.kakao_account?.phone_number,
+        identityData.kakao_account?.phone,
+        identityData.phone_number,
+        identityData.profile?.phone_number,
+        metadata.phone_number,
+        metadata.phone,
+        session.user.phone
+      );
       
       console.log("Cleaned Phone Number:", cleanPhone);
 
