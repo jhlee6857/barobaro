@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter, useSearchParams } from "next/navigation";
 import { KeyRound, Building, CheckCircle2, Phone } from "lucide-react";
-import { formatPhoneNumber } from "@/lib/utils";
+import { formatPhoneNumber, formatPhoneNumberWithHyphen } from "@/lib/utils";
 
 export default function ResidentRegisterPage() {
   const router = useRouter();
@@ -27,7 +27,12 @@ export default function ResidentRegisterPage() {
       }
       
       const metadata = session.user.user_metadata || {};
-      setUserMetadata(metadata);
+      const identities = session.user.identities || [];
+      const kakaoIdentity = identities.find((id: any) => id.provider === 'kakao');
+      const identityData = kakaoIdentity?.identity_data || {};
+      const realName = identityData.name || identityData.kakao_account?.name || metadata.name || metadata.full_name || "이름없음";
+      
+      setUserMetadata({ ...metadata, realName });
 
       // URL 파라미터로 넘어온 전화번호가 있으면 자동 입력 (콜백에서 넘겨준 값)
       const phoneFromUrl = searchParams.get("phone");
@@ -106,8 +111,8 @@ export default function ResidentRegisterPage() {
         .insert([{
           building_id: buildingId,
           unit_number: unitNumber,
-          phone_number: cleanPhone,
-          name: userMetadata?.name || userMetadata?.full_name || userMetadata?.nickname || "이름없음",
+          phone_number: formatPhoneNumberWithHyphen(cleanPhone),
+          name: userMetadata?.realName || "이름없음",
           is_representative: isRepresentative,
           is_registered: true
         }]);

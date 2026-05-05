@@ -26,3 +26,17 @@ export function formatPhoneNumber(rawPhone: string): string {
   
   return clean;
 }
+
+export function formatPhoneNumberWithHyphen(rawPhone: string): string {
+  const clean = formatPhoneNumber(rawPhone);
+  if (!clean) return "";
+  
+  if (clean.length === 11) {
+    return `${clean.slice(0, 3)}-${clean.slice(3, 7)}-${clean.slice(7)}`;
+  } else if (clean.length === 10) {
+    return `${clean.slice(0, 3)}-${clean.slice(3, 6)}-${clean.slice(6)}`;
+  }
+  
+  // 기타 길이일 경우 그대로 반환하거나 적절히 처리
+  return clean;
+}
