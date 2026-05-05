@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter, useSearchParams } from "next/navigation";
 import { KeyRound, Building, CheckCircle2, Phone } from "lucide-react";
 import { formatPhoneNumber, formatPhoneNumberWithHyphen } from "@/lib/utils";
 
-export default function ResidentRegisterPage() {
+function ResidentRegisterForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [pinCode, setPinCode] = useState("");
@@ -223,5 +223,13 @@ export default function ResidentRegisterPage() {
 
       </div>
     </div>
+  );
+}
+
+export default function ResidentRegisterPage() {
+  return (
+    <Suspense fallback={<div className="h-screen flex items-center justify-center bg-slate-50"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-primary"></div></div>}>
+      <ResidentRegisterForm />
+    </Suspense>
   );
 }
