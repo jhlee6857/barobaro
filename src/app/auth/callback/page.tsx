@@ -52,14 +52,37 @@ export default function AuthCallbackPage() {
       const identityData = kakaoIdentity?.identity_data || {};
 
       // [핵심] 카카오 본명 추출 (우선순위: identityData.name -> kakao_account.name -> metadata)
-      const realName = identityData.name || identityData.kakao_account?.name || metadata.name || metadata.full_name || "이름없음";
+      let realName = identityData.name || identityData.kakao_account?.name || metadata.name || metadata.full_name || "이름없음";
 
       console.log("Session User:", session.user);
       console.log("User Metadata:", metadata);
       console.log("Identity Data:", identityData);
 
-      // 전화번호 추출 (직접 입력한 stored_phone 우선, 그 다음 카카오 제공 정보)
-      const rawPhone = metadata.stored_phone 
+      // [방법 4 적용] Supabase 파싱 버그를 우회하기 위해 카카오 API 직접 호출
+      let kakaoDirectPhone = "";
+      if (session.provider_token) {
+        try {
+          const kakaoRes = await fetch("https://kapi.kakao.com/v2/user/me", {
+            headers: {
+              Authorization: `Bearer ${session.provider_token}`,
+              "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+            },
+          });
+          const kakaoData = await kakaoRes.json();
+          console.log("Direct Kakao API Response:", kakaoData);
+          kakaoDirectPhone = kakaoData.kakao_account?.phone_number || "";
+          
+          if (kakaoData.kakao_account?.name) {
+            realName = kakaoData.kakao_account.name;
+          }
+        } catch (err) {
+          console.error("카카오 API 직접 호출 실패:", err);
+        }
+      }
+
+      // 전화번호 추출 (직접 API 호출 결과 우선 -> 수동 입력 값 -> Supabase 파싱 값)
+      const rawPhone = kakaoDirectPhone
+                    || metadata.stored_phone 
                     || session.user.phone 
                     || metadata.phone_number 
                     || metadata.phone 
