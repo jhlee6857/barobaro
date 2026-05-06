@@ -7,7 +7,7 @@ import { PageHero } from "@/components/shared/PageHero";
 import { Button } from "@/components/ui/Button";
 import { Accordion } from "@/components/ui/Accordion";
 import { faqData } from "@/data/mockData";
-import { cn, formatPhoneNumber } from "@/lib/utils";
+import { cn, formatPhoneNumber, formatPhoneNumberWithHyphen } from "@/lib/utils";
 
 type TabMenu = "notice" | "faq" | "complain" | "general";
 
@@ -38,10 +38,12 @@ export default function ResidentPage() {
         return;
       }
 
+      const hyphenPhone = formatPhoneNumberWithHyphen(cleanPhone);
+
       const { data: resident } = await supabase
         .from("pre_registered_residents")
         .select("is_registered")
-        .eq("phone_number", cleanPhone)
+        .or(`phone_number.eq.${cleanPhone},phone_number.eq.${hyphenPhone}`)
         .single();
 
       if (!resident?.is_registered) {
