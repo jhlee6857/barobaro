@@ -17,12 +17,26 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          dark: "#0F172A", // 딥블루 (Slate-900)
-          primary: "#1A73E8", // 관리자 메인 블루 (Google Blue)
-          secondary: "#3B82F6", // 포인트 블루 (Blue-500)
-          light: "#EFF6FF", // 라이트 블루 (Blue-50)
-          accent: "#2563EB", // 하이라이트
+          dark: "#0a0f1c", // 아주 깊은 네이비 (프리미엄 느낌)
+          primary: "#1e3a8a", // 묵직한 메인 블루 (Blue 900)
+          secondary: "#2563eb", // 포인트 블루 (Blue 600)
+          accent: "#fcd34d", // 강조용 옐로우 (Yellow 300)
+          light: "#f8fafc", // 깨끗한 배경 (Slate 50)
         },
+      },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        slideUp: {
+          "0%": { opacity: "0", transform: "translateY(30px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+      },
+      animation: {
+        fadeIn: "fadeIn 0.8s ease-out forwards",
+        slideUp: "slideUp 0.8s ease-out forwards",
       },
     },
   },
