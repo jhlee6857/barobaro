@@ -40,6 +40,12 @@ function ResidentRegisterForm() {
         setPhoneInput(formatPhoneNumber(phoneFromUrl));
       }
 
+      // sessionStorage에서 이전에 인증한 PIN 코드가 있으면 자동 입력
+      const savedPin = sessionStorage.getItem("verifiedPinCode");
+      if (savedPin && savedPin.length === 4) {
+        setPinCode(savedPin);
+      }
+
       // 이미 이전에 직접 입력한 stored_phone이 있는지 확인
       const alreadyStored = formatPhoneNumber(metadata.stored_phone || "");
       if (alreadyStored) {
