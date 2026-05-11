@@ -161,25 +161,41 @@ function ResidentRegisterForm() {
         )}
 
         <form onSubmit={handleRegister} className="flex flex-col gap-5">
-          {/* 전화번호 입력 (항상 표시) */}
-          <div>
-            <label className="block text-sm font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
-              <Phone size={16} className="text-slate-400" />
-              연락처
-              {storedPhone && <span className="text-xs text-green-600 font-normal">(이전에 입력한 번호가 있습니다)</span>}
-            </label>
-            <input 
-              type="tel" 
-              className="w-full border border-slate-200 rounded-xl p-3.5 text-sm focus:ring-2 focus:ring-brand-primary outline-none transition-all bg-slate-50 focus:bg-white"
-              value={phoneInput || storedPhone} 
-              onChange={(e) => setPhoneInput(e.target.value.replace(/[^0-9]/g, ''))} 
-              required 
-              placeholder="숫자만 입력 (예: 01012345678)"
-            />
-            <p className="text-xs text-slate-500 mt-1.5">
-              ※ 관리자가 등록한 전화번호와 동일하게 입력해 주세요.
-            </p>
-          </div>
+          {/* 전화번호 표시 (받아온 번호가 있으면 입력창 대신 텍스트로 표시) */}
+          {(phoneInput || storedPhone) ? (
+            <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-1">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5 text-sm font-bold text-slate-700">
+                  <Phone size={16} className="text-slate-400" />
+                  카카오 인증 연락처
+                </div>
+                <span className="text-xs font-bold text-brand-primary bg-brand-light px-2 py-1 rounded-md">
+                  자동 입력됨
+                </span>
+              </div>
+              <div className="mt-2 text-slate-800 font-medium">
+                {formatPhoneNumberWithHyphen(phoneInput || storedPhone)}
+              </div>
+            </div>
+          ) : (
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                <Phone size={16} className="text-slate-400" />
+                연락처
+              </label>
+              <input 
+                type="tel" 
+                className="w-full border border-slate-200 rounded-xl p-3.5 text-sm focus:ring-2 focus:ring-brand-primary outline-none transition-all bg-slate-50 focus:bg-white"
+                value={phoneInput} 
+                onChange={(e) => setPhoneInput(e.target.value.replace(/[^0-9]/g, ''))} 
+                required 
+                placeholder="숫자만 입력 (예: 01012345678)"
+              />
+              <p className="text-xs text-slate-500 mt-1.5">
+                ※ 관리자가 등록한 전화번호와 동일하게 입력해 주세요.
+              </p>
+            </div>
+          )}
 
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
