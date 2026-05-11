@@ -17,12 +17,6 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // 입주민 PIN 코드 상태
-  const [pinCode, setPinCode] = useState("");
-  const [isPinVerified, setIsPinVerified] = useState(false);
-  const [isVerifyingPin, setIsVerifyingPin] = useState(false);
-  const [buildingName, setBuildingName] = useState("");
-
   useEffect(() => {
     // 관리자로 이미 로그인된 경우만 대시보드로 자동 리다이렉트
     // 일반 사용자는 PIN 인증 전까지 로그인 페이지를 볼 수 있도록 자동 리다이렉트 제거
@@ -45,36 +39,6 @@ export default function LoginPage() {
       setIsLoading(false);
     } else {
       router.push("/admin/buildings");
-    }
-  };
-
-  const handleVerifyPin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (pinCode.length !== 4) {
-      alert("4자리 PIN 번호를 입력해주세요.");
-      return;
-    }
-    
-    setIsVerifyingPin(true);
-    try {
-      const { data, error } = await supabase
-        .from("buildings")
-        .select("name")
-        .eq("pin_code", pinCode)
-        .single();
-
-      if (error || !data) {
-        alert("유효하지 않은 건물 코드입니다. 다시 확인해주세요.");
-      } else {
-        setBuildingName(data.name);
-        setIsPinVerified(true);
-        // sessionStorage에 PIN 코드를 저장하여 회원가입 시 자동 입력되도록 지원
-        sessionStorage.setItem("verifiedPinCode", pinCode);
-      }
-    } catch (err) {
-      alert("건물 코드를 확인하는 중 오류가 발생했습니다.");
-    } finally {
-      setIsVerifyingPin(false);
     }
   };
 
@@ -108,68 +72,23 @@ export default function LoginPage() {
         {/* 입주민 로그인 탭 */}
         {activeTab === 'resident' && (
           <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
-            {!isPinVerified ? (
-              <form onSubmit={handleVerifyPin} className="flex flex-col gap-4">
-                <div className="text-center mb-6">
-                  <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 text-brand-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg>
-                  </div>
-                  <h3 className="font-bold text-slate-800">건물 코드 인증</h3>
-                  <p className="text-sm text-slate-500 mt-2 leading-relaxed">
-                    게시판에 안내된 4자리 건물 코드를<br/>먼저 입력해 주세요.
-                  </p>
-                </div>
-                <div>
-                  <input 
-                    type="text" 
-                    maxLength={4}
-                    className="w-full border border-slate-200 rounded-xl p-3.5 text-lg font-black tracking-widest text-center focus:ring-2 focus:ring-brand-primary outline-none transition-all bg-slate-50 focus:bg-white"
-                    value={pinCode} 
-                    onChange={(e) => setPinCode(e.target.value.replace(/[^0-9]/g, ''))} 
-                    required 
-                    placeholder="건물 코드 4자리 입력"
-                  />
-                </div>
-                <button 
-                  type="submit" 
-                  disabled={isVerifyingPin || pinCode.length !== 4}
-                  className="w-full bg-brand-primary text-white font-bold py-3.5 rounded-xl hover:bg-blue-700 transition-colors mt-2 disabled:opacity-50"
-                >
-                  {isVerifyingPin ? "확인 중..." : "건물 코드 확인"}
-                </button>
-              </form>
-            ) : (
-              <div className="animate-in fade-in duration-300">
-                <div className="text-center mb-6">
-                  <div className="bg-blue-50 text-brand-primary px-4 py-2 rounded-full inline-block mb-4 text-sm font-bold border border-blue-100">
-                    {buildingName} 확인 완료
-                  </div>
-                  <div className="w-16 h-16 bg-yellow-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg width="28" height="28" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#FEE500]">
-                      <path fillRule="evenodd" clipRule="evenodd" d="M9 2C4.029 2 0 4.978 0 8.649C0 10.96 1.488 12.986 3.754 14.167C3.518 14.939 2.593 17.587 2.533 17.787C2.473 17.986 2.628 18.066 2.766 17.973C2.905 17.88 5.767 15.938 6.786 15.241C7.502 15.42 8.243 15.514 9 15.514C13.971 15.514 18 12.536 18 8.865C18 5.194 13.971 2 9 2Z" fill="black"/>
-                    </svg>
-                  </div>
-                  <h3 className="font-bold text-slate-800">카카오톡 1초 로그인</h3>
-                  <p className="text-sm text-slate-500 mt-2 leading-relaxed">
-                    복잡한 회원가입 없이 카카오톡 계정으로<br/>안전하고 빠르게 로그인하세요.
-                  </p>
-                </div>
-                
-                <KakaoLoginButton label="카카오로 로그인 (입주민 전용)" />
-                
-                <div className="mt-4 text-center">
-                  <button 
-                    onClick={() => setIsPinVerified(false)}
-                    className="text-xs text-slate-400 underline hover:text-slate-600 transition-colors"
-                  >
-                    다른 건물 코드로 다시 입력하기
-                  </button>
-                </div>
-                <p className="text-xs text-center text-slate-400 mt-4">
-                  카카오 로그인 시 바로 서비스 이용약관 및<br/>개인정보 처리방침에 동의한 것으로 간주됩니다.
-                </p>
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-yellow-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg width="28" height="28" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#FEE500]">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M9 2C4.029 2 0 4.978 0 8.649C0 10.96 1.488 12.986 3.754 14.167C3.518 14.939 2.593 17.587 2.533 17.787C2.473 17.986 2.628 18.066 2.766 17.973C2.905 17.88 5.767 15.938 6.786 15.241C7.502 15.42 8.243 15.514 9 15.514C13.971 15.514 18 12.536 18 8.865C18 5.194 13.971 2 9 2Z" fill="black"/>
+                </svg>
               </div>
-            )}
+              <h3 className="font-bold text-slate-800">카카오톡 1초 로그인</h3>
+              <p className="text-sm text-slate-500 mt-2 leading-relaxed">
+                복잡한 회원가입 없이 카카오톡 계정으로<br/>안전하고 빠르게 로그인하세요.
+              </p>
+            </div>
+            
+            <KakaoLoginButton label="카카오로 로그인 (입주민 전용)" />
+            
+            <p className="text-xs text-center text-slate-400 mt-4">
+              카카오 로그인 시 바로 서비스 이용약관 및<br/>개인정보 처리방침에 동의한 것으로 간주됩니다.
+            </p>
           </div>
         )}
 
