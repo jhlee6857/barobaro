@@ -58,25 +58,30 @@ export default function AuthCallbackPage() {
       console.log("User Metadata:", metadata);
       console.log("Identity Data:", identityData);
 
-      // [방법 4 적용] Supabase 파싱 버그를 우회하기 위해 카카오 API 직접 호출
+      // [방법 4 적용] Supabase Edge Function을 대신하는 Next.js API 라우트 호출
       let kakaoDirectPhone = "";
       if (session.provider_token) {
         try {
-          const kakaoRes = await fetch("https://kapi.kakao.com/v2/user/me", {
+          const res = await fetch("/api/kakao/phone", {
+            method: "POST",
             headers: {
-              Authorization: `Bearer ${session.provider_token}`,
-              "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+              "Content-Type": "application/json",
             },
+            body: JSON.stringify({ provider_token: session.provider_token }),
           });
-          const kakaoData = await kakaoRes.json();
-          console.log("Direct Kakao API Response:", kakaoData);
-          kakaoDirectPhone = kakaoData.kakao_account?.phone_number || "";
           
-          if (kakaoData.kakao_account?.name) {
-            realName = kakaoData.kakao_account.name;
+          if (res.ok) {
+            const data = await res.json();
+            console.log("Direct Kakao API Response (via Next.js API):", data);
+            kakaoDirectPhone = data.phone || "";
+            if (data.name) {
+              realName = data.name;
+            }
+          } else {
+            console.error("Next.js 카카오 API 라우트 호출 실패:", await res.text());
           }
         } catch (err) {
-          console.error("카카오 API 직접 호출 실패:", err);
+          console.error("카카오 API 라우트 통신 에러:", err);
         }
       }
 
