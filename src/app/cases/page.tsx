@@ -1,8 +1,4 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/shared/PageHero";
-import { Card, CardContent, CardHeader } from "@/components/ui/Card";
-import { supabase } from "@/lib/supabaseClient";
-import AdminDeleteButton from "@/components/shared/AdminDeleteButton";
 
 export const metadata: Metadata = {
   title: "관리사례 | 바로건물관리 - 실제 도입 전후 비교",
@@ -16,82 +12,222 @@ export const metadata: Metadata = {
   },
 };
 
-
-export const revalidate = 60;
-
-export default async function CasesPage() {
-  let displayCases: any[] = [];
-  
-  try {
-    const { data: cases } = await supabase.from('cases').select('*').order('created_at', { ascending: false });
-    if (cases) displayCases = cases;
-  } catch (e) {
-    console.error("Failed to fetch cases:", e);
-  }
-
+export default function CasesPage() {
   return (
-    <div>
-      <PageHero 
-        title="관리사례" 
-        description="바로건물관리의 손길이 닿으면 가치가 달라집니다. 다양한 건물의 해결 사례를 확인하세요."
-      />
+    <div className="bg-[#f1f3f5] min-h-screen pb-20">
+      
+      {/* Hero Section */}
+      <section className="bg-white pt-20 pb-16">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row gap-8 items-center">
+            
+            <div className="md:w-1/3 flex flex-col justify-center space-y-12">
+              <div>
+                <p className="text-xl text-slate-500 mb-1">바로를 이용한</p>
+                <h1 className="text-2xl font-light text-slate-800 leading-snug">
+                  실제 빌라관리, 건물관리, 임대관리 사례를 확인하세요
+                </h1>
+              </div>
+              
+              <div className="border-b-4 border-brand-primary w-max pb-2">
+                <p className="text-brand-secondary text-lg">관리부터</p>
+                <p className="text-brand-secondary text-lg mb-2">보수까지 꼼꼼한</p>
+                <h2 className="text-4xl font-black text-brand-primary tracking-tight">바로 서비스</h2>
+              </div>
 
-      <section className="py-20 bg-slate-50 min-h-[60vh]">
-        <div className="container mx-auto px-4 md:px-6">
-          {displayCases.length === 0 ? (
-            <div className="text-center py-20 text-slate-500 bg-white shadow-sm rounded-lg max-w-2xl mx-auto">
-              <p className="font-medium text-lg">현재 등록된 관리 사례가 없습니다.</p>
-              <p className="text-sm mt-2">관리자 페이지에서 사례를 추가해주세요.</p>
+              <div className="pt-4 border-t border-slate-100 md:hidden"></div>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {displayCases.map((c: any) => (
-                <Card key={c.id} className="border-none shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col h-full bg-white">
-                  {c.imageUrl && (
-                    <div className="w-full h-64 overflow-hidden bg-slate-100">
-                      <img src={c.imageUrl} alt="현장 사진" className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
-                    </div>
-                  )}
-                  <CardHeader className="bg-slate-100 p-6 flex flex-col gap-2">
-                    <div className="flex justify-between items-start">
-                      <span className="inline-block px-3 py-1 bg-brand-primary text-white text-xs font-bold rounded-full">
-                        {c.region}
-                      </span>
-                      <span className="text-sm font-medium text-slate-500">{c.scale}</span>
-                    </div>
-                    <div className="flex justify-between items-center mt-2">
-                       <h3 className="text-xl font-bold text-slate-800">{c.buildingType}</h3>
-                       <AdminDeleteButton table="cases" id={c.id} imageUrl={c.imageUrl} />
-                    </div>
-                  </CardHeader>
-                  <CardContent className="p-6 flex-grow flex flex-col space-y-6">
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <div className="w-2 h-2 rounded-full bg-red-500"></div>
-                        <strong className="text-sm text-slate-800 font-bold">AS-IS (도입 전 주요 문제)</strong>
-                      </div>
-                      <p className="text-slate-600 text-sm leading-relaxed p-4 bg-slate-50 rounded-lg whitespace-pre-line">{c.mainProblem}</p>
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <div className="w-2 h-2 rounded-full bg-brand-secondary"></div>
-                        <strong className="text-sm text-slate-800 font-bold">진행 과정</strong>
-                      </div>
-                      <p className="text-slate-600 text-sm leading-relaxed p-4 bg-blue-50 rounded-lg border border-blue-100 whitespace-pre-line">{c.process}</p>
-                    </div>
-                    <div className="pt-2 border-t border-slate-100 mt-auto">
-                      <div className="flex items-center gap-2 mb-2">
-                        <strong className="text-sm text-brand-primary font-black">TO-BE (개선 결과)</strong>
-                      </div>
-                      <p className="text-slate-800 font-bold text-base whitespace-pre-line">{c.result}</p>
-                    </div>
-                  </CardContent>
-                </Card>
+
+            <div className="md:w-2/3 relative">
+              <div className="aspect-[16/9] w-full overflow-hidden bg-slate-200 shadow-md">
+                <img 
+                  src="https://picsum.photos/seed/hero_case/800/450" 
+                  alt="건물관리 사례" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-8 -left-16 hidden md:block w-64 aspect-square bg-white shadow-xl p-2 border border-slate-100">
+                <img src="https://picsum.photos/seed/hero_sub/300/300" alt="점검" className="w-full h-full object-cover" />
+              </div>
+            </div>
+            
+          </div>
+          
+          <div className="mt-20 md:mt-16 text-center md:text-left text-sm text-slate-600 leading-relaxed max-w-2xl">
+            <p>건물관리에 필요한 모든 것을 한 곳에서 관리하세요</p>
+            <p>이제껏 경험하지 못 했던 쉽고 편리한 건물 관리</p>
+            <p className="font-bold text-black text-base mt-1">지금 시작해 보세요!</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Cases Content */}
+      <section className="pt-16 max-w-5xl mx-auto px-4">
+        <h3 className="text-xl font-bold text-slate-800 mb-8 pb-4 border-b border-slate-300">
+          <span className="text-brand-primary">바로</span> 관리 사례
+        </h3>
+
+        {/* 건물 관리 */}
+        <div className="mb-12">
+          <div className="bg-[#1a2035] text-white font-bold py-3 px-6 mb-4">건물 관리</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[1, 2, 3].map((num) => (
+              <div key={num} className="relative aspect-[4/3] bg-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
+                  {num.toString().padStart(2, '0')}
+                </div>
+                <img src={`https://picsum.photos/seed/building${num}/600/400`} alt="건물 관리" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 소방 점검 */}
+        <div className="mb-12">
+          <div className="bg-[#1a2035] text-white font-bold py-3 px-6 mb-4">소방 점검</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[1, 2, 3].map((num) => (
+              <div key={num} className="relative aspect-[4/3] bg-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
+                  {num.toString().padStart(2, '0')}
+                </div>
+                <img src={`https://picsum.photos/seed/fire${num}/600/400`} alt="소방 점검" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 수도 점검 & 안내판 설치 */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+          <div className="col-span-1">
+            <div className="bg-[#1a2035] text-white font-bold py-3 px-6 mb-4 whitespace-nowrap">수도 점검</div>
+            <div className="relative aspect-[4/3] bg-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+               <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">01</div>
+               <img src={`https://picsum.photos/seed/water1/600/400`} alt="수도 점검" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+            </div>
+          </div>
+          <div className="col-span-1 md:col-span-2">
+            <div className="bg-[#1a2035] text-white font-bold py-3 px-6 mb-4 whitespace-nowrap">안내판 설치</div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[1, 2].map((num) => (
+                <div key={num} className="relative aspect-[4/3] bg-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                   <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
+                     {num.toString().padStart(2, '0')}
+                   </div>
+                   <img src={`https://picsum.photos/seed/sign${num}/600/400`} alt="안내판 설치" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                </div>
               ))}
             </div>
-          )}
+          </div>
         </div>
+
+        {/* 엘리베이터 점검/수리 */}
+        <div className="mb-12">
+          <div className="bg-[#1a2035] text-white font-bold py-3 px-6 mb-4">엘리베이터 점검/수리</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[1, 2, 3].map((num) => (
+              <div key={num} className="relative aspect-[4/3] bg-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
+                  {num.toString().padStart(2, '0')}
+                </div>
+                <img src={`https://picsum.photos/seed/elevator${num}/600/400`} alt="엘리베이터 점검/수리" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 건물 관리 (Sub) */}
+        <div className="mb-12">
+          <div className="bg-[#1a2035] text-white font-bold py-3 px-6 mb-4">건물 관리</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[4, 5, 6].map((num, idx) => (
+              <div key={num} className="relative aspect-[4/3] bg-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
+                  {(idx + 1).toString().padStart(2, '0')}
+                </div>
+                <img src={`https://picsum.photos/seed/building${num}/600/400`} alt="건물 관리" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 재활용 정리 */}
+        <div className="mb-12">
+          <div className="bg-[#1a2035] text-white font-bold py-3 px-6 mb-4">재활용 정리</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[1, 2].map((num) => (
+              <div key={num} className="relative aspect-[4/3] bg-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
+                  {num.toString().padStart(2, '0')}
+                </div>
+                <img src={`https://picsum.photos/seed/recycle${num}/600/400`} alt="재활용 정리" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 전기 점검 */}
+        <div className="mb-12">
+          <div className="bg-[#1a2035] text-white font-bold py-3 px-6 mb-4">전기 점검</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[1, 2].map((num) => (
+              <div key={num} className="relative aspect-[4/3] bg-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
+                  {num.toString().padStart(2, '0')}
+                </div>
+                <img src={`https://picsum.photos/seed/elec${num}/600/400`} alt="전기 점검" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 주차장 선작업 */}
+        <div className="mb-12">
+          <div className="bg-[#1a2035] text-white font-bold py-3 px-6 mb-4">주차장 선작업</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[1, 2, 3].map((num) => (
+              <div key={num} className="relative aspect-[4/3] bg-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
+                  {num.toString().padStart(2, '0')}
+                </div>
+                <img src={`https://picsum.photos/seed/parking${num}/600/400`} alt="주차장 선작업" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 주차장 차단기 설치 */}
+        <div className="mb-12">
+          <div className="bg-[#1a2035] text-white font-bold py-3 px-6 mb-4">주차장 차단기 설치</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[1, 2, 3].map((num) => (
+              <div key={num} className="relative aspect-[4/3] bg-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
+                  {num.toString().padStart(2, '0')}
+                </div>
+                <img src={`https://picsum.photos/seed/barrier${num}/600/400`} alt="주차장 차단기 설치" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CCTV, NVR 점검 및 수리 */}
+        <div className="mb-12">
+          <div className="bg-[#1a2035] text-white font-bold py-3 px-6 mb-4">CCTV, NVR 점검 및 수리</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[1, 2, 3].map((num) => (
+              <div key={num} className="relative aspect-[4/3] bg-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
+                  {num.toString().padStart(2, '0')}
+                </div>
+                <img src={`https://picsum.photos/seed/cctv${num}/600/400`} alt="CCTV 수리" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+              </div>
+            ))}
+          </div>
+        </div>
+
       </section>
     </div>
   )
 }
+
