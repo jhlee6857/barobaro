@@ -48,11 +48,11 @@ export default function Home() {
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-brand-dark pt-20">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+            src="/building_hero.png"
             alt="프리미엄 건물관리"
             fill
             priority
-            className="object-cover object-center opacity-30"
+            className="object-cover object-center opacity-35 scale-[1.02] transform transition-all duration-1000"
           />
           {/* 고급스러운 그라데이션 오버레이 */}
           <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/80 via-brand-dark/60 to-brand-dark" />
