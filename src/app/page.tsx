@@ -192,29 +192,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Feature 2 */}
-            <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
-              <div className="w-full md:w-1/2 space-y-6">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-light text-brand-primary">
-                  <Wrench className="w-6 h-6" />
-                </div>
-                <h3 className="text-2xl md:text-4xl font-bold text-brand-dark leading-tight">하청 없는 직영 체제,<br />빠르고 완벽한 A/S</h3>
-                <p className="text-lg text-slate-500 leading-relaxed">
-                  외주 업체에 떠넘기지 않습니다. 검증된 본사 직영 마스터가 배정되어 책임지고 건물을 관리하며, 하자 발생 시 즉시 출동하여 해결합니다.
-                </p>
-                <ul className="space-y-3 pt-4">
-                  <li className="flex items-center gap-3 text-slate-700 font-medium"><CheckCircle2 className="w-5 h-5 text-brand-secondary" /> 전담 직영 마스터 배정</li>
-                  <li className="flex items-center gap-3 text-slate-700 font-medium"><CheckCircle2 className="w-5 h-5 text-brand-secondary" /> 24시간 긴급 출동 서비스</li>
-                  <li className="flex items-center gap-3 text-slate-700 font-medium"><CheckCircle2 className="w-5 h-5 text-brand-secondary" /> 자체 설비팀 보유로 비용 절감</li>
-                </ul>
-              </div>
-              <div className="w-full md:w-1/2">
-                <div className="bg-slate-100 rounded-[2rem] p-8 aspect-square md:aspect-[4/3] flex items-center justify-center relative overflow-hidden">
-                   <Image src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="전문적인 유지보수" fill className="object-cover rounded-[2rem]" />
-                   <div className="absolute inset-0 bg-brand-dark/10"></div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
