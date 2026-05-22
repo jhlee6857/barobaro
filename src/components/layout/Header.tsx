@@ -215,6 +215,7 @@ export default function Header() {
                 <Link 
                   href="/login" 
                   className="bg-white border border-slate-200 text-slate-700 px-3 py-1.5 rounded-full font-bold text-xs shadow-sm"
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   로그인
                 </Link>
