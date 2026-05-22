@@ -129,51 +129,11 @@ export default function Header() {
         </div>
 
         {/* GNB (Desktop) */}
-        <nav className="hidden lg:flex flex-none justify-center items-center gap-6 xl:gap-8 font-[800] text-slate-800 text-[14px] xl:text-[16px] whitespace-nowrap mx-4 xl:mx-8 -translate-x-6">
-          {/* 주요업무 Dropdown */}
-          <div className="relative group">
-            <button className="flex items-center hover:text-brand-primary transition py-2 gap-0.5">
-              주요업무 <ChevronDown className="w-4 h-4 text-slate-400 group-hover:rotate-180 transition-transform duration-300" />
-            </button>
-            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-48 bg-white rounded-xl shadow-xl border border-slate-100 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform scale-95 group-hover:scale-100 z-50">
-              <Link href="/services#general" className="block px-4 py-2 hover:bg-slate-50 hover:text-brand-primary transition text-slate-700 font-semibold">건물종합관리</Link>
-              <Link href="/services#safety" className="block px-4 py-2 hover:bg-slate-50 hover:text-brand-primary transition text-slate-700 font-semibold">건축물관리계획</Link>
-              <Link href="/services#longterm" className="block px-4 py-2 hover:bg-slate-50 hover:text-brand-primary transition text-slate-700 font-semibold">장기수선계획서</Link>
-              <Link href="/services#demolition" className="block px-4 py-2 hover:bg-slate-50 hover:text-brand-primary transition text-slate-700 font-semibold">해체계획서</Link>
-              <Link href="/services#association" className="block px-4 py-2 hover:bg-slate-50 hover:text-brand-primary transition text-slate-700 font-semibold">관리단업무</Link>
-            </div>
-          </div>
-
-          {/* 관리비진단받기 */}
-          <Link href="/diagnosis" className="flex items-center hover:text-brand-primary transition py-2 text-brand-secondary font-extrabold bg-brand-light/40 px-3 py-1 rounded-full border border-brand-primary/10">
-            관리비진단받기
-          </Link>
-
-          {/* 회사소개 Dropdown */}
-          <div className="relative group">
-            <button className="flex items-center hover:text-brand-primary transition py-2 gap-0.5">
-              회사소개 <ChevronDown className="w-4 h-4 text-slate-400 group-hover:rotate-180 transition-transform duration-300" />
-            </button>
-            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-44 bg-white rounded-xl shadow-xl border border-slate-100 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform scale-95 group-hover:scale-100 z-50">
-              <Link href="/about" className="block px-4 py-2 hover:bg-slate-50 hover:text-brand-primary transition text-slate-700 font-semibold">회사소개</Link>
-              <Link href="/cases" className="block px-4 py-2 hover:bg-slate-50 hover:text-brand-primary transition text-slate-700 font-semibold">주요실적</Link>
-              <Link href="/about#history" className="block px-4 py-2 hover:bg-slate-50 hover:text-brand-primary transition text-slate-700 font-semibold">연혁</Link>
-            </div>
-          </div>
-
-          {/* 고객센터 Dropdown */}
-          <div className="relative group">
-            <button className="flex items-center hover:text-brand-primary transition py-2 gap-0.5">
-              고객센터 <ChevronDown className="w-4 h-4 text-slate-400 group-hover:rotate-180 transition-transform duration-300" />
-            </button>
-            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-44 bg-white rounded-xl shadow-xl border border-slate-100 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform scale-95 group-hover:scale-100 z-50">
-              <Link href="/estimate" className="block px-4 py-2 hover:bg-slate-50 hover:text-brand-primary transition text-slate-700 font-semibold">온라인 문의</Link>
-              <Link href="/contact" className="block px-4 py-2 hover:bg-slate-50 hover:text-brand-primary transition text-slate-700 font-semibold">전화/카톡 상담</Link>
-            </div>
-          </div>
-
-          {/* 바로 정보글 */}
-          <Link href="/notices" className="flex items-center hover:text-brand-primary transition py-2">바로 정보글</Link>
+        <nav className="hidden lg:flex flex-none justify-center items-center gap-6 xl:gap-10 font-[800] text-slate-800 text-[15px] xl:text-[17px] whitespace-nowrap mx-4 xl:mx-8 -translate-x-10">
+          <Link href="/notices" className="flex items-center hover:text-brand-primary transition">공지사항 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
+          <Link href="/services" className="flex items-center hover:text-brand-primary transition">서비스 소개 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
+          <Link href="/process" className="flex items-center hover:text-brand-primary transition">운영방식 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
+          <Link href="/cases" className="flex items-center hover:text-brand-primary transition">관리사례 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
         </nav>
 
         {/* CTA Buttons */}
@@ -309,40 +269,17 @@ export default function Header() {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            <div className="w-full flex flex-col font-bold text-slate-700 border-b border-slate-50 py-2">
-              <span className="text-xs text-slate-400 px-1 py-1">주요업무</span>
-              <div className="grid grid-cols-2 gap-2 px-1 py-1 text-sm font-semibold">
-                <Link href="/services#general" className="text-slate-800 hover:text-brand-primary py-1" onClick={() => setIsMobileMenuOpen(false)}>건물종합관리</Link>
-                <Link href="/services#safety" className="text-slate-800 hover:text-brand-primary py-1" onClick={() => setIsMobileMenuOpen(false)}>건축물관리계획</Link>
-                <Link href="/services#longterm" className="text-slate-800 hover:text-brand-primary py-1" onClick={() => setIsMobileMenuOpen(false)}>장기수선계획서</Link>
-                <Link href="/services#demolition" className="text-slate-800 hover:text-brand-primary py-1" onClick={() => setIsMobileMenuOpen(false)}>해체계획서</Link>
-                <Link href="/services#association" className="text-slate-800 hover:text-brand-primary py-1" onClick={() => setIsMobileMenuOpen(false)}>관리단업무</Link>
-              </div>
-            </div>
-            
-            <Link href="/diagnosis" className="w-full block text-lg font-black text-brand-secondary py-4 border-b border-slate-50 flex items-center justify-between" onClick={() => setIsMobileMenuOpen(false)}>
-              <span>📊 관리비 진단받기</span>
-              <span className="text-xs bg-brand-light text-brand-primary px-2 py-0.5 rounded-full font-bold">10초 완성</span>
+            <Link href="/notices" className="w-full block text-lg font-black text-slate-800 py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>공지사항</Link>
+            <Link href="/services" className="w-full block text-lg font-black text-slate-800 py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>서비스 소개</Link>
+            <Link href="/process" className="w-full block text-lg font-black text-slate-800 py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>운영방식</Link>
+            <Link href="/cases" className="w-full block text-lg font-black text-slate-800 py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>관리사례</Link>
+            <Link href="/about" className="w-full block text-lg font-black text-slate-800 py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>회사소개</Link>
+            <Link href="/contact" className="w-full flex items-center gap-2 text-lg font-black text-[#3c1e1e] py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>
+              <svg width="20" height="20" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" clipRule="evenodd" d="M9 2C4.029 2 0 4.978 0 8.649C0 10.96 1.488 12.986 3.754 14.167C3.518 14.939 2.593 17.587 2.533 17.787C2.473 17.986 2.628 18.066 2.766 17.973C2.905 17.88 5.767 15.938 6.786 15.241C7.502 15.42 8.243 15.514 9 15.514C13.971 15.514 18 12.536 18 8.865C18 5.194 13.971 2 9 2Z" fill="currentColor"/>
+              </svg>
+              카톡/전화 상담
             </Link>
-
-            <div className="w-full flex flex-col font-bold text-slate-700 border-b border-slate-50 py-2">
-              <span className="text-xs text-slate-400 px-1 py-1">회사소개</span>
-              <div className="grid grid-cols-3 gap-2 px-1 py-1 text-sm font-semibold">
-                <Link href="/about" className="text-slate-800 hover:text-brand-primary py-1" onClick={() => setIsMobileMenuOpen(false)}>회사소개</Link>
-                <Link href="/cases" className="text-slate-800 hover:text-brand-primary py-1" onClick={() => setIsMobileMenuOpen(false)}>주요실적</Link>
-                <Link href="/about#history" className="text-slate-800 hover:text-brand-primary py-1" onClick={() => setIsMobileMenuOpen(false)}>연혁</Link>
-              </div>
-            </div>
-
-            <div className="w-full flex flex-col font-bold text-slate-700 border-b border-slate-50 py-2">
-              <span className="text-xs text-slate-400 px-1 py-1">고객센터</span>
-              <div className="grid grid-cols-2 gap-2 px-1 py-1 text-sm font-semibold">
-                <Link href="/estimate" className="text-slate-800 hover:text-brand-primary py-1" onClick={() => setIsMobileMenuOpen(false)}>온라인 문의</Link>
-                <Link href="/contact" className="text-slate-800 hover:text-brand-primary py-1" onClick={() => setIsMobileMenuOpen(false)}>전화/카톡 상담</Link>
-              </div>
-            </div>
-
-            <Link href="/notices" className="w-full block text-lg font-black text-slate-800 py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>바로 정보글</Link>
             
             <div 
               className="pt-4 space-y-3"
