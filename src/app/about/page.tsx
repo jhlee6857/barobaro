@@ -85,30 +85,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 조직도 */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 md:px-6 max-w-5xl text-center">
-          <h2 className="text-3xl font-bold text-brand-dark mb-12">조직 및 전문 인력 현황</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-            <div className="p-6 bg-slate-50 rounded-xl border border-slate-100">
-              <div className="font-black text-3xl text-brand-primary mb-2">CS 상황실</div>
-              <p className="text-sm text-slate-600 font-bold">24H 민원/콜센터 응대</p>
-            </div>
-            <div className="p-6 bg-slate-50 rounded-xl border border-slate-100">
-              <div className="font-black text-3xl text-brand-primary mb-2">FM 설비팀</div>
-              <p className="text-sm text-slate-600 font-bold">건축, 전기, 설비 기사</p>
-            </div>
-            <div className="p-6 bg-slate-50 rounded-xl border border-slate-100">
-              <div className="font-black text-3xl text-brand-primary mb-2">클린 마스터</div>
-              <p className="text-sm text-slate-600 font-bold">방역 밎 환경 위생 전담</p>
-            </div>
-            <div className="p-6 bg-slate-50 rounded-xl border border-slate-100">
-              <div className="font-black text-3xl text-brand-primary mb-2">행정 지원팀</div>
-              <p className="text-sm text-slate-600 font-bold">회계, 관리비 산출 및 부과</p>
-            </div>
-          </div>
-        </div>
-      </section>
+
     </div>
   );
 }
