@@ -17,6 +17,7 @@ export default function AdminSidebar({ onClose }: { onClose?: () => void }) {
 
   const navItems = [
     { name: "건물 관리", path: "/admin/buildings", icon: Building2 },
+    { name: "수납/청구 관리", path: "/admin/billing", icon: Users },
   ];
 
   return (

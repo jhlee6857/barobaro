@@ -9,13 +9,15 @@ import { Accordion } from "@/components/ui/Accordion";
 import { faqData } from "@/data/mockData";
 import { cn, formatPhoneNumber, formatPhoneNumberWithHyphen } from "@/lib/utils";
 
-type TabMenu = "complain";
+type TabMenu = "complain" | "billing";
 
 export default function ResidentPage() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = React.useState<TabMenu>("complain");
+  const [activeTab, setActiveTab] = React.useState<TabMenu>("billing");
   const [isSubmitted, setIsSubmitted] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [invoices, setInvoices] = React.useState<any[]>([]);
+  const [isIssuingAccount, setIsIssuingAccount] = React.useState(false);
 
   React.useEffect(() => {
     const checkResidentAuth = async () => {
@@ -50,6 +52,17 @@ export default function ResidentPage() {
         return;
       }
 
+      // 3. 청구서(Invoices) 내역 가져오기
+      const { data: invoicesData } = await supabase
+        .from("invoices")
+        .select("*")
+        .eq("resident_id", session.user.id)
+        .order("due_date", { ascending: false });
+      
+      if (invoicesData) {
+        setInvoices(invoicesData);
+      }
+
       setIsLoading(false);
     };
 
@@ -67,6 +80,40 @@ export default function ResidentPage() {
     }, 5000);
   };
 
+  const handleIssueVirtualAccount = async (invoiceId: string, amount: number) => {
+    setIsIssuingAccount(true);
+    try {
+      const response = await fetch("/api/payments/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          invoiceId,
+          amount,
+          bank: "국민", // 기본 국민은행으로 테스트
+          orderName: "건물 관리비",
+        }),
+      });
+      
+      if (!response.ok) throw new Error("가상계좌 발급 실패");
+      
+      // 재조회
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        const { data: invoicesData } = await supabase
+          .from("invoices")
+          .select("*")
+          .eq("resident_id", session.user.id)
+          .order("due_date", { ascending: false });
+        if (invoicesData) setInvoices(invoicesData);
+      }
+      alert("가상계좌가 발급되었습니다. 해당 계좌로 입금해 주세요.");
+    } catch (err: any) {
+      alert("가상계좌 발급 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+    } finally {
+      setIsIssuingAccount(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50">
       <PageHero 
@@ -77,7 +124,13 @@ export default function ResidentPage() {
       <div className="container mx-auto px-4 md:px-6 py-12">
 
             {/* Tabs */}
-            <div className="flex overflow-x-auto border-b border-slate-200 mb-8 max-w-4xl mx-auto hide-scrollbar">
+            <div className="flex overflow-x-auto border-b border-slate-200 mb-8 max-w-4xl mx-auto hide-scrollbar gap-2">
+          <button 
+            className={cn("px-6 py-4 font-bold text-sm md:text-base whitespace-nowrap border-b-2 transition-colors", activeTab === "billing" ? "border-brand-primary text-brand-primary" : "border-transparent text-slate-500 hover:text-slate-700")}
+            onClick={() => setActiveTab("billing")}
+          >
+            관리비 조회/납부
+          </button>
           <button 
             className={cn("px-6 py-4 font-bold text-sm md:text-base whitespace-nowrap border-b-2 transition-colors", activeTab === "complain" ? "border-brand-primary text-brand-primary" : "border-transparent text-slate-500 hover:text-slate-700")}
             onClick={() => {setActiveTab("complain"); setIsSubmitted(false);}}
@@ -90,6 +143,69 @@ export default function ResidentPage() {
         <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10">
           
 
+
+          {/* 관리비 조회/납부 */}
+          {activeTab === "billing" && (
+            <div>
+              <div className="mb-8 border-b border-slate-100 pb-6">
+                <h2 className="text-2xl font-bold text-brand-dark mb-2">관리비 납부</h2>
+                <p className="text-slate-600">당월 청구된 관리비 내역을 확인하고 전용 가상계좌로 편리하게 납부하세요.</p>
+              </div>
+
+              {invoices.length === 0 ? (
+                <div className="text-center py-16 bg-slate-50 rounded-xl border border-slate-100">
+                  <p className="text-slate-500 font-medium">조회된 관리비 청구 내역이 없습니다.</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {invoices.map((inv) => (
+                    <div key={inv.id} className="border border-slate-200 rounded-xl p-5 md:p-6 bg-white shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
+                      <div>
+                        <div className="flex items-center gap-3 mb-2">
+                          <span className="text-lg font-bold text-slate-800">{inv.billing_month}분 관리비</span>
+                          {inv.status === 'paid' && <span className="px-2.5 py-1 text-xs font-bold bg-green-100 text-green-700 rounded-full">납부 완료</span>}
+                          {inv.status === 'unpaid' && <span className="px-2.5 py-1 text-xs font-bold bg-red-100 text-red-600 rounded-full">미납</span>}
+                          {inv.status === 'pending' && <span className="px-2.5 py-1 text-xs font-bold bg-orange-100 text-orange-600 rounded-full">입금 대기중</span>}
+                        </div>
+                        <p className="text-sm text-slate-500 mb-1">납부 기한: {inv.due_date}</p>
+                        <p className="text-2xl font-black text-brand-primary mt-3">{inv.amount.toLocaleString()}원</p>
+                      </div>
+                      
+                      <div className="bg-slate-50 p-4 rounded-lg flex-1 md:max-w-xs border border-slate-100">
+                        {inv.status === 'paid' ? (
+                          <div className="text-center text-slate-500 font-medium py-2">
+                            결제가 완료되었습니다.
+                          </div>
+                        ) : inv.status === 'pending' ? (
+                          <div className="space-y-2">
+                            <p className="text-xs font-bold text-slate-500">입금 전용 가상계좌</p>
+                            <div className="flex justify-between items-center bg-white p-3 border border-slate-200 rounded-md">
+                              <span className="font-bold text-slate-800">
+                                {inv.virtual_account_bank}은행 <br/>
+                                <span className="text-lg text-brand-primary tracking-wider">{inv.virtual_account_number}</span>
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-orange-500 mt-1">* 위 계좌로 정확한 금액을 입금하시면 자동으로 납부 처리됩니다.</p>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col gap-2">
+                            <p className="text-xs text-slate-500 mb-1 text-center">결제수단을 선택하여 납부하세요.</p>
+                            <Button 
+                              onClick={() => handleIssueVirtualAccount(inv.id, inv.amount)}
+                              disabled={isIssuingAccount}
+                              className="w-full bg-[#1b64da] hover:bg-blue-700 text-white font-bold"
+                            >
+                              {isIssuingAccount ? "발급 중..." : "가상계좌 발급하기"}
+                            </Button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
 
           {/* 민원 접수 */}
           {activeTab === "complain" && (

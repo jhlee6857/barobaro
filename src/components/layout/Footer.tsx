@@ -49,8 +49,15 @@ export default function Footer() {
               <span><strong>상호:</strong> 바로건물관리</span>
               <span><strong>대표:</strong> 이재만</span>
               <span><strong>사업자등록번호:</strong> 881-34-01719</span>
+              <span><strong>통신판매업 신고번호:</strong> 신고 준비중</span>
             </div>
-            <p><strong>주소:</strong> 경기도 하남시 미사강변서로 16, 931호(풍산동, 하우스디스마트밸리)</p>
+            <div className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-1 pt-1">
+              <span><strong>주소:</strong> 경기도 하남시 미사강변서로 16, 931호(풍산동, 하우스디스마트밸리)</span>
+            </div>
+            <div className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-1 pt-1">
+              <span><strong>고객센터:</strong> 010-8578-4066</span>
+              <span><strong>이메일:</strong> lyc342@naver.com</span>
+            </div>
             <p className="pt-4">&copy; 2026 바로건물관리 (Baro Building Management). All Rights Reserved.</p>
           </div>
           <div className="flex gap-4">
