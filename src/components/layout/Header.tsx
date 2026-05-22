@@ -220,17 +220,20 @@ export default function Header() {
                 </Link>
               )}
               {userRole === 'admin' && (
-                <span className="bg-slate-100 text-slate-600 px-3 py-1.5 rounded-full font-bold text-xs shadow-sm">
-                  관리자
-                </span>
+                <button 
+                  onClick={handleLogout}
+                  className="bg-slate-800 text-white px-3 py-1.5 rounded-full font-bold text-xs shadow-sm"
+                >
+                  관리자 로그아웃
+                </button>
               )}
               {userRole === 'resident' && (
-                <Link 
-                  href="/resident" 
-                  className="bg-brand-primary text-white px-3 py-1.5 rounded-full font-bold text-xs shadow-sm"
+                <button 
+                  onClick={handleLogout}
+                  className="bg-slate-800 text-white px-3 py-1.5 rounded-full font-bold text-xs shadow-sm"
                 >
-                  센터
-                </Link>
+                  {residentName} 로그아웃
+                </button>
               )}
             </>
           )}
@@ -317,7 +320,7 @@ export default function Header() {
                       로그인
                     </Link>
                   )}
-                  {(userRole === 'admin' || userRole === 'resident') && (
+                  {userRole === 'admin' && (
                     <button 
                       onClick={() => {
                         handleLogout();
@@ -325,7 +328,18 @@ export default function Header() {
                       }}
                       className="w-full block bg-slate-50 text-slate-500 text-center py-3.5 rounded-xl font-bold border border-slate-100 active:scale-95 transition-all"
                     >
-                      로그아웃
+                      관리자 로그아웃
+                    </button>
+                  )}
+                  {userRole === 'resident' && (
+                    <button 
+                      onClick={() => {
+                        handleLogout();
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="w-full block bg-slate-50 text-slate-500 text-center py-3.5 rounded-xl font-bold border border-slate-100 active:scale-95 transition-all"
+                    >
+                      {residentName} 로그아웃
                     </button>
                   )}
                 </>
