@@ -181,21 +181,6 @@ export default function CasesPage() {
           </div>
         </div>
 
-        {/* 주차장 선작업 */}
-        <div className="mb-12">
-          <div className="bg-[#1a2035] text-white font-bold py-3 px-6 mb-4">주차장 선작업</div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[1, 2, 3].map((num) => (
-              <div key={num} className="relative aspect-[4/3] bg-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
-                  {num.toString().padStart(2, '0')}
-                </div>
-                <img src={`https://loremflickr.com/600/400/parking,painting/all?lock=${num}`} alt="주차장 선작업" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* 주차장 차단기 설치 */}
         <div className="mb-12">
           <div className="bg-[#1a2035] text-white font-bold py-3 px-6 mb-4">주차장 차단기 설치</div>
