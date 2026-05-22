@@ -115,7 +115,7 @@ export default function Header() {
     >
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
         {/* Logo */}
-        <div className="flex items-center justify-start">
+        <div className="flex items-center justify-start shrink-0">
           <Link href="/" className="flex items-center gap-2">
             <Image 
               src="/logo.png" 
@@ -136,7 +136,7 @@ export default function Header() {
           <Link href="/process" className="flex items-center hover:text-brand-primary transition">운영방식 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
           <Link href="/cases" className="flex items-center hover:text-brand-primary transition">관리사례 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
           {userRole === 'admin' && (
-            <Link href="/admin/buildings" className="flex items-center text-brand-primary hover:text-brand-secondary transition">관리자 페이지</Link>
+            <Link href="/admin/buildings" className="flex items-center text-brand-primary hover:text-brand-secondary transition">관리자 페이지 <ChevronDown className="w-5 h-5 ml-0.5 text-brand-primary/50" /></Link>
           )}
         </nav>
 
@@ -172,14 +172,11 @@ export default function Header() {
               )}
               {userRole === 'admin' && (
                 <div className="flex items-center gap-3">
-                  <span className="text-slate-600 font-bold text-sm bg-slate-100 px-3 py-1.5 rounded-full">
-                    관리자 로그인됨
-                  </span>
                   <button 
                     onClick={handleLogout}
                     className="bg-slate-800 hover:bg-slate-700 text-white px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
                   >
-                    로그아웃
+                    관리자 로그아웃
                   </button>
                 </div>
               )}
