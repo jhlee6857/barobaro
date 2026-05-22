@@ -19,7 +19,7 @@ export default function AdminLayoutClient({
   }
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-slate-50">
+    <div className="flex h-full w-full overflow-hidden bg-slate-50">
       {/* Mobile Sidebar Overlay */}
       {isSidebarOpen && (
         <div 

@@ -168,16 +168,13 @@ export default function Header() {
                 </Link>
               )}
               {userRole === 'admin' && (
-                <div className="flex items-center gap-2">
-                  <Link 
-                    href="/admin/buildings" 
-                    className="bg-slate-800 hover:bg-slate-700 text-white px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
-                  >
-                    관리자 대시보드
-                  </Link>
+                <div className="flex items-center gap-3">
+                  <span className="text-slate-600 font-bold text-sm bg-slate-100 px-3 py-1.5 rounded-full">
+                    관리자 로그인됨
+                  </span>
                   <button 
                     onClick={handleLogout}
-                    className="text-slate-400 hover:text-slate-600 text-sm font-bold px-2 underline underline-offset-4"
+                    className="bg-slate-800 hover:bg-slate-700 text-white px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
                   >
                     로그아웃
                   </button>
@@ -216,12 +213,9 @@ export default function Header() {
                 </Link>
               )}
               {userRole === 'admin' && (
-                <Link 
-                  href="/admin/buildings" 
-                  className="bg-slate-800 text-white px-3 py-1.5 rounded-full font-bold text-xs shadow-sm"
-                >
-                  관리
-                </Link>
+                <span className="bg-slate-100 text-slate-600 px-3 py-1.5 rounded-full font-bold text-xs shadow-sm">
+                  관리자
+                </span>
               )}
               {userRole === 'resident' && (
                 <Link 
