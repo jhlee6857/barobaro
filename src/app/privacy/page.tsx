@@ -65,8 +65,8 @@ export default function PrivacyPage() {
           </section>
 
           <p className="mt-12 text-sm text-slate-400">
-            공고일자: 2024년 5월 1일<br />
-            시행일자: 2024년 5월 1일
+            공고일자: 2026년 5월 1일<br />
+            시행일자: 2026년 5월 1일
           </p>
         </div>
       </div>
