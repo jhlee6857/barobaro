@@ -31,14 +31,22 @@ export default function Header() {
         setUserRole('admin');
       } else {
         // 입주민의 경우, DB에서 실제로 '등록 완료(is_registered)' 상태인지 확인
-        let rawPhone = user.user_metadata?.phone_number || "";
+        let rawPhone = user.user_metadata?.stored_phone || user.user_metadata?.phone_number || "";
         let cleanPhone = rawPhone.replace(/^\+82\s?/, "0").replace(/[^0-9]/g, "");
 
         if (cleanPhone) {
+          // 전화번호 하이픈 처리 로직 (utils.ts의 formatPhoneNumberWithHyphen 참고)
+          let hyphenPhone = cleanPhone;
+          if (cleanPhone.length === 11) {
+            hyphenPhone = `${cleanPhone.slice(0, 3)}-${cleanPhone.slice(3, 7)}-${cleanPhone.slice(7)}`;
+          } else if (cleanPhone.length === 10) {
+            hyphenPhone = `${cleanPhone.slice(0, 3)}-${cleanPhone.slice(3, 6)}-${cleanPhone.slice(6)}`;
+          }
+
           const { data } = await supabase
             .from("pre_registered_residents")
             .select("is_registered")
-            .eq("phone_number", cleanPhone)
+            .or(`phone_number.eq.${cleanPhone},phone_number.eq.${hyphenPhone}`)
             .single();
           
           if (data?.is_registered) {
