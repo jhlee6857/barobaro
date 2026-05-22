@@ -41,13 +41,13 @@ export default function CasesPage() {
             <div className="md:w-2/3 relative">
               <div className="aspect-[16/9] w-full overflow-hidden bg-slate-200 shadow-md">
                 <img 
-                  src="https://picsum.photos/seed/hero_case/800/450" 
+                  src="https://loremflickr.com/800/450/building,management/all?lock=1" 
                   alt="건물관리 사례" 
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="absolute -bottom-8 -left-16 hidden md:block w-64 aspect-square bg-white shadow-xl p-2 border border-slate-100">
-                <img src="https://picsum.photos/seed/hero_sub/300/300" alt="점검" className="w-full h-full object-cover" />
+                <img src="https://loremflickr.com/300/300/clipboard,checklist/all?lock=1" alt="점검" className="w-full h-full object-cover" />
               </div>
             </div>
             
@@ -91,7 +91,7 @@ export default function CasesPage() {
                 <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
                   {num.toString().padStart(2, '0')}
                 </div>
-                <img src={`https://picsum.photos/seed/fire${num}/600/400`} alt="소방 점검" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                <img src={`https://loremflickr.com/600/400/fire,alarm/all?lock=${num}`} alt="소방 점검" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
               </div>
             ))}
           </div>
@@ -103,7 +103,7 @@ export default function CasesPage() {
             <div className="bg-[#1a2035] text-white font-bold py-3 px-6 mb-4 whitespace-nowrap">수도 점검</div>
             <div className="relative aspect-[4/3] bg-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">01</div>
-               <img src={`https://picsum.photos/seed/water1/600/400`} alt="수도 점검" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+               <img src={`https://loremflickr.com/600/400/water,meter/all?lock=1`} alt="수도 점검" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
             </div>
           </div>
           <div className="col-span-1 md:col-span-2">
@@ -114,7 +114,7 @@ export default function CasesPage() {
                    <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
                      {num.toString().padStart(2, '0')}
                    </div>
-                   <img src={`https://picsum.photos/seed/sign${num}/600/400`} alt="안내판 설치" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                   <img src={`https://loremflickr.com/600/400/notice,board/all?lock=${num}`} alt="안내판 설치" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
                 </div>
               ))}
             </div>
@@ -130,7 +130,7 @@ export default function CasesPage() {
                 <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
                   {num.toString().padStart(2, '0')}
                 </div>
-                <img src={`https://picsum.photos/seed/elevator${num}/600/400`} alt="엘리베이터 점검/수리" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                <img src={`https://loremflickr.com/600/400/elevator,mechanic/all?lock=${num}`} alt="엘리베이터 점검/수리" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
               </div>
             ))}
           </div>
@@ -145,7 +145,7 @@ export default function CasesPage() {
                 <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
                   {(idx + 1).toString().padStart(2, '0')}
                 </div>
-                <img src={`https://picsum.photos/seed/building${num}/600/400`} alt="건물 관리" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                <img src={`https://loremflickr.com/600/400/building,cleaning/all?lock=${num}`} alt="건물 관리" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
               </div>
             ))}
           </div>
@@ -160,7 +160,7 @@ export default function CasesPage() {
                 <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
                   {num.toString().padStart(2, '0')}
                 </div>
-                <img src={`https://picsum.photos/seed/recycle${num}/600/400`} alt="재활용 정리" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                <img src={`https://loremflickr.com/600/400/recycling,bins/all?lock=${num}`} alt="재활용 정리" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
               </div>
             ))}
           </div>
@@ -175,7 +175,7 @@ export default function CasesPage() {
                 <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
                   {num.toString().padStart(2, '0')}
                 </div>
-                <img src={`https://picsum.photos/seed/elec${num}/600/400`} alt="전기 점검" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                <img src={`https://loremflickr.com/600/400/electrical,panel/all?lock=${num}`} alt="전기 점검" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
               </div>
             ))}
           </div>
@@ -190,7 +190,7 @@ export default function CasesPage() {
                 <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
                   {num.toString().padStart(2, '0')}
                 </div>
-                <img src={`https://picsum.photos/seed/parking${num}/600/400`} alt="주차장 선작업" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                <img src={`https://loremflickr.com/600/400/parking,painting/all?lock=${num}`} alt="주차장 선작업" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
               </div>
             ))}
           </div>
@@ -205,7 +205,7 @@ export default function CasesPage() {
                 <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
                   {num.toString().padStart(2, '0')}
                 </div>
-                <img src={`https://picsum.photos/seed/barrier${num}/600/400`} alt="주차장 차단기 설치" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                <img src={`https://loremflickr.com/600/400/parking,barrier/all?lock=${num}`} alt="주차장 차단기 설치" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
               </div>
             ))}
           </div>
@@ -220,7 +220,7 @@ export default function CasesPage() {
                 <div className="absolute top-0 left-0 bg-[#1a2035] text-white text-xs font-bold px-3 py-1 z-10">
                   {num.toString().padStart(2, '0')}
                 </div>
-                <img src={`https://picsum.photos/seed/cctv${num}/600/400`} alt="CCTV 수리" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                <img src={`https://loremflickr.com/600/400/cctv,camera/all?lock=${num}`} alt="CCTV 수리" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
               </div>
             ))}
           </div>
