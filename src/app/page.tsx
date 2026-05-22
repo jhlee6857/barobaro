@@ -96,29 +96,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. Trust Metrics Section */}
-      <section className="py-16 md:py-24 bg-white border-b border-slate-100">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-slate-100">
-            <div className="text-center px-4 animate-slideUp">
-              <div className="text-4xl md:text-5xl font-black text-brand-dark mb-2">1,200<span className="text-brand-secondary">+</span></div>
-              <div className="text-sm md:text-base text-slate-500 font-medium">누적 관리 건물</div>
-            </div>
-            <div className="text-center px-4 animate-slideUp delay-100">
-              <div className="text-4xl md:text-5xl font-black text-brand-dark mb-2">98<span className="text-brand-secondary">%</span></div>
-              <div className="text-sm md:text-base text-slate-500 font-medium">재계약률</div>
-            </div>
-            <div className="text-center px-4 animate-slideUp delay-200">
-              <div className="text-4xl md:text-5xl font-black text-brand-dark mb-2">15<span className="text-brand-secondary">분</span></div>
-              <div className="text-sm md:text-base text-slate-500 font-medium">평균 민원 응답</div>
-            </div>
-            <div className="text-center px-4 animate-slideUp delay-300">
-              <div className="text-4xl md:text-5xl font-black text-brand-dark mb-2">0<span className="text-brand-secondary">원</span></div>
-              <div className="text-sm md:text-base text-slate-500 font-medium">도입/상담 비용</div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* 3. Pain Point & Empathy */}
       <section className="py-24 md:py-32 bg-slate-50">
@@ -287,7 +265,7 @@ export default function Home() {
               href="/estimate" 
               className="inline-flex items-center justify-center gap-2 bg-brand-accent text-brand-dark hover:bg-yellow-400 active:scale-[0.98] px-10 py-5 rounded-full font-black text-xl transition-all shadow-xl hover:-translate-y-1"
             >
-              무료 방문 컨설팅 신청
+              무료 카카오톡 상담
               <ArrowRight className="w-6 h-6" />
             </Link>
             <Link 
@@ -295,7 +273,7 @@ export default function Home() {
               className="inline-flex items-center justify-center gap-2 bg-white/10 text-white hover:bg-white/20 border border-white/30 active:scale-[0.98] px-10 py-5 rounded-full font-bold text-xl transition-all backdrop-blur-sm"
             >
               <PhoneCall className="w-5 h-5" />
-              1588-0000
+              전화상담
             </Link>
           </div>
         </div>
