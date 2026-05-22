@@ -115,7 +115,7 @@ export default function Header() {
     >
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
         {/* Logo */}
-        <div className="flex items-center flex-1 justify-start">
+        <div className="flex items-center justify-start">
           <Link href="/" className="flex items-center gap-2">
             <Image 
               src="/logo.png" 
@@ -138,7 +138,7 @@ export default function Header() {
         </nav>
 
         {/* CTA Buttons */}
-        <div className="hidden lg:flex items-center justify-end gap-3 flex-1 whitespace-nowrap">
+        <div className="hidden lg:flex items-center justify-end gap-3 whitespace-nowrap">
           <Link 
             href="/contact" 
             className="text-[#3c1e1e] font-black hover:bg-[#e6ce00] transition-colors px-5 py-2.5 rounded-full bg-[#FEE500] flex items-center gap-1.5 shadow-sm"
