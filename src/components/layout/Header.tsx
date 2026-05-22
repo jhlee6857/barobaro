@@ -222,7 +222,7 @@ export default function Header() {
               {userRole === 'admin' && (
                 <button 
                   onClick={handleLogout}
-                  className="bg-slate-800 text-white px-3 py-1.5 rounded-full font-bold text-xs shadow-sm"
+                  className="bg-slate-800 text-white px-4 py-2 rounded-full font-bold text-sm shadow-sm"
                 >
                   관리자 로그아웃
                 </button>
@@ -230,7 +230,7 @@ export default function Header() {
               {userRole === 'resident' && (
                 <button 
                   onClick={handleLogout}
-                  className="bg-slate-800 text-white px-3 py-1.5 rounded-full font-bold text-xs shadow-sm"
+                  className="bg-slate-800 text-white px-4 py-2 rounded-full font-bold text-sm shadow-sm"
                 >
                   {residentName} 로그아웃
                 </button>
@@ -243,9 +243,9 @@ export default function Header() {
             aria-label={isMobileMenuOpen ? "메뉴 닫기" : "메뉴 열기"}
           >
             {isMobileMenuOpen ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              <span className="font-bold text-slate-800 text-sm">닫기</span>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+              <span className="font-bold text-slate-800 text-sm">메뉴</span>
             )}
           </button>
         </div>
@@ -268,12 +268,7 @@ export default function Header() {
             <div className="w-10 h-1 bg-slate-200 rounded-full" />
           </div>
 
-          <nav 
-            className="flex flex-col px-6 pb-6"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-          >
+          <nav className="flex flex-col px-6 pb-6 touch-pan-y">
             <Link href="/notices" className="w-full block text-lg font-black text-slate-800 py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>공지사항</Link>
             <Link href="/services" className="w-full block text-lg font-black text-slate-800 py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>서비스 소개</Link>
             <Link href="/process" className="w-full block text-lg font-black text-slate-800 py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>운영방식</Link>
@@ -292,12 +287,7 @@ export default function Header() {
               <Link href="/resident" className="w-full block text-lg font-black text-brand-primary py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>나의 입주민센터</Link>
             )}
             
-            <div 
-              className="pt-4 space-y-3"
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            >
+            <div className="pt-4 space-y-3">
               <Link 
                 href="/estimate" 
                 className="w-full block bg-brand-primary text-white text-center py-3.5 rounded-xl font-black shadow-md active:scale-95 transition-all" 

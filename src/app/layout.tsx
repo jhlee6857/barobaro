@@ -6,6 +6,13 @@ import { LocalBusinessJsonLd } from "@/components/JsonLd";
 
 const inter = Inter({ subsets: ["latin"] });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export const metadata: Metadata = {
   title: "건물관리 전문업체 - 바로건물관리 | 원룸·빌라 종합건물관리",
   description: "건물관리 전문업체 바로건물관리입니다. 원룸, 빌라, 상가, 오피스텔 등 수익형 부동산의 유지보수, 청소(환경미화), 민원처리를 책임지는 B2B 종합건물관리 서비스를 제공합니다. 스트레스 없는 건물관리를 지금 시작하세요.",

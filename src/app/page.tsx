@@ -71,7 +71,7 @@ export default function Home() {
             프리미엄 건물 관리 플랫폼 바로건물관리가 책임집니다.
           </p>
           
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slideUp delay-200">
+          <div className="relative z-50 flex flex-col sm:flex-row items-center justify-center gap-4 animate-slideUp delay-200">
             <Link 
               href="/estimate" 
               className="w-full sm:w-auto min-w-[200px] flex items-center justify-center gap-2 bg-brand-primary hover:bg-brand-secondary text-white px-8 py-4 rounded-full font-bold text-lg transition-all shadow-[0_0_40px_rgba(30,58,138,0.3)] hover:shadow-[0_0_60px_rgba(30,58,138,0.5)] hover:-translate-y-1"
@@ -260,7 +260,7 @@ export default function Home() {
             건물관리에 대한 고민, 이제 내려놓으세요.<br />
             전문가가 귀하의 건물을 직접 방문하여 최적의 솔루션을 제안해 드립니다.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="relative z-50 flex flex-col sm:flex-row justify-center gap-4">
             <a 
               href="https://open.kakao.com/o/s3msIyri"
               target="_blank"
