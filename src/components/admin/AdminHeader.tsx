@@ -25,23 +25,9 @@ export default function AdminHeader({ onMenuClick }: { onMenuClick?: () => void 
       </div>
 
       <div className="flex items-center gap-2 md:gap-4">
-        <button className="relative p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors hidden sm:flex">
-          <Bell size={20} />
-          <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
-        </button>
         <button className="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors sm:hidden">
           <Search size={20} />
         </button>
-        <button className="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors hidden md:flex">
-          <Settings size={20} />
-        </button>
-        <div className="w-px h-6 bg-slate-200 mx-1 md:mx-2"></div>
-        <div className="flex items-center gap-2 md:gap-3">
-          <div className="w-8 h-8 rounded-full bg-brand-primary text-white flex items-center justify-center font-bold text-sm">
-            관리자
-          </div>
-          <span className="text-sm font-medium text-slate-700 hidden md:block">최고 관리자</span>
-        </div>
       </div>
     </header>
   );
