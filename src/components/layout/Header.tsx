@@ -24,7 +24,7 @@ export default function Header() {
       }
       
       const user = session.user;
-      const isAdmin = user.email?.endsWith('baro-manage.com') || user.app_metadata?.role === 'admin';
+      const isAdmin = user.email?.endsWith('baro-manage.com') || user.email?.endsWith('barobm.co.kr') || user.app_metadata?.role === 'admin';
       
       if (isAdmin) {
         setUserRole('admin');
@@ -129,12 +129,15 @@ export default function Header() {
         </div>
 
         {/* GNB (Desktop) */}
-        <nav className="hidden lg:flex flex-none justify-center items-center gap-4 xl:gap-8 font-[800] text-slate-800 text-[15px] xl:text-[16px] whitespace-nowrap mx-2">
+        <nav className="hidden lg:flex flex-none justify-center items-center gap-4 xl:gap-6 font-[800] text-slate-800 text-[15px] xl:text-[16px] whitespace-nowrap mx-2">
           <Link href="/about" className="flex items-center hover:text-brand-primary transition">회사소개 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
           <Link href="/notices" className="flex items-center hover:text-brand-primary transition">공지사항 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
           <Link href="/services" className="flex items-center hover:text-brand-primary transition">서비스 소개 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
           <Link href="/process" className="flex items-center hover:text-brand-primary transition">운영방식 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
           <Link href="/cases" className="flex items-center hover:text-brand-primary transition">관리사례 <ChevronDown className="w-5 h-5 ml-0.5 text-slate-400" /></Link>
+          {userRole === 'admin' && (
+            <Link href="/admin/buildings" className="flex items-center text-brand-primary hover:text-brand-secondary transition">관리자 페이지</Link>
+          )}
         </nav>
 
         {/* CTA Buttons */}
@@ -275,6 +278,9 @@ export default function Header() {
               </svg>
               카톡/전화 상담
             </Link>
+            {userRole === 'admin' && (
+              <Link href="/admin/buildings" className="w-full block text-lg font-black text-brand-primary py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>관리자 페이지</Link>
+            )}
             
             <div 
               className="pt-4 space-y-3"

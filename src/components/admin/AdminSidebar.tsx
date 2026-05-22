@@ -16,18 +16,15 @@ export default function AdminSidebar({ onClose }: { onClose?: () => void }) {
   };
 
   const navItems = [
-    { name: "Dashboard", path: "/admin", icon: LayoutDashboard },
-    { name: "Buildings", path: "/admin/buildings", icon: Building2 },
-    { name: "Residents", path: "/admin/residents", icon: Users },
-    { name: "Operations", path: "/admin/cases", icon: HardHat },
+    { name: "건물 관리", path: "/admin/buildings", icon: Building2 },
   ];
 
   return (
     <aside className="w-[280px] h-full bg-brand-dark flex flex-col text-slate-300 shadow-2xl">
       <div className="p-6 flex justify-between items-center border-b border-slate-800/50">
         <div>
-          <h1 className="text-xl font-bold text-white tracking-tight">Barobaro<br />Management</h1>
-          <p className="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">Admin Portal</p>
+          <h1 className="text-xl font-bold text-white tracking-tight">바로건물관리</h1>
+          <p className="text-xs text-slate-400 mt-1 tracking-wider font-semibold">관리자 포털</p>
         </div>
         {onClose && (
           <button onClick={onClose} className="lg:hidden p-2 text-slate-400 hover:text-white transition-colors">
@@ -66,7 +63,7 @@ export default function AdminSidebar({ onClose }: { onClose?: () => void }) {
           className="flex items-center gap-3 px-4 py-3 w-full text-left rounded-lg hover:bg-slate-800 hover:text-white transition-colors text-sm font-medium"
         >
           <LogOut size={20} className="text-slate-400" />
-          Logout
+          로그아웃
         </button>
       </div>
     </aside>
