@@ -92,20 +92,20 @@ export default function AdminBuildingsPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-4 mb-2">
         <div>
-          <h1 className="text-xl md:text-2xl font-bold text-slate-800">Buildings Directory</h1>
-          <p className="text-xs md:text-sm text-slate-500 mt-1">Manage building information and resident capacities.</p>
+          <h1 className="text-xl md:text-2xl font-bold text-slate-800">건물 목록</h1>
+          <p className="text-xs md:text-sm text-slate-500 mt-1">건물 정보 및 입주민 현황을 관리합니다.</p>
         </div>
         <div className="flex gap-2 sm:gap-3">
           <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg text-xs md:text-sm font-semibold hover:bg-slate-50 transition-colors">
             <FileSpreadsheet size={14} className="md:w-4 md:h-4" />
-            Export CSV
+            CSV 다운로드
           </button>
           <button 
             onClick={() => setShowAddForm(!showAddForm)}
             className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-2 bg-brand-primary text-white rounded-lg text-xs md:text-sm font-semibold hover:bg-blue-700 transition-colors"
           >
             <Plus size={14} className="md:w-4 md:h-4" />
-            Add Building
+            건물 추가
           </button>
         </div>
       </div>
@@ -117,7 +117,7 @@ export default function AdminBuildingsPage() {
             <Building2 size={20} className="md:w-6 md:h-6" />
           </div>
           <div>
-            <p className="text-[10px] md:text-xs font-bold text-slate-500 tracking-wider uppercase">Buildings</p>
+            <p className="text-[10px] md:text-xs font-bold text-slate-500 tracking-wider uppercase">건물 수</p>
             <p className="text-lg md:text-2xl font-bold text-slate-800">{buildings.length}</p>
           </div>
         </div>
@@ -127,7 +127,7 @@ export default function AdminBuildingsPage() {
             <Users size={20} className="md:w-6 md:h-6" />
           </div>
           <div>
-            <p className="text-[10px] md:text-xs font-bold text-slate-500 tracking-wider uppercase">Residents</p>
+            <p className="text-[10px] md:text-xs font-bold text-slate-500 tracking-wider uppercase">총 입주민</p>
             <p className="text-lg md:text-2xl font-bold text-slate-800">{totalResidents}</p>
           </div>
         </div>
@@ -137,7 +137,7 @@ export default function AdminBuildingsPage() {
             <AlertCircle size={20} className="md:w-6 md:h-6" />
           </div>
           <div>
-            <p className="text-[10px] md:text-xs font-bold text-slate-500 tracking-wider uppercase">Issues</p>
+            <p className="text-[10px] md:text-xs font-bold text-slate-500 tracking-wider uppercase">문의 접수</p>
             <p className="text-lg md:text-2xl font-bold text-slate-800">5</p>
           </div>
         </div>
@@ -147,8 +147,8 @@ export default function AdminBuildingsPage() {
             <CheckCircle size={20} className="md:w-6 md:h-6" />
           </div>
           <div>
-            <p className="text-[10px] md:text-xs font-bold text-slate-500 tracking-wider uppercase">Status</p>
-            <p className="text-lg md:text-2xl font-bold text-slate-800">OK</p>
+            <p className="text-[10px] md:text-xs font-bold text-slate-500 tracking-wider uppercase">시스템 상태</p>
+            <p className="text-lg md:text-2xl font-bold text-slate-800">정상</p>
           </div>
         </div>
       </div>
@@ -179,20 +179,20 @@ export default function AdminBuildingsPage() {
         <div className="p-4 border-b border-slate-200 flex justify-between items-center bg-slate-50/50">
           <div className="flex gap-2">
             <button className="px-3 py-1.5 bg-white border border-slate-200 rounded text-sm font-medium text-slate-600 hover:bg-slate-50 flex items-center gap-2">
-              <Search size={14} /> Filter
+              <Search size={14} /> 필터
             </button>
           </div>
-          <span className="text-sm text-slate-500">Showing {buildings.length} buildings</span>
+          <span className="text-sm text-slate-500">총 {buildings.length}개의 건물</span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-slate-200 bg-slate-50/50">
-                <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Building Name</th>
-                <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Address</th>
-                <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Residents</th>
-                <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
-                <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Actions</th>
+                <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">건물명</th>
+                <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">주소</th>
+                <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">입주민</th>
+                <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">상태</th>
+                <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">관리</th>
               </tr>
             </thead>
             <tbody>
@@ -215,13 +215,13 @@ export default function AdminBuildingsPage() {
                     </td>
                     <td className="p-4">
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        Active
+                        운영중
                       </span>
                     </td>
                     <td className="p-4 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <Link href={`/admin/buildings/${b.id}`} className="px-3 py-1.5 text-sm font-semibold text-brand-primary border border-slate-200 rounded hover:bg-slate-50 transition-colors">
-                          View Details
+                          상세 보기
                         </Link>
                         <button onClick={() => handleDeleteBuilding(b.id, b.name)} className="p-1.5 text-slate-400 hover:text-red-500 rounded transition-colors">
                           <MoreVertical size={16} />

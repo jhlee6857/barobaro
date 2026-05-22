@@ -24,7 +24,7 @@ export default function Header() {
       }
       
       const user = session.user;
-      const isAdmin = user.email?.endsWith('baro-manage.com') || user.email?.endsWith('barobm.co.kr') || user.app_metadata?.role === 'admin';
+      const isAdmin = user.app_metadata?.provider === 'email' || user.email?.endsWith('baro-manage.com') || user.email?.endsWith('barobm.co.kr') || user.app_metadata?.role === 'admin';
       
       if (isAdmin) {
         setUserRole('admin');

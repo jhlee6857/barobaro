@@ -18,7 +18,7 @@ export default function AdminHeader({ onMenuClick }: { onMenuClick?: () => void 
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
           <input
             type="text"
-            placeholder="Search by name, unit, or phone..."
+            placeholder="이름, 동/호수, 또는 전화번호로 검색..."
             className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary focus:bg-white transition-all"
           />
         </div>
@@ -38,9 +38,9 @@ export default function AdminHeader({ onMenuClick }: { onMenuClick?: () => void 
         <div className="w-px h-6 bg-slate-200 mx-1 md:mx-2"></div>
         <div className="flex items-center gap-2 md:gap-3">
           <div className="w-8 h-8 rounded-full bg-brand-primary text-white flex items-center justify-center font-bold text-sm">
-            AD
+            관리자
           </div>
-          <span className="text-sm font-medium text-slate-700 hidden md:block">Admin User</span>
+          <span className="text-sm font-medium text-slate-700 hidden md:block">최고 관리자</span>
         </div>
       </div>
     </header>
