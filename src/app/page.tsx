@@ -81,7 +81,7 @@ export default function Home() {
             </Link>
             <Link 
               href="/contact" 
-              className="w-full sm:w-auto min-w-[200px] flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/20 px-8 py-4 rounded-full font-bold text-lg transition-all hover:-translate-y-1"
+              className="w-full sm:w-auto min-w-[200px] flex items-center justify-center gap-2 bg-[#FEE500] hover:bg-[#e6ce00] text-[#3c1e1e] px-8 py-4 rounded-full font-bold text-lg transition-all shadow-[0_0_40px_rgba(254,229,0,0.2)] hover:shadow-[0_0_60px_rgba(254,229,0,0.4)] hover:-translate-y-1"
             >
               카카오톡 상담
               <MessageCircle className="w-5 h-5" />
