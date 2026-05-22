@@ -22,11 +22,7 @@ export default function Footer() {
                 <span className="text-white text-lg font-bold">010-8578-4066</span> (24시)
               </li>
               <li>lyc342@naver.com</li>
-              <li className="pt-2">
-                <Link href="/estimate" className="inline-block bg-brand-secondary hover:bg-brand-accent active:bg-brand-accent/80 text-white px-5 py-3 rounded-lg text-sm font-bold transition-all active:scale-[0.98]">
-                  무료 건물관리 견적 문의 →
-                </Link>
-              </li>
+
             </ul>
           </div>
 

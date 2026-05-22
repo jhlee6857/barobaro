@@ -261,13 +261,15 @@ export default function Home() {
             전문가가 귀하의 건물을 직접 방문하여 최적의 솔루션을 제안해 드립니다.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link 
-              href="/estimate" 
+            <a 
+              href="https://open.kakao.com/o/s3msIyri"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-brand-accent text-brand-dark hover:bg-yellow-400 active:scale-[0.98] px-10 py-5 rounded-full font-black text-xl transition-all shadow-xl hover:-translate-y-1"
             >
               무료 카카오톡 상담
               <ArrowRight className="w-6 h-6" />
-            </Link>
+            </a>
             <Link 
               href="/contact" 
               className="inline-flex items-center justify-center gap-2 bg-white/10 text-white hover:bg-white/20 border border-white/30 active:scale-[0.98] px-10 py-5 rounded-full font-bold text-xl transition-all backdrop-blur-sm"
