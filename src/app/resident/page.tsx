@@ -9,11 +9,11 @@ import { Accordion } from "@/components/ui/Accordion";
 import { faqData } from "@/data/mockData";
 import { cn, formatPhoneNumber, formatPhoneNumberWithHyphen } from "@/lib/utils";
 
-type TabMenu = "notice" | "faq" | "complain" | "general";
+type TabMenu = "complain";
 
 export default function ResidentPage() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = React.useState<TabMenu>("faq");
+  const [activeTab, setActiveTab] = React.useState<TabMenu>("complain");
   const [isSubmitted, setIsSubmitted] = React.useState(false);
   const [isRepMode, setIsRepMode] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -151,53 +151,18 @@ export default function ResidentPage() {
           <>
             {/* Tabs */}
             <div className="flex overflow-x-auto border-b border-slate-200 mb-8 max-w-4xl mx-auto hide-scrollbar">
-              <button 
-            className={cn("px-6 py-4 font-bold text-sm md:text-base whitespace-nowrap border-b-2 transition-colors", activeTab === "notice" ? "border-brand-primary text-brand-primary" : "border-transparent text-slate-500 hover:text-slate-700")}
-            onClick={() => setActiveTab("notice")}
-          >
-            공지사항
-          </button>
-          <button 
-            className={cn("px-6 py-4 font-bold text-sm md:text-base whitespace-nowrap border-b-2 transition-colors", activeTab === "faq" ? "border-brand-primary text-brand-primary" : "border-transparent text-slate-500 hover:text-slate-700")}
-            onClick={() => setActiveTab("faq")}
-          >
-            자주 묻는 질문(FAQ)
-          </button>
           <button 
             className={cn("px-6 py-4 font-bold text-sm md:text-base whitespace-nowrap border-b-2 transition-colors", activeTab === "complain" ? "border-brand-primary text-brand-primary" : "border-transparent text-slate-500 hover:text-slate-700")}
             onClick={() => {setActiveTab("complain"); setIsSubmitted(false);}}
           >
             민원 접수
           </button>
-          <button 
-            className={cn("px-6 py-4 font-bold text-sm md:text-base whitespace-nowrap border-b-2 transition-colors", activeTab === "general" ? "border-brand-primary text-brand-primary" : "border-transparent text-slate-500 hover:text-slate-700")}
-            onClick={() => {setActiveTab("general"); setIsSubmitted(false);}}
-          >
-            관리비·일반 문의
-          </button>
         </div>
 
         {/* Tab Content */}
         <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10">
           
-          {/* 공지사항 */}
-          {activeTab === "notice" && (
-             <div className="text-center py-20">
-               <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-               </div>
-               <h3 className="text-lg font-bold text-slate-700 mb-2">등록된 공지사항이 없습니다</h3>
-               <p className="text-slate-500">건물별 상세 공지는 관리비 청구서 및 개별 문자를 통해 안내되고 있습니다.</p>
-             </div>
-          )}
 
-          {/* FAQ */}
-          {activeTab === "faq" && (
-            <div>
-              <h2 className="text-2xl font-bold text-brand-dark mb-6">자주 묻는 질문</h2>
-              <Accordion items={faqData} />
-            </div>
-          )}
 
           {/* 민원 접수 */}
           {activeTab === "complain" && (
@@ -275,73 +240,7 @@ export default function ResidentPage() {
             </div>
           )}
 
-          {/* 관리비 일반 문의 */}
-          {activeTab === "general" && (
-             <div>
-             <div className="mb-8 border-b border-slate-100 pb-6">
-               <h2 className="text-2xl font-bold text-brand-dark mb-2">관리비 및 일반 문의</h2>
-               <p className="text-slate-600">관리비 고지서 내역, 자동이체 신청 및 해지 등 운영 관련 문의를 남겨주세요.</p>
-             </div>
 
-             {isSubmitted ? (
-                <div className="bg-brand-light border-l-4 border-brand-primary p-8 rounded-r-lg text-center my-10">
-                  <div className="w-16 h-16 bg-white text-brand-primary rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-800 mb-2">문의가 1:1 비공개로 접수되었습니다.</h3>
-                  <p className="text-slate-600 font-medium">접수 내용을 확인한 후 순차적으로 안내드리겠습니다.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-2">이름 <span className="text-red-500">*</span></label>
-                      <input type="text" required className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-primary/50" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-2">연락처 <span className="text-red-500">*</span></label>
-                      <input type="tel" required className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-primary/50" placeholder="숫자만 입력 (예: 01012345678)" onChange={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')} />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-2">건물명 <span className="text-red-500">*</span></label>
-                      <input type="text" required className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-primary/50" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-2">동/호수 <span className="text-red-500">*</span></label>
-                      <input type="text" required className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-primary/50" />
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">문의 구분 <span className="text-red-500">*</span></label>
-                    <select required className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-primary/50 bg-white">
-                      <option value="">구분을 선택해주세요</option>
-                      <option value="bill">관리비 내역 및 요금 확인</option>
-                      <option value="pay">납부 방식 변경 / 자동이체 문의</option>
-                      <option value="contract">주차 등록 / 관리 규약 문의</option>
-                      <option value="etc">기타 일반 문의</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">문의 내용 <span className="text-red-500">*</span></label>
-                    <textarea required rows={5} className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-primary/50" placeholder="문의하실 내용을 입력해주세요."></textarea>
-                  </div>
-
-                  <div className="flex items-start gap-3 bg-slate-50 p-4 rounded-lg">
-                    <input type="checkbox" id="privacyItem2" required className="mt-1 w-4 h-4 text-brand-primary border-slate-300 rounded focus:ring-brand-primary" />
-                    <label htmlFor="privacyItem2" className="text-sm text-slate-600 leading-tight">
-                      (필수) 개인정보 수집 및 이용에 동의합니다.
-                    </label>
-                  </div>
-
-                  <div className="pt-4">
-                    <Button type="submit" size="lg" className="w-full text-lg shadow-md font-bold">1:1 문의 접수</Button>
-                  </div>
-                </form>
-              )}
-           </div>
-          )}
 
         </div>
           </>

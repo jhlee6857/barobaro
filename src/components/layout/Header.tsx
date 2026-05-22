@@ -9,6 +9,7 @@ import { supabase } from "@/lib/supabaseClient";
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [userRole, setUserRole] = useState<'admin' | 'resident' | null>(null);
+  const [residentName, setResidentName] = useState<string>('');
   const [isAuthLoading, setIsAuthLoading] = useState(true);
 
   // Mobile Menu Drag States
@@ -42,6 +43,7 @@ export default function Header() {
           
           if (data?.is_registered) {
             setUserRole('resident');
+            setResidentName(user.user_metadata?.full_name || user.user_metadata?.name || '입주민');
           } else {
             setUserRole(null);
           }
@@ -138,6 +140,9 @@ export default function Header() {
           {userRole === 'admin' && (
             <Link href="/admin/buildings" className="flex items-center text-brand-primary hover:text-brand-secondary transition">관리자 페이지 <ChevronDown className="w-5 h-5 ml-0.5 text-brand-primary/50" /></Link>
           )}
+          {userRole === 'resident' && (
+            <Link href="/resident" className="flex items-center text-brand-primary hover:text-brand-secondary transition">나의 입주민센터 <ChevronDown className="w-5 h-5 ml-0.5 text-brand-primary/50" /></Link>
+          )}
         </nav>
 
         {/* CTA Buttons */}
@@ -181,18 +186,12 @@ export default function Header() {
                 </div>
               )}
               {userRole === 'resident' && (
-                <div className="flex items-center gap-2">
-                  <Link 
-                    href="/resident" 
-                    className="bg-brand-primary hover:bg-brand-secondary text-white px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
-                  >
-                    나의 입주민센터
-                  </Link>
+                <div className="flex items-center gap-3">
                   <button 
                     onClick={handleLogout}
-                    className="text-slate-400 hover:text-slate-600 text-sm font-bold px-2 underline underline-offset-4"
+                    className="bg-slate-800 hover:bg-slate-700 text-white px-5 py-2.5 rounded-full font-bold transition-colors shadow-sm flex items-center gap-1.5"
                   >
-                    로그아웃
+                    {residentName} 로그아웃
                   </button>
                 </div>
               )}
@@ -277,6 +276,9 @@ export default function Header() {
             </Link>
             {userRole === 'admin' && (
               <Link href="/admin/buildings" className="w-full block text-lg font-black text-brand-primary py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>관리자 페이지</Link>
+            )}
+            {userRole === 'resident' && (
+              <Link href="/resident" className="w-full block text-lg font-black text-brand-primary py-4 border-b border-slate-50" onClick={() => setIsMobileMenuOpen(false)}>나의 입주민센터</Link>
             )}
             
             <div 
