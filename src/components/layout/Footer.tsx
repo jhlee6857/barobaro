@@ -19,7 +19,7 @@ export default function Footer() {
             <h4 className="text-white font-bold mb-4">고객 센터</h4>
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2">
-                <span className="text-white text-lg font-bold">010-8578-4066</span> (24시)
+                <span className="text-white text-lg font-bold">010-8578-4066</span>
               </li>
               <li>lyc342@naver.com</li>
 
@@ -39,7 +39,7 @@ export default function Footer() {
 
           <div>
             <h4 className="text-white font-bold mb-4">운영 시간</h4>
-            <p className="text-sm text-slate-400">평일 09:00 ~ 18:00<br />긴급 민원 24시간 대응</p>
+            <p className="text-sm text-slate-400">평일 09:00 ~ 18:00</p>
           </div>
         </div>
 

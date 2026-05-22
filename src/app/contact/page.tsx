@@ -80,8 +80,8 @@ export default function ContactPage() {
                     <ShieldCheck className="text-brand-primary w-6 h-6" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-slate-800 mb-1">24시 긴급대응</h4>
-                    <p className="text-sm text-slate-500">긴급 민원 및 시설 하자는<br/>상황실에서 24시간 대응</p>
+                    <h4 className="font-bold text-slate-800 mb-1">신속한 긴급대응</h4>
+                    <p className="text-sm text-slate-500">긴급 민원 및 시설 하자는<br/>상황실에서 신속하게 대응</p>
                   </div>
                 </div>
                 <div className="flex gap-4">

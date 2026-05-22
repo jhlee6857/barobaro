@@ -74,7 +74,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slideUp delay-200">
             <Link 
               href="/estimate" 
-              className="w-full sm:w-auto min-w-[200px] flex items-center justify-center gap-2 bg-brand-accent hover:bg-yellow-400 text-brand-dark px-8 py-4 rounded-full font-bold text-lg transition-all shadow-[0_0_40px_rgba(252,211,77,0.3)] hover:shadow-[0_0_60px_rgba(252,211,77,0.5)] hover:-translate-y-1"
+              className="w-full sm:w-auto min-w-[200px] flex items-center justify-center gap-2 bg-brand-primary hover:bg-brand-secondary text-white px-8 py-4 rounded-full font-bold text-lg transition-all shadow-[0_0_40px_rgba(30,58,138,0.3)] hover:shadow-[0_0_60px_rgba(30,58,138,0.5)] hover:-translate-y-1"
             >
               무료 견적 문의
               <ArrowRight className="w-5 h-5" />
@@ -123,7 +123,7 @@ export default function Home() {
               <div className="w-14 h-14 bg-orange-50 text-orange-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Clock className="w-7 h-7" />
               </div>
-              <h3 className="text-xl font-bold text-slate-800 mb-3">24시간 쏟아지는 민원</h3>
+              <h3 className="text-xl font-bold text-slate-800 mb-3">쏟아지는 민원</h3>
               <p className="text-slate-500 leading-relaxed">휴일이나 야간에 발생하는 누수, 소음 등 각종 민원을 전담 상황실에서 1차 대응하여 건물주의 휴식을 보장합니다.</p>
             </div>
             <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-all group">
@@ -265,7 +265,7 @@ export default function Home() {
               href="https://open.kakao.com/o/s3msIyri"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-brand-accent text-brand-dark hover:bg-yellow-400 active:scale-[0.98] px-10 py-5 rounded-full font-black text-xl transition-all shadow-xl hover:-translate-y-1"
+              className="inline-flex items-center justify-center gap-2 bg-[#FEE500] text-[#3c1e1e] hover:bg-[#e6ce00] active:scale-[0.98] px-10 py-5 rounded-full font-black text-xl transition-all shadow-xl hover:-translate-y-1"
             >
               무료 카카오톡 상담
               <ArrowRight className="w-6 h-6" />
